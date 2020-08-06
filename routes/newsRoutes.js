@@ -41,8 +41,8 @@ module.exports = (app) => {
         "UPDATE news SET title = $1 WHERE id = $2",
         [title, id]
       );
-      console.log(id);
       console.log(title);
+      console.log(id);
       console.log(updateNews);
       res.json("News were updated");
     } catch (err) {
