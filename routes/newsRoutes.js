@@ -1,15 +1,66 @@
-const cors = require('cors');
-const pool = require('../database');
+const cors = require("cors");
+const pool = require("../database");
+const { cloudinary } = require("../utils/cloudinary");
 
 module.exports = (app) => {
+  app.post("/api/image_upload", async (req, res) => {
+    try {
+      console.log("IMAGE was recived by REST layer!");
+      const { title, preview_text, body, created_at } = req.body;
+      const fileStr = req.body.image_url;
+      //console.log(fileStr);
 
-  app.get("/news", async (req, res) => {
+      const uploadResponse = await cloudinary.uploader.upload(fileStr, {
+        upload_preset: "dev_setups",
+      });
+
+      const image_url = uploadResponse.public_id;
+      console.log(image_url);
+
+      const newNews = await pool.query(
+        "INSERT INTO news (title, preview_text, body, created_at, image_url)   VALUES($1, $2, $3, $4, $5) RETURNING *",
+        [title, preview_text, body, created_at, image_url]
+      );
+
+      res.json(newNews);
+
+      //res.json({ msg: "YATAAYAYAYYA" });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).json({ err: "Smth went wrong" });
+    }
+  });
+
+  app.get("/api/images", async (req, res) => {
+    const { resources } = await cloudinary.search
+      .expression("folder:trv_news")
+      .sort_by("public_id", "desc")
+      .max_results(30)
+      .execute();
+    const publicIds = resources.map((file) => file.public_id);
+    res.send(publicIds);
+  });
+
+  app.get("/api/news", async (req, res) => {
+    console.log("API worx!");
     const allNews = await pool.query("SELECT * FROM news;");
-    res.json(allNews.rows);
+    //res.json(allNews.rows);
+    console.log(allNews.rows);
+    res.send(allNews.rows);
+  });
+
+  app.get("/api/surveys", async (req, res) => {
+    const surveys = await Survey.find({ _user: req.user.id }).select({
+      recipients: false,
+    });
+
+    res.send(surveys);
   });
 
   app.post("/news", async (req, res) => {
     try {
+      console.log("REST layer works");
+      console.log(req.body);
       const { title } = req.body;
       const newNews = await pool.query(
         "INSERT INTO news (title) VALUES($1) RETURNING *",
