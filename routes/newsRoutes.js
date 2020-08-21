@@ -1,9 +1,10 @@
 const cors = require("cors");
 const pool = require("../database");
+const auth = require('../middleware/auth');
 const { cloudinary } = require("../utils/cloudinary");
 
 module.exports = (app) => {
-  app.post("/api/image_upload", async (req, res) => {
+  app.post("/api/image_upload", auth, async (req, res) => {
     try {
       console.log("IMAGE was recived by REST layer!");
       const { title, preview_text, body, created_at } = req.body;
@@ -33,7 +34,7 @@ module.exports = (app) => {
 
   app.get("/api/images", async (req, res) => {
     const { resources } = await cloudinary.search
-      .expression("folder:trv_news")
+      .expression("public_id:trv_news/z7nvuy05gf9tzgnzlbbt")
       .sort_by("public_id", "desc")
       .max_results(30)
       .execute();
@@ -45,6 +46,7 @@ module.exports = (app) => {
     console.log("API worx!");
     const allNews = await pool.query("SELECT * FROM news;");
     //res.json(allNews.rows);
+    console.log(allNews.rows);
     console.log(allNews.rows);
     res.send(allNews.rows);
   });

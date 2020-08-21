@@ -8,3 +8,11 @@ CREATE TABLE news(
     created_at DATE,
     image_url VARCHAR(200)
 );
+
+CREATE TABLE users(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP
+);
