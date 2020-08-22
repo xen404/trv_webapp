@@ -51,14 +51,8 @@ module.exports = (app) => {
     res.send(allNews.rows);
   });
 
-  app.get("/api/surveys", async (req, res) => {
-    const surveys = await Survey.find({ _user: req.user.id }).select({
-      recipients: false,
-    });
 
-    res.send(surveys);
-  });
-
+  /*
   app.post("/news", async (req, res) => {
     try {
       console.log("REST layer works");
@@ -75,6 +69,7 @@ module.exports = (app) => {
       console.error(err.message);
     }
   });
+  */
 
   app.get("/news/:id", async (req, res) => {
     try {
