@@ -51,25 +51,19 @@ module.exports = (app) => {
     res.send(allNews.rows);
   });
 
-
-  /*
-  app.post("/news", async (req, res) => {
+  app.delete("/api/news/:id", auth, async (req, res) => {
     try {
-      console.log("REST layer works");
-      console.log(req.body);
-      const { title } = req.body;
-      const newNews = await pool.query(
-        "INSERT INTO news (title) VALUES($1) RETURNING *",
-        [title]
-      );
-
-      res.json(newNews);
-      console.log(req.body);
+      const { id } = req.params;
+      const deleteNews = await pool.query("DELETE FROM news WHERE id = $1", [
+        id,
+      ]);
+      console.log("news were deleted!");
+      res.json("News were deleted");
     } catch (err) {
-      console.error(err.message);
+      console.err.message;
     }
   });
-  */
+
 
   app.get("/news/:id", async (req, res) => {
     try {
@@ -98,15 +92,5 @@ module.exports = (app) => {
     }
   });
 
-  app.delete("/news/:id", async (req, res) => {
-    try {
-      const { id } = req.params;
-      const deleteNews = await pool.query("DELETE FROM news WHERE id = $1", [
-        id,
-      ]);
-      res.json("News were deleted");
-    } catch (err) {
-      console.err.message;
-    }
-  });
+
 };
