@@ -5,7 +5,6 @@ const keys = require("../config/keys");
 const jwt = require("jsonwebtoken");
 const { cloudinary } = require("../utils/cloudinary");
 
-
 module.exports = (app) => {
   app.post("/api/new_user", async (req, res) => {
     const { name, email, password, role } = req.body;
@@ -32,15 +31,13 @@ module.exports = (app) => {
           [name, email, passwordHashed, role]
         );
         newUser = response.rows[0];
-        console.log(newUser);
-
         jwt.sign(
           { id: newUser.id },
           keys.jwtSecret,
           { expiresIn: 7200 },
           (err, token) => {
             if (err) {
-                throw err;
+              throw err;
             }
             res.json({
               token: token,
@@ -48,7 +45,7 @@ module.exports = (app) => {
                 id: newUser.id,
                 name: newUser.name,
                 email: newUser.email,
-                role: newUser.role
+                role: newUser.role,
               },
             });
           }
@@ -77,41 +74,46 @@ module.exports = (app) => {
           throw err;
         }
         try {
-            passwordHashed = hash;
-        const response = await pool.query(
-          "INSERT INTO users (name, email, password, role)   VALUES($1, $2, $3, $4) RETURNING *",
-          [name, email, passwordHashed, role]
-        );
-        newUser = response.rows[0];
-        console.log('New user was created!');
-        console.log(newUser);
-        res.json({
+          passwordHashed = hash;
+          const response = await pool.query(
+            "INSERT INTO users (name, email, password, role)   VALUES($1, $2, $3, $4) RETURNING *",
+            [name, email, passwordHashed, role]
+          );
+          newUser = response.rows[0];
+          res.json({
             successMsg: "User created!",
             user: {
               id: newUser.id,
               name: newUser.name,
               email: newUser.email,
-              role: newUser.role
+              role: newUser.role,
             },
           });
         } catch (err) {
-            console.log('Error accured!')
-            console.error(err.message);
-            res.status(500).json({ err: "Smth went wrong" });
+          res.status(500).json({ err: err.message });
         }
-        
       });
     });
   });
 
   app.get("/api/users", async (req, res) => {
     const allNews = await pool.query("SELECT * FROM users;");
-    console.log(allNews.rows);
-    console.log(allNews.rows);
     res.send(allNews.rows);
   });
 
+  app.delete("/api/user/delete/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const deleteUser = await pool.query("DELETE FROM users WHERE id = $1", [
+        id,
+      ]);
+      res.json({
+        userId: id,
+        successMsg: "User was deleted!",
+      });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
 };
-
-
-

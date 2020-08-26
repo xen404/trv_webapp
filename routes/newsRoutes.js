@@ -6,17 +6,14 @@ const { cloudinary } = require("../utils/cloudinary");
 module.exports = (app) => {
   app.post("/api/image_upload", auth, async (req, res) => {
     try {
-      console.log("IMAGE was recived by REST layer!");
       const { title, preview_text, body, created_at } = req.body;
       const fileStr = req.body.image_url;
-      //console.log(fileStr);
 
       const uploadResponse = await cloudinary.uploader.upload(fileStr, {
         upload_preset: "dev_setups",
       });
 
       const image_url = uploadResponse.public_id;
-      console.log(image_url);
 
       const newNews = await pool.query(
         "INSERT INTO news (title, preview_text, body, created_at, image_url)   VALUES($1, $2, $3, $4, $5) RETURNING *",
@@ -25,7 +22,6 @@ module.exports = (app) => {
 
       res.json(newNews);
 
-      //res.json({ msg: "YATAAYAYAYYA" });
     } catch (err) {
       console.error(err.message);
       res.status(500).json({ err: "Smth went wrong" });
@@ -43,11 +39,8 @@ module.exports = (app) => {
   });
 
   app.get("/api/news", async (req, res) => {
-    console.log("API worx!");
     const allNews = await pool.query("SELECT * FROM news;");
-    //res.json(allNews.rows);
-    console.log(allNews.rows);
-    console.log(allNews.rows);
+    
     res.send(allNews.rows);
   });
 
@@ -57,10 +50,9 @@ module.exports = (app) => {
       const deleteNews = await pool.query("DELETE FROM news WHERE id = $1", [
         id,
       ]);
-      console.log("news were deleted!");
       res.json("News were deleted");
     } catch (err) {
-      console.err.message;
+        res.status(500).json({ err: "Smth went wrong" });
     }
   });
 
@@ -83,9 +75,6 @@ module.exports = (app) => {
         "UPDATE news SET title = $1 WHERE id = $2",
         [title, id]
       );
-      console.log(title);
-      console.log(id);
-      console.log(updateNews);
       res.json("News were updated");
     } catch (err) {
       console.err.message;
