@@ -98,7 +98,7 @@ module.exports = (app) => {
 
   app.get("/api/users", async (req, res) => {
     const allNews = await pool.query("SELECT * FROM users;");
-    res.send(allNews.rows);
+    res.send(allNews.rows.reverse());
   });
 
   app.delete("/api/user/delete/:id", async (req, res) => {
@@ -113,7 +113,7 @@ module.exports = (app) => {
         successMsg: "User was deleted!",
       });
     } catch (err) {
-      res.status(500).json(err);
+      res.status(404).json(err);
     }
   });
 };

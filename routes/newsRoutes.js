@@ -1,13 +1,18 @@
 const cors = require("cors");
 const pool = require("../database");
-const auth = require('../middleware/auth');
+const auth = require("../middleware/auth");
 const { cloudinary } = require("../utils/cloudinary");
 
 module.exports = (app) => {
   app.post("/api/image_upload", auth, async (req, res) => {
     try {
-      const { title, preview_text, body, created_at } = req.body;
+      const { title, preview_text, body, created_at, } = req.body;
+
       const fileStr = req.body.image_url;
+
+      if (!title || !preview_text || !body || !fileStr) {
+        return res.status(400).json({ msg: "Please enter all fields!" });
+      }
 
       const uploadResponse = await cloudinary.uploader.upload(fileStr, {
         upload_preset: "dev_setups",
@@ -20,8 +25,10 @@ module.exports = (app) => {
         [title, preview_text, body, created_at, image_url]
       );
 
-      res.json(newNews);
-
+      res.json({
+        successMsg: "News created!",
+        news: newNews,
+      });
     } catch (err) {
       console.error(err.message);
       res.status(500).json({ err: "Smth went wrong" });
@@ -40,22 +47,24 @@ module.exports = (app) => {
 
   app.get("/api/news", async (req, res) => {
     const allNews = await pool.query("SELECT * FROM news;");
-    
-    res.send(allNews.rows);
+
+    res.send(allNews.rows.reverse());
   });
 
-  app.delete("/api/news/:id", auth, async (req, res) => {
+  app.delete("/api/news/delete/:id", auth, async (req, res) => {
     try {
       const { id } = req.params;
       const deleteNews = await pool.query("DELETE FROM news WHERE id = $1", [
         id,
       ]);
-      res.json("News were deleted");
+      res.json({
+        newsId: id,
+        successMsg: "News was deleted!",
+      });
     } catch (err) {
-        res.status(500).json({ err: "Smth went wrong" });
+      res.status(404).json(err);
     }
   });
-
 
   app.get("/news/:id", async (req, res) => {
     try {
@@ -80,6 +89,4 @@ module.exports = (app) => {
       console.err.message;
     }
   });
-
-
 };

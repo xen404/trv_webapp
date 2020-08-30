@@ -7,6 +7,12 @@ const { cloudinary } = require("../utils/cloudinary");
 const auth = require("../middleware/auth");
 
 module.exports = (app) => {
+
+  /**
+ * @route   GET api/auth
+ * @desc    Logs in user  
+ * @access  Private
+ */
   app.post("/api/auth", async (req, res) => {
     const { email, password } = req.body;
 
