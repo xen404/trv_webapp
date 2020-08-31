@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const keys = require("../config/keys");
 const jwt = require("jsonwebtoken");
 const { cloudinary } = require("../utils/cloudinary");
-const auth = require("../middleware/auth");
+const isLoggedIn = require("../middleware/isLoggedIn");
 
 module.exports = (app) => {
 
@@ -34,7 +34,8 @@ module.exports = (app) => {
         return res.status(400).json({ msg: "invalid credentials!" });
       }
       jwt.sign(
-        { id: user.id },
+        { id: user.id,
+          role: user.role},
         keys.jwtSecret,
         { expiresIn: 7200 },
         (err, token) => {
@@ -54,7 +55,8 @@ module.exports = (app) => {
     });
   });
 
-  app.get("/api/auth/user", auth, async (req, res) => {
+  app.get("/api/auth/user", isLoggedIn, async (req, res) => {
+    console.log('!!!!A single user was requested!!!!')
     const response = await pool.query("SELECT * FROM users WHERE id = $1", [
       req.user.id,
     ]);

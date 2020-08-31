@@ -17,10 +17,10 @@ import {
 //   ******************
 
 // GET ALL USERS
-export const getAllUsers = () => (dispatch) => {
+export const getAllUsers = () => (dispatch, getState) => {
   dispatch({ type: USERS_LOADING });
   axios
-    .get("/api/users")
+    .get("/api/users", tokenConfig(getState))
     .then((res) =>
       dispatch({
         type: GET_ALL_USERS,
@@ -34,7 +34,7 @@ export const getAllUsers = () => (dispatch) => {
 
 // REGISTER NEW USER
 export const registerNewUser = ({ name, email, password, role }) => async (
-  dispatch
+  dispatch, getState
 ) => {
   const config = {
     headers: {
@@ -44,7 +44,7 @@ export const registerNewUser = ({ name, email, password, role }) => async (
 
   const body = JSON.stringify({ name, email, password, role });
   try {
-    const res = await axios.post("/api/new_user_reg", body, config);
+    const res = await axios.post("/api/new_user_reg", body, tokenConfig(getState) );
     dispatch(returnConfirm(res.data.successMsg, res.status, "USER_CREATED"));
     dispatch({
       type: REGISTER_NEW_USER_SUCCESS,

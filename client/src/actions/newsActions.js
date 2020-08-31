@@ -70,7 +70,7 @@ export const addNews = (news) => async (dispatch, getState) => {
     dispatch({ type: NEWS_LOADING });
   try {
     const res = await axios.post(
-      "/api/image_upload",
+      "/api/addNews",
       news,
       tokenConfig(getState)
     );

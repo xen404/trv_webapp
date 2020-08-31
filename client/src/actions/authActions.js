@@ -37,7 +37,7 @@ export const loadUser = () => async (dispatch, getState) => {
   
   
   // REGISTER USER
-  export const register = ({ name, email, password, role }) => async (dispatch) => {
+  export const register = ({ name, email, password, role }) => async (dispatch, getState) => {
     const config = {
       headers: {
         "Content-type": "application/json",

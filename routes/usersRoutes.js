@@ -1,4 +1,6 @@
 const cors = require("cors");
+const isAdmin = require("../middleware/isAdmin");
+const isLoggedIn = require("../middleware/isLoggedIn");
 const pool = require("../database");
 const bcrypt = require("bcryptjs");
 const keys = require("../config/keys");
@@ -6,7 +8,7 @@ const jwt = require("jsonwebtoken");
 const { cloudinary } = require("../utils/cloudinary");
 
 module.exports = (app) => {
-  app.post("/api/new_user", async (req, res) => {
+  app.post("/api/new_user", isLoggedIn, isAdmin, async (req, res) => {
     const { name, email, password, role } = req.body;
 
     if (!name || !email || !password || !role) {
@@ -54,7 +56,7 @@ module.exports = (app) => {
     });
   });
 
-  app.post("/api/new_user_reg", async (req, res) => {
+  app.post("/api/new_user_reg", isLoggedIn, isAdmin, async (req, res) => {
     const { name, email, password, role } = req.body;
 
     if (!name || !email || !password || !role) {
@@ -96,12 +98,12 @@ module.exports = (app) => {
     });
   });
 
-  app.get("/api/users", async (req, res) => {
+  app.get("/api/users", isLoggedIn, isAdmin, async (req, res) => {
     const allNews = await pool.query("SELECT * FROM users;");
     res.send(allNews.rows.reverse());
   });
 
-  app.delete("/api/user/delete/:id", async (req, res) => {
+  app.delete("/api/user/delete/:id", isLoggedIn, isAdmin, async (req, res) => {
     try {
       const { id } = req.params;
 

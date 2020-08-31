@@ -1,10 +1,11 @@
 const cors = require("cors");
 const pool = require("../database");
-const auth = require("../middleware/auth");
+const isLoggedIn = require("../middleware/isLoggedIn");
+const isAdmin = require("../middleware/isAdmin");
 const { cloudinary } = require("../utils/cloudinary");
 
 module.exports = (app) => {
-  app.post("/api/image_upload", auth, async (req, res) => {
+  app.post("/api/addNews", isLoggedIn, async (req, res) => {
     try {
       const { title, preview_text, body, created_at, } = req.body;
 
@@ -51,7 +52,7 @@ module.exports = (app) => {
     res.send(allNews.rows.reverse());
   });
 
-  app.delete("/api/news/delete/:id", auth, async (req, res) => {
+  app.delete("/api/news/delete/:id", isLoggedIn, async (req, res) => {
     try {
       const { id } = req.params;
       const deleteNews = await pool.query("DELETE FROM news WHERE id = $1", [
