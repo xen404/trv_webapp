@@ -9,7 +9,9 @@ import {
   DELETE_NEWS_SUCCESS,
   DELETE_NEWS_FAIL,
   NEWS_LOADING,
-  NEWS_LOADED
+  NEWS_LOADED,
+  GET_SINGLE_NEWS_SUCCESS,
+  GET_SINGLE_NEWS_FAIL,
 } from "./types";
 
 //   ******************
@@ -36,6 +38,22 @@ export const setNewsLoading = () => {
   return {
     type: NEWS_LOADING,
   };
+};
+
+export const getSingleNews = (id) => async (dispatch) => {
+  dispatch(setNewsLoading());
+  try {
+    const res = await axios.get(`/api/news/${id}`);
+    dispatch({
+      type: GET_SINGLE_NEWS_SUCCESS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch(returnErrors(err.response.data, err.response.status));
+    dispatch({
+      type: GET_SINGLE_NEWS_FAIL,
+    });
+  }
 };
 
 // DELETE NEWS
@@ -67,13 +85,9 @@ export const deleteNews = (id) => async (dispatch, getState) => {
 
 // UPLOAD NEWS
 export const addNews = (news) => async (dispatch, getState) => {
-    dispatch({ type: NEWS_LOADING });
+  dispatch({ type: NEWS_LOADING });
   try {
-    const res = await axios.post(
-      "/api/addNews",
-      news,
-      tokenConfig(getState)
-    );
+    const res = await axios.post("/api/addNews", news, tokenConfig(getState));
     dispatch({ type: NEWS_LOADED });
     dispatch(returnConfirm(res.data.successMsg, res.status, "NEWS_CREATED"));
     dispatch({

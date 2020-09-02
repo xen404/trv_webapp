@@ -11,6 +11,7 @@ import NewsDashboard from "./NewsDashboard";
 import NewsAdd from "./news/NewsAdd";
 import AppNavbar from './AppNavbar';
 import UserManagement  from './admin/UserManagement';
+import SingleNewsPage from "./news/SingleNewsPage";
 
 
 class App extends Component {
@@ -25,9 +26,9 @@ class App extends Component {
           <div>
             <Route component={AppNavbar} />
             <Route exact path="/" component={NewsDashboard} />
-            <Route exact path="/news" component={NewsDashboard} />
             <Route exact path="/news/add_new" component={NewsAdd} />
             <Route exact path="/admin" component={UserManagement} />
+            <Route exact path="/news/:id" component={SingleNewsPage} />
           </div>
         </BrowserRouter>
       </div>

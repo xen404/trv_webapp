@@ -1,6 +1,7 @@
 const cors = require("cors");
 const isAdmin = require("../middleware/isAdmin");
 const isLoggedIn = require("../middleware/isLoggedIn");
+const userDeleteCheck = require('../middleware/userDeleteCheck')
 const pool = require("../database");
 const bcrypt = require("bcryptjs");
 const keys = require("../config/keys");
@@ -103,17 +104,8 @@ module.exports = (app) => {
     res.send(allNews.rows.reverse());
   });
 
-  app.delete("/api/user/delete/:id", isLoggedIn, isAdmin, async (req, res) => {
-    try {
-      const { id } = req.params;
-
-      console.log(id);
-      console.log(id == 89);
-
-      if(id == 89) {
-        return res.status(401).json({ msg: "Can not delete root admin!" });
-      }
-      
+  app.delete("/api/user/delete/:id", isLoggedIn, isAdmin, userDeleteCheck, async (req, res) => {
+    try { 
       const deleteUser = await pool.query("DELETE FROM users WHERE id = $1", [
         id,
       ]);

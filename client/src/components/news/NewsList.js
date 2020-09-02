@@ -6,9 +6,11 @@ import PropTypes from "prop-types";
 import DeleteNewsModal from "./DeleteNewsModal";
 import { stateToHTML } from "draft-js-export-html";
 import { convertFromRaw } from "draft-js";
-
+import { Link } from "react-router-dom";
+import { Button } from "reactstrap";
 class NewsList extends Component {
   componentDidMount() {
+    console.log("component did mount");
     this.props.getNews();
   }
 
@@ -36,19 +38,29 @@ class NewsList extends Component {
                   crop="scale"
                   width="600"
                 />
-                <span className="card-title">{news.title}</span>
+                <span className="card-title">{news.id}</span>
               </div>
               <div className="card-content">
                 <div dangerouslySetInnerHTML={{ __html: htmlBody }} />
               </div>
 
-              {this.props.isAuthenticated ? (
-                <div className="card-action">
-                  <DeleteNewsModal newsId={news.id} newsTitle={news.title} />
+              <div style={{display: "flex", flexDirection: "row"}} className="card-action">
+                <div >
+                 
+                    <Link to={`/news/${news.id}`}>
+                    <Button to={`/news/${news.id}`} color="info" size="sm">
+                      More
+                      </Button>
+                      </Link>
+                 
                 </div>
-              ) : (
-                <p></p>
-              )}
+
+                {this.props.isAuthenticated ? (
+                  <DeleteNewsModal newsId={news.id} newsTitle={news.title} />
+                ) : (
+                  <p></p>
+                )}
+              </div>
             </div>
           </div>
           <div></div>
@@ -58,6 +70,7 @@ class NewsList extends Component {
   }
 
   render() {
+    console.log("REnder");
     return (
       <div className="row">
         <div>{this.renderNews()}</div>

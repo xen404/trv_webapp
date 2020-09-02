@@ -8,6 +8,8 @@ import {
   DELETE_NEWS_SUCCESS,
   DELETE_NEWS_FAIL,
   NEWS_LOADED,
+  GET_SINGLE_NEWS_SUCCESS,
+  GET_SINGLE_NEWS_FAIL
 } from "../actions/types";
 
 const initialState = {
@@ -18,6 +20,7 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case GET_NEWS:
+      case GET_SINGLE_NEWS_SUCCESS:
       return {
         ...state,
         news: action.payload,
@@ -49,6 +52,7 @@ export default function (state = initialState, action) {
       };
     case DELETE_NEWS_FAIL:
     case ADD_NEWS_FAIL:
+      case GET_SINGLE_NEWS_FAIL:
       return {
         ...state,
         loading: false,

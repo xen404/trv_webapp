@@ -67,11 +67,11 @@ module.exports = (app) => {
     }
   });
 
-  app.get("/news/:id", async (req, res) => {
+  app.get("/api/news/:id", async (req, res) => {
     try {
       const { id } = req.params;
       const news = await pool.query("SELECT * FROM news WHERE id = $1", [id]);
-      res.json(news.rows[0]);
+      res.send(news.rows);
     } catch (err) {
       console.error(err.message);
     }

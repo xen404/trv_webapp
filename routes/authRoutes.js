@@ -56,7 +56,6 @@ module.exports = (app) => {
   });
 
   app.get("/api/auth/user", isLoggedIn, async (req, res) => {
-    console.log('!!!!A single user was requested!!!!')
     const response = await pool.query("SELECT * FROM users WHERE id = $1", [
       req.user.id,
     ]);
