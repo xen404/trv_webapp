@@ -73,13 +73,16 @@ class AddUserModal extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { name, email, password, role } = this.state;
+    const { name, email, password} = this.state;
+    const role = document.getElementById("role").value;
     const newUser = {
       name,
       email,
       password,
       role,
     };
+
+    console.log(newUser);
 
     this.props.registerNewUser(newUser);
 
@@ -116,7 +119,7 @@ class AddUserModal extends Component {
                   type="text"
                   name="name"
                   id="name"
-                  placeholder="Enter your name"
+                  placeholder="Enter user's name"
                   onChange={this.onChange}
                 />
                 <Label for="email">Email</Label>
@@ -124,15 +127,15 @@ class AddUserModal extends Component {
                   type="email"
                   name="email"
                   id="email"
-                  placeholder="Enter your email"
+                  placeholder="Enter user's email"
                   onChange={this.onChange}
                 />
-                <Label for="password">password</Label>
+                <Label for="password">Password</Label>
                 <Input
                   type="password"
                   name="password"
                   id="password"
-                  placeholder="Enter your password"
+                  placeholder="Enter user's password"
                   onChange={this.onChange}
                 />
 
@@ -142,9 +145,9 @@ class AddUserModal extends Component {
                   name="role"
                   id="role"
                   onChange={this.onChange}
-                  defaultValue=""
+                  
                 >
-                  <option value="" disabled></option>
+                  
                   <option value="ADMIN">ADMIN</option>
                   <option value="EDITOR">EDITOR</option>
                 </Input>

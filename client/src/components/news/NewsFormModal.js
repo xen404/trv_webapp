@@ -5,6 +5,7 @@ import { addNews } from "../../actions/newsActions";
 import { clearConfirm } from "../../actions/confirmActions";
 import { clearErrors } from "../../actions/errorActions";
 import PropTypes from "prop-types";
+import DraftjsEditor from "./DraftjsEditor";
 import {
   Button,
   Modal,
@@ -20,6 +21,11 @@ import {
 } from "reactstrap";
 
 class NewsFormModal extends Component {
+  constructor(props) {
+    super(props);
+    this.DraftjsEditor = React.createRef();
+  }
+
   state = {
     modal: false,
     title: "",
@@ -28,7 +34,7 @@ class NewsFormModal extends Component {
     image_url: "",
     msg: null,
     successMsg: null,
-    loadingMsg: null
+    loadingMsg: null,
   };
 
   PropTypes = {
@@ -44,13 +50,12 @@ class NewsFormModal extends Component {
 
     if (news !== prevProps.news) {
       if (news.loading) {
-        this.setState({loadingMsg: "Loading..."})
+        this.setState({ loadingMsg: "Loading..." });
       } else {
         this.setState({ loadingMsg: null });
       }
     }
-    
-  
+
     if (error !== prevProps.error) {
       if (error.id === "ADD_NEWS_FAIL") {
         this.props.clearConfirm();
@@ -68,9 +73,6 @@ class NewsFormModal extends Component {
         this.setState({ successMsg: null });
       }
     }
-    
-
-
   }
 
   toggle = () => {
@@ -89,7 +91,7 @@ class NewsFormModal extends Component {
       preview_text: "",
       body: "",
       role: "",
-      image_url: ""
+      image_url: "",
     });
   };
 
@@ -116,10 +118,13 @@ class NewsFormModal extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
+
+    const editorContentRaw = this.DraftjsEditor.current.state.editorContentRaw;
+
     const newNews = {
       title: this.state.title,
       preview_text: this.state.preview_text,
-      body: this.state.body,
+      body: editorContentRaw,
       image_url: this.state.image_url,
     };
     this.props.addNews(newNews);
@@ -139,7 +144,7 @@ class NewsFormModal extends Component {
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>Add News</ModalHeader>
           <ModalBody>
-          {this.state.msg ? (
+            {this.state.msg ? (
               <Alert color="danger">{this.state.msg}</Alert>
             ) : null}
             {this.state.successMsg ? (
@@ -167,16 +172,7 @@ class NewsFormModal extends Component {
                   onChange={this.onChange}
                 />
                 <Label for="body">Body</Label>
-                <textarea
-                  className="form-control"
-                  cols="50"
-                  rows="5"
-                  type="text"
-                  name="body"
-                  id="body"
-                  placeholder="News title"
-                  onChange={this.onChange}
-                />
+                <DraftjsEditor ref={this.DraftjsEditor} />
                 <Label for="image_url">Image</Label>
                 <Input
                   type="file"

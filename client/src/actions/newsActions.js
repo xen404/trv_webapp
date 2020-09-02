@@ -74,7 +74,6 @@ export const addNews = (news) => async (dispatch, getState) => {
       news,
       tokenConfig(getState)
     );
-    console.log(res);
     dispatch({ type: NEWS_LOADED });
     dispatch(returnConfirm(res.data.successMsg, res.status, "NEWS_CREATED"));
     dispatch({

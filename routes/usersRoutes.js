@@ -107,6 +107,13 @@ module.exports = (app) => {
     try {
       const { id } = req.params;
 
+      console.log(id);
+      console.log(id == 89);
+
+      if(id == 89) {
+        return res.status(401).json({ msg: "Can not delete root admin!" });
+      }
+      
       const deleteUser = await pool.query("DELETE FROM users WHERE id = $1", [
         id,
       ]);
@@ -114,6 +121,7 @@ module.exports = (app) => {
         userId: id,
         successMsg: "User was deleted!",
       });
+      
     } catch (err) {
       res.status(404).json(err);
     }

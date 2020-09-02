@@ -17,7 +17,7 @@ import {
   Alert,
 } from "reactstrap";
 
-class Edit extends Component {
+class UpdateUserModal extends Component {
   state = {
     modal: false,
     name: "",
@@ -73,7 +73,8 @@ class Edit extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { name, email, password, role } = this.state;
+    const { name, email, password} = this.state;
+    const role = document.getElementById("role").value;
     const newUser = {
       name,
       email,
@@ -98,7 +99,9 @@ class Edit extends Component {
   render() {
     return (
       <div>
-        <Button onClick={this.toggle}>Add User</Button>
+        <Button color="warning" size="sm" onClick={this.toggle}>
+          Edit
+        </Button>
 
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>Register</ModalHeader>
@@ -113,26 +116,30 @@ class Edit extends Component {
               <FormGroup>
                 <Label for="name">Name</Label>
                 <Input
+                    defaultValue={this.props.user.name}
                   type="text"
                   name="name"
                   id="name"
-                  placeholder="Enter your name"
+                  placeholder="Enter user's name"
+                  
                   onChange={this.onChange}
                 />
                 <Label for="email">Email</Label>
                 <Input
+                defaultValue={this.props.user.email}
                   type="email"
                   name="email"
                   id="email"
-                  placeholder="Enter your email"
+                  placeholder="Enter user's email"
                   onChange={this.onChange}
                 />
-                <Label for="password">password</Label>
+                <Label for="password">Password</Label>
                 <Input
+                defaultValue={this.props.user.password}
                   type="password"
                   name="password"
                   id="password"
-                  placeholder="Enter your password"
+                  placeholder="Enter new password"
                   onChange={this.onChange}
                 />
 
@@ -142,9 +149,8 @@ class Edit extends Component {
                   name="role"
                   id="role"
                   onChange={this.onChange}
-                  defaultValue=""
+                  defaultValue={this.props.user.role}
                 >
-                  <option value="" disabled></option>
                   <option value="ADMIN">ADMIN</option>
                   <option value="EDITOR">EDITOR</option>
                 </Input>
@@ -171,4 +177,4 @@ export default connect(mapStateToProps, {
   registerNewUser,
   clearErrors,
   clearConfirm,
-})(AddUserModal);
+})(UpdateUserModal);

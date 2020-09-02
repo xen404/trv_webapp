@@ -26,6 +26,7 @@ export default function (state = initialState, action) {
     case DELETE_NEWS_SUCCESS:
       return {
         ...state,
+        loading: false,
         news: state.news.filter((news) =>
           customFilter(news, action.payload.newsId)
         ),
@@ -33,7 +34,7 @@ export default function (state = initialState, action) {
     case ADD_NEWS_SUCCESS:
       return {
         ...state,
-        news: [action.payload, ...state.news],
+        news: [action.payload.news, ...state.news],
       };
 
     case NEWS_LOADING:

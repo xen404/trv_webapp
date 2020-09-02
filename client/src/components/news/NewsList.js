@@ -3,7 +3,9 @@ import { connect } from "react-redux";
 import { getNews, deleteNews } from "../../actions/newsActions";
 import { Image } from "cloudinary-react";
 import PropTypes from "prop-types";
-import DeleteNewsModal from './DeleteNewsModal';
+import DeleteNewsModal from "./DeleteNewsModal";
+import { stateToHTML } from "draft-js-export-html";
+import { convertFromRaw } from "draft-js";
 
 class NewsList extends Component {
   componentDidMount() {
@@ -14,38 +16,42 @@ class NewsList extends Component {
     this.props.deleteNews(id);
   };
 
-  static propTypes = {
+  propTypes = {
     isAuthenticated: PropTypes.bool,
   };
 
   renderNews() {
-    //const {news} = this.props.news;
     return this.props.news.news.map((news) => {
+      const textBody = convertFromRaw(JSON.parse(news.body));
+      const htmlBody = stateToHTML(textBody);
       return (
-        <div key={news.id} className="col s12 m4">
-          <div className="card medium">
-            <div className="card-image">
-              <Image
-                key={news.image_url}
-                cloudName="trvStorage"
-                publicId={news.image_url}
-                crop="scale"
-                width="600"
-              />
-              <span className="card-title">{news.title}</span>
-            </div>
-            <div className="card-content">
-              <p>{news.preview_text}</p>
-            </div>
-
-            {this.props.isAuthenticated ? (
-              <div className="card-action">
-                <DeleteNewsModal newsId={news.id} newsTitle={news.title} />
+        <div>
+          <div key={news.id} className="col s12 m4">
+            <div className="card medium">
+              <div className="card-image">
+                <Image
+                  key={news.image_url}
+                  cloudName="trvStorage"
+                  publicId={news.image_url}
+                  crop="scale"
+                  width="600"
+                />
+                <span className="card-title">{news.title}</span>
               </div>
-            ) : (
-              <p></p>
-            )}
+              <div className="card-content">
+                <div dangerouslySetInnerHTML={{ __html: htmlBody }} />
+              </div>
+
+              {this.props.isAuthenticated ? (
+                <div className="card-action">
+                  <DeleteNewsModal newsId={news.id} newsTitle={news.title} />
+                </div>
+              ) : (
+                <p></p>
+              )}
+            </div>
           </div>
+          <div></div>
         </div>
       );
     });

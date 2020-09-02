@@ -28,7 +28,7 @@ module.exports = (app) => {
 
       res.json({
         successMsg: "News created!",
-        news: newNews,
+        news: newNews.rows[0],
       });
     } catch (err) {
       console.error(err.message);

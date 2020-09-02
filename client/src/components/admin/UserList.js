@@ -5,6 +5,7 @@ import { getAllUsers } from '../../actions/userActions';
 import { Image } from "cloudinary-react";
 import PropTypes from "prop-types";
 import DeleteUserModal from './DeleteUserModal';
+import UpdateUserModal from './UpdateUserModal';
 import { Table, Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 
 class UserList extends Component {
@@ -49,8 +50,12 @@ class UserList extends Component {
             <td>{user.email}</td>
       <td>{user.role}</td>
             <td>
+              <div style={{display: "flex", flexDirection: "row" }}>
               <DeleteUserModal userId={user.id} userName={user.name} />
+              <UpdateUserModal user={user} />
+              </div>
             </td>
+            
           </tr>
       );
     });
