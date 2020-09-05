@@ -50,8 +50,8 @@ class DeleteUserModal extends Component {
       console.log(confirm);
       console.log(prevProps.confirm);
       if (confirm.id === "USER_DELETED") {
-       // this.props.clearErrors();
-       // this.setState({ successMsg: confirm.successMsg });
+        this.props.clearErrors();
+        this.setState({ successMsg: confirm.successMsg });
       } else {
         this.setState({ successMsg: null });
       }

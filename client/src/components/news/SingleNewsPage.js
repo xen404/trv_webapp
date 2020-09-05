@@ -55,6 +55,7 @@ class SingleNewsPage extends Component {
             </h1>
 
             <div
+                className="textBody"
               style={{
                 display: "flex",
                 alignSelf: "flex-start",

@@ -6,6 +6,8 @@ import {
   REGISTER_NEW_USER_FAIL,
   DELETE_USER_SUCCESS,
   DELETE_USER_FAIL,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAIL,
 } from "../actions/types";
 
 const initialState = {
@@ -35,12 +37,14 @@ export default function (state = initialState, action) {
         ),
       };
     case REGISTER_NEW_USER_SUCCESS:
+    case UPDATE_USER_SUCCESS:
       return {
         ...state,
         users: [action.payload.user, ...state.users],
       };
     case REGISTER_NEW_USER_FAIL:
     case DELETE_USER_FAIL:
+    case UPDATE_USER_FAIL:
       return {
         ...state,
         isLoading: false,

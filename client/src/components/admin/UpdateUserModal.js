@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import { clearConfirm } from "../../actions/confirmActions";
-import { registerNewUser } from "../../actions/userActions";
+import { registerNewUser, updateUser } from "../../actions/userActions";
 import { clearErrors } from "../../actions/errorActions";
 import {
   Button,
@@ -20,8 +20,8 @@ import {
 class UpdateUserModal extends Component {
   state = {
     modal: false,
-    name: "",
-    email: "",
+    name: this.props.user.name,
+    email: this.props.user.email,
     password: "",
     role: "",
     msg: null,
@@ -73,16 +73,23 @@ class UpdateUserModal extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { name, email, password} = this.state;
+    const { password } = this.state;
+    const id = this.props.user.id;
     const role = document.getElementById("role").value;
-    const newUser = {
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+
+    const updatedUser = {
+      id,
       name,
       email,
       password,
       role,
     };
 
-    this.props.registerNewUser(newUser);
+    console.log(updatedUser);
+
+    this.props.updateUser(updatedUser);
 
     //this.toggle();
   };
@@ -116,17 +123,16 @@ class UpdateUserModal extends Component {
               <FormGroup>
                 <Label for="name">Name</Label>
                 <Input
-                    defaultValue={this.props.user.name}
+                  defaultValue={this.props.user.name}
                   type="text"
                   name="name"
                   id="name"
                   placeholder="Enter user's name"
-                  
                   onChange={this.onChange}
                 />
                 <Label for="email">Email</Label>
                 <Input
-                defaultValue={this.props.user.email}
+                  defaultValue={this.props.user.email}
                   type="email"
                   name="email"
                   id="email"
@@ -135,7 +141,6 @@ class UpdateUserModal extends Component {
                 />
                 <Label for="password">Password</Label>
                 <Input
-                defaultValue={this.props.user.password}
                   type="password"
                   name="password"
                   id="password"
@@ -156,7 +161,7 @@ class UpdateUserModal extends Component {
                 </Input>
 
                 <Button color="dark" style={{ marginTop: "2rem" }} block>
-                  Register
+                  Update
                 </Button>
               </FormGroup>
             </Form>
@@ -174,7 +179,7 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  registerNewUser,
+  updateUser,
   clearErrors,
   clearConfirm,
 })(UpdateUserModal);

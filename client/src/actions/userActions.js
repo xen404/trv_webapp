@@ -10,6 +10,8 @@ import {
   REGISTER_NEW_USER_FAIL,
   DELETE_USER_FAIL,
   DELETE_USER_SUCCESS,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAIL,
 } from "./types";
 
 //   ******************
@@ -88,3 +90,36 @@ export const deleteUser = (id) => async (dispatch, getState) => {
     });
   }
 };
+
+export const updateUser = ({id, name, email, password, role }) => async (
+  dispatch, getState
+) => {
+  const config = {
+    headers: {
+      "Content-type": "application/json",
+    },
+  };
+
+  const body = JSON.stringify({id, name, email, password, role });
+  try {
+    const res = await axios.put("/api/users/update_user", body, tokenConfig(getState) );
+    dispatch(returnConfirm(res.data.successMsg, res.status, "USER_UPDATED"));
+    dispatch({
+      type: UPDATE_USER_SUCCESS,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch(
+      returnErrors(
+        error.response.data,
+        error.response.status,
+        "UPDATE_USER_FAIL"
+      )
+    );
+    dispatch({
+      type: UPDATE_USER_FAIL,
+    });
+  }
+};
+
+
