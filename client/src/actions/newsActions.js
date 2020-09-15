@@ -23,11 +23,13 @@ export const getNews = () => (dispatch) => {
   dispatch(setNewsLoading());
   axios
     .get("/api/news")
-    .then((res) =>
+    .then((res) => {
+      console.log(res);
       dispatch({
         type: GET_NEWS,
         payload: res.data,
-      })
+      });
+    }
     )
     .catch((err) =>
       dispatch(returnErrors(err.response.data, err.response.status))

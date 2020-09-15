@@ -4,6 +4,7 @@ import NewsList from "./news/NewsList";
 import NewsFormModal from './news/NewsFormModal';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
+import NewsBoardCustom from './news/NewsBoardCustom';
 
 
 class NewsDashboard extends Component {
@@ -15,7 +16,7 @@ class NewsDashboard extends Component {
   render() {
     return (
       <div>
-        <NewsList />
+        <NewsBoardCustom />
         <div className="fixed-action-btn">
         {this.props.isAuthenticated ? <NewsFormModal /> : <p></p> }
           

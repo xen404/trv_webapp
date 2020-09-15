@@ -48,8 +48,8 @@ module.exports = (app) => {
 
   app.get("/api/news", async (req, res) => {
     const allNews = await pool.query("SELECT * FROM news;");
-
-    res.send(allNews.rows.reverse());
+    console.log(allNews.rows);
+    res.send(allNews.rows);
   });
 
   app.delete("/api/news/delete/:id", isLoggedIn, async (req, res) => {

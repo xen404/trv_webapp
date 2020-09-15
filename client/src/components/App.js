@@ -5,11 +5,16 @@ import "./App.css";
 import { connect } from 'react-redux';
 import { loadUser } from "../actions/authActions";
 import store from '../index';
+import "style.css"
+import "tailwindcss/dist/base.css"
+import AnimationRevealPage from "helpers/AnimationRevealPage"
 //components
-import Header from "./Header";
-import NewsDashboard from "./NewsDashboard";
-import NewsAdd from "./news/NewsAdd";
 import AppNavbar from './AppNavbar';
+import Landing from './Landing';
+import BackgroundImageCustom from './hero/BackgroundImageCustom';
+import Prices from './features/Prices';
+import NewsList from "./news/NewsList";
+import Activities from "./features/Activities";
 import UserManagement  from './admin/UserManagement';
 import SingleNewsPage from "./news/SingleNewsPage";
 
@@ -21,17 +26,16 @@ class App extends Component {
 
   render() {
     return (
-      <div >
         <BrowserRouter>
           <div>
+          <AnimationRevealPage disabled>
             <Route component={AppNavbar} />
-            <Route exact path="/" component={NewsDashboard} />
-            <Route exact path="/news/add_new" component={NewsAdd} />
+            <Route exact path="/" component={Landing} />
             <Route exact path="/admin" component={UserManagement} />
             <Route exact path="/news/:id" component={SingleNewsPage} />
+            </AnimationRevealPage>
           </div>
         </BrowserRouter>
-      </div>
     );
   }
 }

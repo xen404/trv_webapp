@@ -8,6 +8,11 @@ import { stateToHTML } from "draft-js-export-html";
 import { convertFromRaw } from "draft-js";
 import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
+import NewsBoard from "../blogs/NewsBoard";
+import NewsSlider from '../testimonials/NewsSlider';
+import NewsFormModal from './NewsFormModal';
+import NewsSliderCustom from "../testimonials/NewsSliderCustom";
+
 class NewsList extends Component {
   componentDidMount() {
     console.log("component did mount");
@@ -70,12 +75,15 @@ class NewsList extends Component {
   }
 
   render() {
-    console.log("REnder");
+    console.log("NEWSLIST");
+    console.log(this.props.news);
+    
     return (
-      <div className="row">
-        <div>{this.renderNews()}</div>
+      <div>
+        {this.renderNews()}   
       </div>
     );
+    
   }
 }
 

@@ -15,6 +15,7 @@ class DraftjsEditor extends React.Component {
     this.state = {
       editorState: EditorState.createEmpty(),
       editorContentRaw: {},
+      editorContentHtml: {}
     };
     this.focus = () => this.refs.editor.focus();
 
@@ -40,6 +41,9 @@ class DraftjsEditor extends React.Component {
         this.state.editorState.getCurrentContent()
       ),
     });
+    this.setState({
+        editorContentHtml: this.state.editorContentRaw
+    })
   };
 
   _mapKeyToEditorCommand(e) {
@@ -105,7 +109,7 @@ class DraftjsEditor extends React.Component {
             spellCheck={true}
           />
         </div>
-        <div>{this.state.editorContentHtml}</div>
+        
       </div>
     );
   }

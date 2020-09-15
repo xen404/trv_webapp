@@ -8,6 +8,11 @@ import { convertFromRaw } from "draft-js";
 import { Image } from "cloudinary-react";
 import "./SingleNewsPage.css";
 
+import "style.css";
+import "tailwindcss/dist/base.css";
+import AnimationRevealPage from "helpers/AnimationRevealPage";
+import BackgroundAsImageWithCenteredContent from "components/hero/BackgroundAsImageWithCenteredContent";
+
 class SingleNewsPage extends Component {
   componentDidMount() {
     const {
@@ -55,7 +60,7 @@ class SingleNewsPage extends Component {
             </h1>
 
             <div
-                className="textBody"
+              className="textBody"
               style={{
                 display: "flex",
                 alignSelf: "flex-start",
@@ -76,6 +81,8 @@ class SingleNewsPage extends Component {
     const news = this.props.news.news;
     return (
       <div>
+        <BackgroundAsImageWithCenteredContent />
+
         <div>{this.renderNews()}</div>
       </div>
     );

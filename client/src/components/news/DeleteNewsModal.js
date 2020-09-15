@@ -36,7 +36,7 @@ class DeleteNewsModal extends Component {
     if (confirm !== prevProps.confirm) {
       if (confirm.id === "NEWS_DELETED") {
         this.props.clearErrors();
-        this.setState({ successMsg: confirm.successMsg });
+          this.setState({ successMsg: confirm.successMsg });
       } else {
         this.setState({ successMsg: null });
       }
