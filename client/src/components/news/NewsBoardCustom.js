@@ -131,6 +131,7 @@ class NewsList extends Component {
   };
 
   renderNews() {
+      if(this.props.news) {
     const slicedNews = this.props.news.news.map((el, i, arr) => {
       const res = arr.splice(0, 3);
       const tempArr = [...arr];
@@ -185,6 +186,14 @@ class NewsList extends Component {
         </TestimonialSliderContainer>
       </Content>
     );
+                    }
+                    else {
+                        return(
+                            <div>
+                                FUUUUUUUUCK!
+                            </div>
+                        )
+                    }
   }
 
   render() {
