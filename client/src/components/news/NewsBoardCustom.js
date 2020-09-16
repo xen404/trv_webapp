@@ -120,8 +120,8 @@ class NewsList extends Component {
                   <Content>
                     <ThreeColumn>
                       {news.map((news, index) => {
-                        const textBody = convertFromRaw(JSON.parse(news.body));
-                        const htmlBody = stateToHTML(textBody);
+                        //const textBody = convertFromRaw(JSON.parse(news.body));
+                        //const htmlBody = stateToHTML(textBody);
                         return (
                           <Column key={index}>
                             <Card>
