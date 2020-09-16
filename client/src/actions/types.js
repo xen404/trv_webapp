@@ -1,7 +1,8 @@
 
 export const NEWS_LOADING = 'NEWS_LOADING';
 export const NEWS_LOADED = 'NEWS_LOADED';
-export const GET_NEWS = 'GET_NEWS';
+export const GET_NEWS_SUCCESS = 'GET_NEWS_SUCCESS';
+export const GET_NEWS_FAIL = 'GET_NEWS_FAIL';
 export const ADD_NEWS_SUCCESS = 'ADD_NEWS_SUCCESS';
 export const ADD_NEWS_FAIL = 'ADD_FAIL';    
 export const DELETE_NEWS = 'DELETE_NEWS';

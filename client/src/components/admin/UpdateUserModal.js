@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import { clearConfirm } from "../../actions/confirmActions";
-import { registerNewUser, updateUser } from "../../actions/userActions";
+import { updateUser } from "../../actions/userActions";
 import { clearErrors } from "../../actions/errorActions";
 import {
   Button,

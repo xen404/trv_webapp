@@ -1,7 +1,6 @@
 import { customFilter } from "./index";
 import {
-  GET_NEWS,
-  DELETE_NEWS,
+  GET_NEWS_SUCCESS,
   ADD_NEWS_SUCCESS,
   ADD_NEWS_FAIL,
   NEWS_LOADING,
@@ -9,7 +8,8 @@ import {
   DELETE_NEWS_FAIL,
   NEWS_LOADED,
   GET_SINGLE_NEWS_SUCCESS,
-  GET_SINGLE_NEWS_FAIL
+  GET_SINGLE_NEWS_FAIL,
+  GET_NEWS_FAIL,
 } from "../actions/types";
 
 const initialState = {
@@ -19,8 +19,10 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case GET_NEWS:
-      case GET_SINGLE_NEWS_SUCCESS:
+    case GET_NEWS_SUCCESS:
+    case GET_SINGLE_NEWS_SUCCESS:
+      console.log("REDUCER");
+      console.log(action.payload);
       return {
         ...state,
         news: action.payload,
@@ -50,9 +52,10 @@ export default function (state = initialState, action) {
         ...state,
         loading: false,
       };
+    case GET_NEWS_FAIL:
     case DELETE_NEWS_FAIL:
     case ADD_NEWS_FAIL:
-      case GET_SINGLE_NEWS_FAIL:
+    case GET_SINGLE_NEWS_FAIL:
       return {
         ...state,
         loading: false,

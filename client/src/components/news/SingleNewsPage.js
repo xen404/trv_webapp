@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getSingleNews, deleteNews } from "../../actions/newsActions";
 import PropTypes from "prop-types";
-import DeleteNewsModal from "./DeleteNewsModal";
 import { stateToHTML } from "draft-js-export-html";
 import { convertFromRaw } from "draft-js";
 import { Image } from "cloudinary-react";
@@ -10,7 +9,6 @@ import "./SingleNewsPage.css";
 
 import "style.css";
 import "tailwindcss/dist/base.css";
-import AnimationRevealPage from "helpers/AnimationRevealPage";
 import BackgroundAsImageWithCenteredContent from "components/hero/BackgroundAsImageWithCenteredContent";
 
 class SingleNewsPage extends Component {
@@ -35,7 +33,6 @@ class SingleNewsPage extends Component {
   renderNews() {
     console.log("render news");
     return this.props.news.news.map((news) => {
-      const lol = news.body;
       const textBody = convertFromRaw(JSON.parse(news.body));
       const htmlBody = stateToHTML(textBody);
       return (
@@ -78,7 +75,6 @@ class SingleNewsPage extends Component {
 
   render() {
     console.log(this.props.news.news);
-    const news = this.props.news.news;
     return (
       <div>
         <BackgroundAsImageWithCenteredContent />

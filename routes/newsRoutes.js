@@ -7,7 +7,7 @@ const { cloudinary } = require("../utils/cloudinary");
 module.exports = (app) => {
   app.post("/api/addNews", isLoggedIn, async (req, res) => {
     try {
-      const { title, preview_text, body, created_at, } = req.body;
+      const { title, preview_text, body, created_at } = req.body;
 
       const fileStr = req.body.image_url;
 
@@ -47,9 +47,14 @@ module.exports = (app) => {
   });
 
   app.get("/api/news", async (req, res) => {
-    const allNews = await pool.query("SELECT * FROM news;");
-    console.log(allNews.rows);
-    res.send(allNews.rows);
+    try {
+      const allNews = await pool.query("SELECT * FROM news;");
+      console.log(allNews.rows);
+      res.send(allNews.rows);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).json({ err: err.message });
+    }
   });
 
   app.delete("/api/news/delete/:id", isLoggedIn, async (req, res) => {

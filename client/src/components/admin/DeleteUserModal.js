@@ -10,13 +10,9 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  Form,
-  FormGroup,
-  Label,
-  Input,
+
   Alert,
-  ModalFooter,
-  Col,
+
 } from "reactstrap";
 
 class DeleteUserModal extends Component {
@@ -45,7 +41,7 @@ class DeleteUserModal extends Component {
       }
     }
 
-    if (confirm != prevProps.confirm) {
+    if (confirm !== prevProps.confirm) {
       console.log('--------------------');
       console.log(confirm);
       console.log(prevProps.confirm);

@@ -1,4 +1,4 @@
-import React, { Fragment, useState, Component } from "react";
+import React, { Fragment, Component } from "react";
 import {
   Collapse,
   Navbar,
@@ -15,17 +15,16 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import RegisterModal from "./auth/RegisterModal";
 import LoginModal from "./auth/LoginModal";
 import Logout from "./auth/Logout";
-import UserManagement from "./admin/UserManagement";
+
 
 class AppNavbar extends Component {
   state = {
     isOpen: false,
   };
 
-  propTypes = {
+  static propTypes = {
     auth: PropTypes.object.isRequired,
   };
 

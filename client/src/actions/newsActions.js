@@ -3,7 +3,7 @@ import { tokenConfig } from "./authActions";
 import { returnErrors } from "./errorActions";
 import { returnConfirm } from "./confirmActions";
 import {
-  GET_NEWS,
+  GET_NEWS_SUCCESS,
   ADD_NEWS_SUCCESS,
   ADD_NEWS_FAIL,
   DELETE_NEWS_SUCCESS,
@@ -12,6 +12,7 @@ import {
   NEWS_LOADED,
   GET_SINGLE_NEWS_SUCCESS,
   GET_SINGLE_NEWS_FAIL,
+  GET_NEWS_FAIL
 } from "./types";
 
 //   ******************
@@ -19,21 +20,32 @@ import {
 //   ******************
 
 // GET ALL NEWS
-export const getNews = () => (dispatch) => {
-  dispatch(setNewsLoading());
-  axios
-    .get("/api/news")
-    .then((res) => {
-      console.log(res);
-      dispatch({
-        type: GET_NEWS,
-        payload: res.data,
-      });
-    }
-    )
-    .catch((err) =>
-      dispatch(returnErrors(err.response.data, err.response.status))
-    );
+export const getNews = () => async (dispatch, getState) => {
+  try {
+    dispatch(setNewsLoading());
+
+    const stateBefore = getState();
+    console.log(`-----------STATE BEFORE:`);
+    console.log(stateBefore.news);
+
+    const res = await axios.get("/api/news");
+    console.log("NEWS ACTION getNews");
+    console.log(res);
+    console.log(res.data);
+    dispatch({
+      type: GET_NEWS_SUCCESS,
+      payload: res.data,
+    });
+
+    const stateAfter = getState();
+    console.log(`-----------STATE AFTER:`);
+    console.log(stateAfter.news);
+
+  } catch (err) {
+    dispatch({
+      type: GET_NEWS_FAIL,
+    });
+  }
 };
 
 export const setNewsLoading = () => {

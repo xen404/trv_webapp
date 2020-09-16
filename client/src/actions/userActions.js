@@ -38,12 +38,7 @@ export const getAllUsers = () => (dispatch, getState) => {
 export const registerNewUser = ({ name, email, password, role }) => async (
   dispatch, getState
 ) => {
-  const config = {
-    headers: {
-      "Content-type": "application/json",
-    },
-  };
-
+  
   const body = JSON.stringify({ name, email, password, role });
   try {
     const res = await axios.post("/api/new_user_reg", body, tokenConfig(getState) );
@@ -94,11 +89,7 @@ export const deleteUser = (id) => async (dispatch, getState) => {
 export const updateUser = ({id, name, email, password, role }) => async (
   dispatch, getState
 ) => {
-  const config = {
-    headers: {
-      "Content-type": "application/json",
-    },
-  };
+  
 
   const body = JSON.stringify({id, name, email, password, role });
   try {

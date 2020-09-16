@@ -8,10 +8,6 @@ import { stateToHTML } from "draft-js-export-html";
 import { convertFromRaw } from "draft-js";
 import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
-import NewsBoard from "../blogs/NewsBoard";
-import NewsSlider from '../testimonials/NewsSlider';
-import NewsFormModal from './NewsFormModal';
-import NewsSliderCustom from "../testimonials/NewsSliderCustom";
 
 class NewsList extends Component {
   componentDidMount() {
@@ -23,8 +19,10 @@ class NewsList extends Component {
     this.props.deleteNews(id);
   };
 
-  propTypes = {
-    isAuthenticated: PropTypes.bool,
+  static propTypes = {
+    auth: PropTypes.object.isRequired,
+    getNews: PropTypes.func.isRequired,
+    news: PropTypes.object.isRequired,
   };
 
   renderNews() {
@@ -49,15 +47,16 @@ class NewsList extends Component {
                 <div dangerouslySetInnerHTML={{ __html: htmlBody }} />
               </div>
 
-              <div style={{display: "flex", flexDirection: "row"}} className="card-action">
-                <div >
-                 
-                    <Link to={`/news/${news.id}`}>
+              <div
+                style={{ display: "flex", flexDirection: "row" }}
+                className="card-action"
+              >
+                <div>
+                  <Link to={`/news/${news.id}`}>
                     <Button to={`/news/${news.id}`} color="info" size="sm">
                       More
-                      </Button>
-                      </Link>
-                 
+                    </Button>
+                  </Link>
                 </div>
 
                 {this.props.isAuthenticated ? (
@@ -77,20 +76,10 @@ class NewsList extends Component {
   render() {
     console.log("NEWSLIST");
     console.log(this.props.news);
-    
-    return (
-      <div>
-        {this.renderNews()}   
-      </div>
-    );
-    
+
+    return <div>{this.renderNews()}</div>;
   }
 }
-
-NewsList.propTypes = {
-  getNews: PropTypes.func.isRequired,
-  news: PropTypes.object.isRequired,
-};
 
 const mapStateToProps = (state) => ({
   news: state.news,

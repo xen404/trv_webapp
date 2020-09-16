@@ -8,13 +8,10 @@ import {
   FormGroup,
   Label,
   Input,
-  NavLink,
   Alert,
-  Col,
 } from "reactstrap";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { returnErrors } from "../../actions/errorActions";
 import { register } from "../../actions/authActions";
 import { clearErrors } from "../../actions/errorActions";
 

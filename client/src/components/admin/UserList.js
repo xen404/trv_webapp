@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getNews, deleteNews} from "../../actions/newsActions";
 import { getAllUsers } from '../../actions/userActions';
-import { Image } from "cloudinary-react";
 import PropTypes from "prop-types";
 import DeleteUserModal from './DeleteUserModal';
 import UpdateUserModal from './UpdateUserModal';
-import { Table, Container, ListGroup, ListGroupItem, Button } from "reactstrap";
+import { Table} from "reactstrap";
 
 class UserList extends Component {
   componentDidMount() {
@@ -41,7 +39,6 @@ class UserList extends Component {
   }
 
   renderRows() {
-    const { users } = this.props.users;
     return this.props.users.users.map((user) => {
       return (
           <tr>

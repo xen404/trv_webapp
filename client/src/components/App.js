@@ -4,17 +4,12 @@ import 'bootstrap/dist/css/bootstrap.css'
 import "./App.css";
 import { connect } from 'react-redux';
 import { loadUser } from "../actions/authActions";
-import store from '../index';
 import "style.css"
 import "tailwindcss/dist/base.css"
 import AnimationRevealPage from "helpers/AnimationRevealPage"
 //components
 import AppNavbar from './AppNavbar';
 import Landing from './Landing';
-import BackgroundImageCustom from './hero/BackgroundImageCustom';
-import Prices from './features/Prices';
-import NewsList from "./news/NewsList";
-import Activities from "./features/Activities";
 import UserManagement  from './admin/UserManagement';
 import SingleNewsPage from "./news/SingleNewsPage";
 
