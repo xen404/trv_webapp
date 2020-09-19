@@ -26,9 +26,6 @@ const TestimonialSliderContainer = tw.div``;
 const TestimonialSlider = styled(Slider)``;
 const Testimonial = tw.div`flex! flex-col items-center md:items-stretch md:flex-row md:justify-center outline-none px-8`;
 
-
-
-
 const SliderControlButtonContainer = styled.div`
   ${tw`absolute top-0 h-full flex items-end md:items-center z-20`}
   button {
@@ -54,7 +51,6 @@ const PreviousArrow = ({ currentSlide, slideCount, ...props }) => (
   </SliderControlButtonContainer>
 );
 
-
 /*
     CARDS CONSTS
 */
@@ -75,7 +71,6 @@ const ImageWrapper = styled.div((props) => [
 
 const Details = tw.div`p-6 rounded border-2 border-t-0 rounded-t-none flex-1 flex flex-col items-center text-center lg:block lg:text-left`;
 
-
 const Title = tw.h5`mt-4 leading-snug font-bold text-lg`;
 const Description = tw.p`mt-2 text-sm text-secondary-100`;
 /*const Link = styled(PrimaryButtonBase).attrs({ as: "a" })`
@@ -83,7 +78,7 @@ const Description = tw.p`mt-2 text-sm text-secondary-100`;
 `;
 */
 
-class NewsList extends Component {
+class NewsBoardCustom extends Component {
   componentDidMount() {
     console.log("component did mount");
     this.props.getNews();
@@ -93,90 +88,87 @@ class NewsList extends Component {
     this.props.deleteNews(id);
   };
 
-  propTypes = {
+  static propTypes = {
     isAuthenticated: PropTypes.bool,
+    getNews: PropTypes.func.isRequired,
+    news: PropTypes.object.isRequired,
   };
 
   renderNews() {
-      if(this.props.news) {
-    const slicedNews = this.props.news.news.map((el, i, arr) => {
-      const res = arr.splice(0, 3);
-      return res;
-    });
+    if (this.props.news) {
+        const newsCopy = this.props.news.news;
+      const slicedNews = newsCopy.map((el, i, arr) => {
+        const res = arr.slice(0, 3);
+        return res;
+      });
 
-    return (
-      <Content>
-           <HeadingInfoContainer>
-                      <HeadingTitle>NEWS</HeadingTitle>
-                    </HeadingInfoContainer>
-        <TestimonialSliderContainer>
-          <TestimonialSlider
-            nextArrow={<NextArrow />}
-            prevArrow={<PreviousArrow />}
-          >
-            {slicedNews.map((news, index) => (
-              <Testimonial key={index}>
-                <Container>
-                  <Content>
-                    <ThreeColumn>
-                      {news.map((news, index) => {
-                        //const textBody = convertFromRaw(JSON.parse(news.body));
-                        //const htmlBody = stateToHTML(textBody);
-                        return (
-                          <Column key={index}>
-                            <Card>
-                              <ImageWrapper>
-                                <Image
-                                  key={news.image_url}
-                                  cloudName="trvStorage"
-                                  publicId={news.image_url}
-                                  crop="scale"
-                                  width="600"
-                                />
-                              </ImageWrapper>
-                              <Details>
-                                <Title>{news.title}</Title>
-                                <Description>{news.preview_text}</Description>
-                              </Details>
-                            </Card>
-                          </Column>
-                        );
-                      })}
-                    </ThreeColumn>
-                  </Content>
-                </Container>
-              </Testimonial>
-            ))}
-          </TestimonialSlider>
-        </TestimonialSliderContainer>
-      </Content>
-    );
-                    }
-                    else {
-                        return(
-                            <div>
-                                FUUUUUUUUCK!
-                            </div>
-                        )
-                    }
+      return (
+        <Content>
+          <HeadingInfoContainer>
+            <HeadingTitle>NEWS</HeadingTitle>
+          </HeadingInfoContainer>
+          <TestimonialSliderContainer>
+            <TestimonialSlider
+              nextArrow={<NextArrow />}
+              prevArrow={<PreviousArrow />}
+            >
+              {slicedNews.map((news, index) => (
+                <Testimonial key={index}>
+                  <Container>
+                    <Content>
+                      <ThreeColumn>
+                        {news.map((news, index) => {
+                          //const textBody = convertFromRaw(JSON.parse(news.body));
+                          //const htmlBody = stateToHTML(textBody);
+                          return (
+                            <Column key={index}>
+                              <Card>
+                                <ImageWrapper>
+                                  <Image
+                                    key={news.image_url}
+                                    cloudName="trvStorage"
+                                    publicId={news.image_url}
+                                    crop="scale"
+                                    width="600"
+                                  />
+                                </ImageWrapper>
+                                <Details>
+                                  <Title>{news.title}</Title>
+                                  <Description>{news.preview_text}</Description>
+                                </Details>
+                              </Card>
+                            </Column>
+                          );
+                        })}
+                      </ThreeColumn>
+                    </Content>
+                  </Container>
+                </Testimonial>
+              ))}
+            </TestimonialSlider>
+          </TestimonialSliderContainer>
+        </Content>
+      );
+    } else {
+      return <div>FUUUUUUUUCK!</div>;
+    }
   }
 
   render() {
-    console.log("NEWSLISTCUSTOM!!!!");
+    console.log("NEWSBOARDCUSTOM render()!!!!");
     console.log(this.props.news);
 
     return <div>{this.renderNews()}</div>;
   }
 }
 
-NewsList.propTypes = {
-  getNews: PropTypes.func.isRequired,
-  news: PropTypes.object.isRequired,
-};
+
 
 const mapStateToProps = (state) => ({
   news: state.news,
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { getNews, deleteNews })(NewsList);
+export default connect(mapStateToProps, { getNews })(
+  NewsBoardCustom
+);

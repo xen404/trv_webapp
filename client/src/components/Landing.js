@@ -11,7 +11,7 @@ class Landing extends Component {
         <BackgroundImageCustom />
         <Prices />
         <NewsBoardCustom />
-       
+        <Activities />
       </>
     );
   }
