@@ -1,5 +1,6 @@
 import React, { Fragment, Component } from "react";
 //import {Navbar} from 'react-bootstrap';
+/*
 import {
   Collapse,
   Navbar,
@@ -13,34 +14,33 @@ import {
   DropdownItem,
   DropdownToggle,
   UncontrolledDropdown,
-} from "reactstrap";
-import './AppNavBar.css';
+} from "react-bootstrap";
+*/
+
+import {
+  Navbar,
+  Nav,
+  NavDropdown,
+} from 'react-bootstrap';
+
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import LoginModal from "./auth/LoginModal";
 import Logout from "./auth/Logout";
-import styled from "styled-components";
-import tw from "twin.macro";
-const ContainerCustom = styled.div`
-  
-  ${tw`fixed -mx-8 -mb-12 -mt-8`};
-  z-index: 5;
-  width: 100%;
-`;
 
-class AppNavbar extends Component {
+class NavbarCustom extends Component {
   state = {
-    isOpen: false
+    isOpen: false,
+    scrolled: false,
   };
 
   componentDidMount() {
     window.addEventListener("scroll", () => {
       const isTop = window.screenY < 100;
-      const stickyContainer = document.getElementById('stickyContainer');
-      if (isTop) {
-        stickyContainer.classList.add('scrolled');
+      if (isTop !== true) {
+        this.setState({ scrolled: true });
       } else {
-       stickyContainer.classList.remove('scrolled');
+        this.setState({ scrolled: false });
       }
     });
   }
@@ -62,6 +62,7 @@ class AppNavbar extends Component {
   render() {
     const { isAuthenticated, user } = this.props.auth;
 
+    /*
     const guestLinks = (
       <Fragment>
         <NavItem>
@@ -93,19 +94,31 @@ class AppNavbar extends Component {
         </UncontrolledDropdown>
       </Fragment>
     );
-
+*/
     return (
-      <ContainerCustom id="stickyContainer" className="stickyContainer">
-        <Navbar fixed="false" color="dark" dark expand="sm" className="mb-5">
-          <NavbarBrand href="/">TRV</NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-              {isAuthenticated ? authLinks : guestLinks}
-            </Nav>
-          </Collapse>
-        </Navbar>
-      </ContainerCustom>
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link href="#features">Features</Nav.Link>
+            <Nav.Link href="#pricing">Pricing</Nav.Link>
+            <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
+              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+          <Nav>
+            <Nav.Link href="#deets">More deets</Nav.Link>
+            <Nav.Link eventKey={2} href="#memes">
+              Dank memes
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     );
   }
 }
@@ -114,4 +127,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, null)(AppNavbar);
+export default connect(mapStateToProps, null)(NavbarCustom);

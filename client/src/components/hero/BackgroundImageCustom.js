@@ -8,6 +8,7 @@ import mainPic from '../../images/MainPicture.jpg';
 const Container = styled.div`
   ${tw`relative -mx-8 -mt-8 bg-center bg-cover h-screen min-h-144`}
   background-image: url(${mainPic});
+  z-index: 4;
 `;
 
 const OpacityOverlay = tw.div`z-10 absolute inset-0 bg-black opacity-50`;

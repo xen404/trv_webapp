@@ -9,6 +9,7 @@ import "tailwindcss/dist/base.css"
 import AnimationRevealPage from "helpers/AnimationRevealPage"
 //components
 import AppNavbar from './AppNavbar';
+import NavbarCustom from './NavbarCustom';
 import Landing from './Landing';
 import UserManagement  from './admin/UserManagement';
 import SingleNewsPage from "./news/SingleNewsPage";
@@ -24,7 +25,9 @@ class App extends Component {
         <BrowserRouter>
           <div>
           <AnimationRevealPage disabled>
+          
             <Route component={AppNavbar} />
+            
             <Route exact path="/" component={Landing} />
             <Route exact path="/admin" component={UserManagement} />
             <Route exact path="/news/:id" component={SingleNewsPage} />
