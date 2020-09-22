@@ -26,6 +26,8 @@ const ContainerCustom = styled.div`
   ${tw`fixed -mx-8 -mb-12 -mt-8`};
   z-index: 5;
   width: 100%;
+  margin-right: -50rem;
+  color: rgb(82,82,80);
 `;
 
 class AppNavbar extends Component {
@@ -33,21 +35,9 @@ class AppNavbar extends Component {
     isOpen: false
   };
 
-  componentDidMount() {
-    window.addEventListener("scroll", () => {
-      const isTop = window.screenY < 100;
-      const stickyContainer = document.getElementById('stickyContainer');
-      if (isTop) {
-        stickyContainer.classList.add('scrolled');
-      } else {
-       stickyContainer.classList.remove('scrolled');
-      }
-    });
-  }
+ 
 
-  componentWillUnmount() {
-    window.removeEventListener("scroll");
-  }
+ 
 
   static propTypes = {
     auth: PropTypes.object.isRequired,
@@ -96,7 +86,7 @@ class AppNavbar extends Component {
 
     return (
       <ContainerCustom id="stickyContainer" className="stickyContainer">
-        <Navbar fixed="false" color="dark" dark expand="sm" className="mb-5">
+        <Navbar style={{backgroundColor: 'rgba(215, 231, 245, 0.7)'}} fixed="false"  expand="sm" className="mb-5">
           <NavbarBrand href="/">TRV</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>

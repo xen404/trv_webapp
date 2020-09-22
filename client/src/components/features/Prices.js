@@ -16,7 +16,10 @@ import CustomizeIconImage from "images/customize-icon.svg";
 import FastIconImage from "images/fast-icon.svg";
 import ReliableIconImage from "images/reliable-icon.svg";
 
-const Container = tw.div`relative`;
+const Container = styled.div`
+  ${tw`relative`}
+  z-index: 1;
+`;
 
 const ThreeColumnContainer = styled.div`
   ${tw`flex flex-col items-center md:items-stretch md:flex-row flex-wrap md:justify-center max-w-screen-lg mx-auto py-20 md:py-24`}
