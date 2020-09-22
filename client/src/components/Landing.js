@@ -4,6 +4,7 @@ import BackgroundImageText from './hero/BackgroundImageText';
 import Prices from "./features/Prices";
 import NewsBoardCustom from "./news/NewsBoardCustom";
 import Activities from "./features/Activities";
+import Contacts from "./Contacts";
 
 
 class Landing extends Component {
@@ -14,6 +15,7 @@ class Landing extends Component {
         <Prices />
         <NewsBoardCustom /> 
         <Activities />
+        <Contacts />
       </>
     );
   }
