@@ -80,10 +80,9 @@ export default () => {
     <Container>
       <SingleColumn>
         <HeadingInfoContainer>
-          <HeadingTitle>Popular Events</HeadingTitle>
+          <HeadingTitle>Weitere Aktivitäten</HeadingTitle>
           <HeadingDescription>
-            Here are some of the most popular events in New York City curated by
-            professionals.
+            
           </HeadingDescription>
         </HeadingInfoContainer>
 

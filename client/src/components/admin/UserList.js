@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 import DeleteUserModal from './DeleteUserModal';
 import UpdateUserModal from './UpdateUserModal';
 import { Table} from "reactstrap";
+import "./userList.css";
+
 
 class UserList extends Component {
   componentDidMount() {
@@ -24,11 +26,11 @@ class UserList extends Component {
       <Table bordered hover>
         <thead>
           <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Actions</th>
+            <th className="column">#</th>
+            <th className="column">Name</th>
+            <th className="column">Email</th>
+            <th className="column">Role</th>
+            <th className="column">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -42,11 +44,11 @@ class UserList extends Component {
     return this.props.users.users.map((user) => {
       return (
           <tr>
-            <td>{user.id}</td>
-      <td>{user.name}</td>
-            <td>{user.email}</td>
-      <td>{user.role}</td>
-            <td>
+            <td className="column">{user.id}</td>
+      <td className="column">{user.name}</td>
+            <td className="column">{user.email}</td>
+      <td className="column"> {user.role}</td>
+            <td className="column">
               <div style={{display: "flex", flexDirection: "row" }}>
               <DeleteUserModal userId={user.id} userName={user.name} />
               <UpdateUserModal user={user} />
@@ -61,7 +63,7 @@ class UserList extends Component {
   render() {
     return (
       <div>
-        <div>{this.renderUserTable()}</div>
+        <div style={{marginTop: "5rem"}}>{this.renderUserTable()}</div>
       </div>
     );
   }

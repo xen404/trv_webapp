@@ -9,19 +9,46 @@ import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import styled from "styled-components";
 import tw from "twin.macro";
+import DeleteNewsModal from "./DeleteNewsModal";
+import NewsFormModal from "./NewsFormModal";
 import { css } from "styled-components/macro"; //eslint-disable-line
 import { SectionHeading as HeadingTitle } from "../misc/Headings.js";
 import { ReactComponent as ArrowLeftIcon } from "../../images/arrow-left-2-icon.svg";
 import { ReactComponent as ArrowRightIcon } from "../../images/arrow-right-2-icon.svg";
 import "slick-carousel/slick/slick.css";
 
+import './newsBoardCustom.css';
+
 /*
     SLIDER CONSTS
 */
 
+var settings = {
+  dots: false,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 3,
+  slidesToScroll: 3,
+  initialSlide: 0,
+  responsive: [
+    {
+      breakpoint: 769,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        infinite: true,
+        dots: false
+      }
+    },
+   
+    
+  ]
+};
+
+
 const Container = tw.div`relative`;
 const Content = tw.div`max-w-screen-xl mx-auto`;
-const HeadingInfoContainer = tw.div`flex flex-col items-center`;
+const HeadingInfoContainer = tw.div`flex flex-col items-center mt-24`;
 const TestimonialSliderContainer = tw.div``;
 const TestimonialSlider = styled(Slider)``;
 const Testimonial = tw.div`flex! flex-col items-center md:items-stretch md:flex-row md:justify-center outline-none px-8`;
@@ -57,12 +84,12 @@ const PreviousArrow = ({ currentSlide, slideCount, ...props }) => (
 
 //const Content = tw.div`max-w-screen-xl mx-auto py-20 lg:py-24`;
 const ThreeColumn = tw.div`flex flex-col items-center lg:items-stretch lg:flex-row flex-wrap`;
-const Column = tw.div`mt-24 lg:w-1/3`;
+const Column = tw.div``;
 
 //const HeadingInfoContainer = tw.div`flex flex-col items-center`;
 //const HeadingDescription = tw.p`mt-4 font-medium text-gray-600 text-center max-w-sm`;
 
-const Card = tw.div`lg:mx-4 xl:mx-8 max-w-sm flex flex-col h-full`;
+const Card = tw.div`mx-4 xl:mx-8 max-w-sm flex flex-col h-full`;
 
 const ImageWrapper = styled.div((props) => [
   //`background-image: url("${props.imageSrc}");`,
@@ -80,8 +107,17 @@ const Description = tw.p`mt-2 text-sm text-secondary-100`;
 
 class NewsBoardCustom extends Component {
   componentDidMount() {
-    console.log("component did mount");
+    console.log("NewsBoardCustom did mount");
     this.props.getNews();
+    const cardHeight = document.getElementsByClassName('slick-list');
+    console.log(cardHeight);
+    const height = cardHeight.clientHeight;
+    this.setState({ height });
+
+  }
+
+  state = {
+    height: null
   }
 
   onDeleteClick = (id) => {
@@ -96,11 +132,38 @@ class NewsBoardCustom extends Component {
 
   renderNews() {
     if (this.props.news) {
-        const newsCopy = this.props.news.news;
-      const slicedNews = newsCopy.map((el, i, arr) => {
+
+      console.log(this.state.height);
+
+      const newsInput = this.props.news.news;
+      console.log("NEWS ORIGINAL");
+      console.log(newsInput);
+
+      var temparray = [];
+      var i,
+        j,
+        chunk = 3;
+      for (i = 0, j = newsInput.length; i < j; i += chunk) {
+        if (newsInput.slice(i, i + chunk).length > 2) {
+          temparray.push(newsInput.slice(i, i + chunk));
+        }
+      }
+      console.log("TempArray");
+      console.log(temparray);
+
+
+/*
+      const slicedNews = newsInput.map((el, i, arr) => {
         const res = arr.slice(0, 3);
         return res;
       });
+      */
+
+      const slicedNews = temparray;
+
+
+      console.log('SLICED NEWS ARRAY');
+      console.log(slicedNews);
 
       return (
         <Content>
@@ -111,42 +174,44 @@ class NewsBoardCustom extends Component {
             <TestimonialSlider
               nextArrow={<NextArrow />}
               prevArrow={<PreviousArrow />}
+              {...settings}
             >
-              {slicedNews.map((news, index) => (
-                <Testimonial key={index}>
-                  <Container>
-                    <Content>
-                      <ThreeColumn>
-                        {news.map((news, index) => {
-                          //const textBody = convertFromRaw(JSON.parse(news.body));
-                          //const htmlBody = stateToHTML(textBody);
+              {newsInput.map((news, index) => {
+                
+                        
                           return (
-                            <Column key={index}>
+                            <Column className="column" key={index}>
                               <Card>
-                                <ImageWrapper>
+                                <ImageWrapper >
                                   <Image
                                     key={news.image_url}
                                     cloudName="trvStorage"
                                     publicId={news.image_url}
                                     crop="scale"
                                     width="600"
+                                    className="imageWrapper"
                                   />
                                 </ImageWrapper>
                                 <Details>
                                   <Title>{news.title}</Title>
                                   <Description>{news.preview_text}</Description>
+                                  
                                 </Details>
                               </Card>
                             </Column>
                           );
-                        })}
-                      </ThreeColumn>
-                    </Content>
-                  </Container>
-                </Testimonial>
-              ))}
+                   
+               
+                      })}
             </TestimonialSlider>
           </TestimonialSliderContainer>
+          {this.props.isAuthenticated ? (
+                                    <NewsFormModal
+                                    
+                                    />
+                                  ) : (
+                                    <p></p>
+                                  )}
         </Content>
       );
     } else {
@@ -155,20 +220,15 @@ class NewsBoardCustom extends Component {
   }
 
   render() {
-    console.log("NEWSBOARDCUSTOM render()!!!!");
-    console.log(this.props.news);
+    
 
     return <div>{this.renderNews()}</div>;
   }
 }
-
-
 
 const mapStateToProps = (state) => ({
   news: state.news,
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { getNews })(
-  NewsBoardCustom
-);
+export default connect(mapStateToProps, { getNews })(NewsBoardCustom);

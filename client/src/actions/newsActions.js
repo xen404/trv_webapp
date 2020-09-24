@@ -24,23 +24,14 @@ export const getNews = () => async (dispatch, getState) => {
   try {
     dispatch(setNewsLoading());
 
-    const stateBefore = getState();
-    console.log(`-----------STATE BEFORE:`);
-    console.log(stateBefore.news);
-
     const res = await axios.get("/api/news");
-    console.log("NEWS ACTION getNews");
+    console.log("NEWS ACTION server Responce");
     console.log(res);
     console.log(res.data);
     dispatch({
       type: GET_NEWS_SUCCESS,
       payload: res.data,
     });
-
-    const stateAfter = getState();
-    console.log(`-----------STATE AFTER:`);
-    console.log(stateAfter.news);
-
   } catch (err) {
     dispatch({
       type: GET_NEWS_FAIL,

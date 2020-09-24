@@ -71,7 +71,7 @@ class AppNavbar extends Component {
         </NavItem>
         <NavLink href="/admin">Admin</NavLink>
         <UncontrolledDropdown nav inNavbar>
-          <DropdownToggle nav caret>
+          <DropdownToggle  nav caret>
             My Profile
           </DropdownToggle>
           <DropdownMenu right>
@@ -88,7 +88,9 @@ class AppNavbar extends Component {
       <ContainerCustom id="stickyContainer" className="stickyContainer">
         <Navbar style={{backgroundColor: 'rgba(215, 231, 245, 0.7)'}} fixed="false"  expand="sm" className="mb-5">
           <NavbarBrand href="/">TRV</NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
+          <NavbarToggler style={{color: "rgb(82,82,80)"}} onClick={this.toggle} >
+          <i className="material-icons">menu</i>
+            </NavbarToggler>
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               {isAuthenticated ? authLinks : guestLinks}

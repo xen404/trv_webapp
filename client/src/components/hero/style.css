@@ -1,3 +1,4 @@
 .fill {
-    object-fit: cover;
+  width: 100% !important;
+  object-fit: cover !important;
   }

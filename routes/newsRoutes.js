@@ -50,7 +50,7 @@ module.exports = (app) => {
     try {
       const allNews = await pool.query("SELECT * FROM news;");
       console.log(allNews.rows);
-      res.send(allNews.rows);
+      res.send(allNews.rows.reverse());
     } catch (err) {
       console.error(err.message);
       res.status(500).json({ err: err.message });

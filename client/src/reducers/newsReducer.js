@@ -21,8 +21,7 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case GET_NEWS_SUCCESS:
     case GET_SINGLE_NEWS_SUCCESS:
-      console.log("REDUCER");
-      console.log(action.payload);
+      
       return {
         ...state,
         news: action.payload,
