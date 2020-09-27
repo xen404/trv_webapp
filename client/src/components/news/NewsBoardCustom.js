@@ -17,7 +17,7 @@ import { ReactComponent as ArrowLeftIcon } from "../../images/arrow-left-2-icon.
 import { ReactComponent as ArrowRightIcon } from "../../images/arrow-right-2-icon.svg";
 import "slick-carousel/slick/slick.css";
 
-import './newsBoardCustom.css';
+import "./newsBoardCustom.css";
 
 /*
     SLIDER CONSTS
@@ -37,18 +37,15 @@ var settings = {
         slidesToShow: 1,
         slidesToScroll: 1,
         infinite: true,
-        dots: false
-      }
+        dots: false,
+      },
     },
-   
-    
-  ]
+  ],
 };
-
 
 const Container = tw.div`relative`;
 const Content = tw.div`max-w-screen-xl mx-auto`;
-const HeadingInfoContainer = tw.div`flex flex-col items-center mt-24`;
+const HeadingInfoContainer = tw.div`flex flex-col items-center mt-24 mb-16`;
 const TestimonialSliderContainer = tw.div``;
 const TestimonialSlider = styled(Slider)``;
 const Testimonial = tw.div`flex! flex-col items-center md:items-stretch md:flex-row md:justify-center outline-none px-8`;
@@ -109,16 +106,15 @@ class NewsBoardCustom extends Component {
   componentDidMount() {
     console.log("NewsBoardCustom did mount");
     this.props.getNews();
-    const cardHeight = document.getElementsByClassName('slick-list');
+    const cardHeight = document.getElementsByClassName("slick-list");
     console.log(cardHeight);
     const height = cardHeight.clientHeight;
     this.setState({ height });
-
   }
 
   state = {
-    height: null
-  }
+    height: null,
+  };
 
   onDeleteClick = (id) => {
     this.props.deleteNews(id);
@@ -132,7 +128,6 @@ class NewsBoardCustom extends Component {
 
   renderNews() {
     if (this.props.news) {
-
       console.log(this.state.height);
 
       const newsInput = this.props.news.news;
@@ -151,8 +146,7 @@ class NewsBoardCustom extends Component {
       console.log("TempArray");
       console.log(temparray);
 
-
-/*
+      /*
       const slicedNews = newsInput.map((el, i, arr) => {
         const res = arr.slice(0, 3);
         return res;
@@ -161,8 +155,7 @@ class NewsBoardCustom extends Component {
 
       const slicedNews = temparray;
 
-
-      console.log('SLICED NEWS ARRAY');
+      console.log("SLICED NEWS ARRAY");
       console.log(slicedNews);
 
       return (
@@ -177,41 +170,30 @@ class NewsBoardCustom extends Component {
               {...settings}
             >
               {newsInput.map((news, index) => {
-                
-                        
-                          return (
-                            <Column className="column" key={index}>
-                              <Card>
-                                <ImageWrapper >
-                                  <Image
-                                    key={news.image_url}
-                                    cloudName="trvStorage"
-                                    publicId={news.image_url}
-                                    crop="scale"
-                                    width="600"
-                                    className="imageWrapper"
-                                  />
-                                </ImageWrapper>
-                                <Details>
-                                  <Title>{news.title}</Title>
-                                  <Description>{news.preview_text}</Description>
-                                  
-                                </Details>
-                              </Card>
-                            </Column>
-                          );
-                   
-               
-                      })}
+                return (
+                  <Column className="column" key={index}>
+                    <Card>
+                      <ImageWrapper>
+                        <Image
+                          key={news.image_url}
+                          cloudName="trvStorage"
+                          publicId={news.image_url}
+                          crop="scale"
+                          width="600"
+                          className="imageWrapper"
+                        />
+                      </ImageWrapper>
+                      <Details>
+                        <Title>{news.title}</Title>
+                        <Description>{news.preview_text}</Description>
+                      </Details>
+                    </Card>
+                  </Column>
+                );
+              })}
             </TestimonialSlider>
           </TestimonialSliderContainer>
-          {this.props.isAuthenticated ? (
-                                    <NewsFormModal
-                                    
-                                    />
-                                  ) : (
-                                    <p></p>
-                                  )}
+          {this.props.isAuthenticated ? <NewsFormModal /> : <p></p>}
         </Content>
       );
     } else {
@@ -220,8 +202,6 @@ class NewsBoardCustom extends Component {
   }
 
   render() {
-    
-
     return <div>{this.renderNews()}</div>;
   }
 }

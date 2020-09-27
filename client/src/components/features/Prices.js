@@ -9,12 +9,11 @@ import {
 } from "components/misc/Headings.js";
 import { SectionDescription } from "components/misc/Typography.js";
 
-import defaultCardImage from "images/shield-icon.svg";
-import StarIconImage from "../../images/simple-icon.svg";
-import ShieldIconImage from "images/shield-icon.svg";
-import CustomizeIconImage from "images/customize-icon.svg";
-import FastIconImage from "images/fast-icon.svg";
-import ReliableIconImage from "images/reliable-icon.svg";
+import signUp from "images/icons/add-group.svg";
+import schoolBag from "images/icons/bag.svg";
+import uniHat from "images/icons/graduation-hat.svg";
+import paddle from "images/icons/row.svg";
+import support from "images/icons/support.svg";
 
 const Container = styled.div`
   ${tw`relative`}
@@ -74,27 +73,27 @@ export default ({
 
   const defaultCards = [
     {
-      imageSrc: ShieldIconImage,
+      imageSrc: paddle,
       title: "Ausübendes Mitglied",
       description: "– EUR 165,–",
     },
     {
-      imageSrc: StarIconImage,
+      imageSrc: support,
       title: "Studenten und Ehegatten",
       description: "– EUR 110,–",
     },
     {
-      imageSrc: CustomizeIconImage,
+      imageSrc: uniHat,
       title: "Schüler bis 18 Jahre",
       description: " – EUR 55,–",
     },
     {
-      imageSrc: ReliableIconImage,
+      imageSrc: schoolBag,
       title: "Unterstützendes Mitglied",
       description: "– EUR 55,–",
     },
     {
-      imageSrc: FastIconImage,
+      imageSrc: signUp,
       title: "Einschreibgebühr",
       description: "Erwachsene – EUR 50,– Jugendliche – EUR 10,–",
     },
@@ -112,8 +111,8 @@ export default ({
         {cards.map((card, i) => (
           <Column key={i}>
             <Card>
-              <span className="imageContainer">
-                <img src={card.imageSrc || defaultCardImage} alt="F" />
+              <span style={{color: "black"}} className="imageContainer">
+                <img src={card.imageSrc} alt="F" />
               </span>
               <span className="textContainer">
                 <span className="title">{card.title || "Fully Secure"}</span>
