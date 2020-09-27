@@ -262,7 +262,7 @@ module.exports = {
       default: '1',
     },
     fontFamily: {
-      display: ['Roboto',],
+      display: ['Roboto', 'system-ui'],
       sans: [
         'system-ui',
         '-apple-system',
