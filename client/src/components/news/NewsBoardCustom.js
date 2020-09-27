@@ -43,9 +43,14 @@ var settings = {
   ],
 };
 
-const Container = tw.div`relative`;
+const Container = styled.div`
+  ${tw`relative`}
+  padding-top: 135px;
+  padding-bottom: 135px;
+  z-index: 1;
+`;
 const Content = tw.div`max-w-screen-xl mx-auto`;
-const HeadingInfoContainer = tw.div`flex flex-col items-center mt-24 mb-16`;
+const HeadingInfoContainer = tw.div`flex flex-col items-center`;
 const TestimonialSliderContainer = tw.div``;
 const TestimonialSlider = styled(Slider)``;
 const Testimonial = tw.div`flex! flex-col items-center md:items-stretch md:flex-row md:justify-center outline-none px-8`;
@@ -159,9 +164,9 @@ class NewsBoardCustom extends Component {
       console.log(slicedNews);
 
       return (
-        <Content>
+        <Content style={{marginBottom: "135px", marginTop: "135px"}}>
           <HeadingInfoContainer>
-            <HeadingTitle>NEWS</HeadingTitle>
+          <HeadingTitle style={{marginBottom: "90px", fontSize: "42px", lineHeight: "1.23", fontWeight: "700", color: "black"}}>News</HeadingTitle>
           </HeadingInfoContainer>
           <TestimonialSliderContainer>
             <TestimonialSlider

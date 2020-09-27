@@ -23,9 +23,8 @@ export default () => {
     <Container>
       <SingleColumn>
         <HeadingInfoContainer>
-          <HeadingTitle style={{ marginBottom: "5rem" }}>
-            Sponsoren und Partner
-          </HeadingTitle>
+        <HeadingTitle style={{marginBottom: "90px", fontSize: "42px", lineHeight: "1.23", fontWeight: "700", color: "black"}}>Sponsoren und Partner</HeadingTitle>
+
 
           <div
             style={{

@@ -20,8 +20,8 @@ async downloadFormular() {
 
   render() {
     return (
-        <Container>
-        <HeadingTitle>Dokumente</HeadingTitle>
+        <Container style={{ marginTop: "135px", marginBottom: "90px" }}>
+                 <HeadingTitle style={{marginBottom: "90px", fontSize: "42px", lineHeight: "1.23", fontWeight: "700", color: "black"}}>Dokumente</HeadingTitle>
       <div className="downloadButtonsContainer" style={{display: "flex", flexDirection: "row", justifyContent: "center", height: "60px" }}>
         <button className="downloadButton" style={{marginRight: "20px", paddingLeft: "45px", paddingRight: "45px", backgroundColor: "black", color: "white"}} onClick={this.downloadFormular}>
        <div className="downloadButtonContent" style={{display: "flex", flexDirection: "row", alignItems: "center" }}>
