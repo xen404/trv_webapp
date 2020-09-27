@@ -23,10 +23,11 @@ const BackgroundImageText = () => {
       ${tw`inline-block mt-2`}
     }
     font-size: 72px;
-  line-height: 1.17;
-  font-weight: 700;
-    letter-spacing: 0.5px
-  color: white;
+    line-height: 1.17;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: white;
+    
   `;
 
   return (
@@ -40,7 +41,7 @@ const BackgroundImageText = () => {
       >
         <HeroContainer>
           <Content>
-            <Heading>Tullner Ruderverein</Heading>
+            <Heading className="imageText">Tullner Ruderverein</Heading>
           </Content>
         </HeroContainer>
       </Parallax>

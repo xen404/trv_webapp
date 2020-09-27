@@ -1,4 +1,10 @@
 .fill {
   width: 100% !important;
   object-fit: cover !important;
+}
+
+@media only screen and (max-width: 375px) {
+  .imageText {
+    font-size: 48px !important;
   }
+}

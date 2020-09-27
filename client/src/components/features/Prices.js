@@ -14,6 +14,7 @@ import schoolBag from "images/icons/bag.svg";
 import uniHat from "images/icons/graduation-hat.svg";
 import paddle from "images/icons/row.svg";
 import support from "images/icons/support.svg";
+import "./Prices.css";
 
 const Container = styled.div`
   ${tw`relative`}
@@ -23,7 +24,7 @@ const Container = styled.div`
 `;
 
 const ThreeColumnContainer = styled.div`
-  ${tw`flex flex-col items-center md:items-stretch md:flex-row flex-wrap md:justify-center max-w-screen-lg mx-auto`}
+  ${tw`flex flex-col items-center md:items-stretch md:flex-row md:justify-center flex-wrap  max-w-screen-lg mx-auto`}
 `;
 const Subheading = tw(SubheadingBase)`mb-4`;
 const Heading = tw(SectionHeading)`w-full`;
@@ -105,7 +106,7 @@ export default ({
 
   return (
     <Container>
-      <ThreeColumnContainer>
+      <ThreeColumnContainer className="pricesColumn">
         {subheading && <Subheading>{subheading}</Subheading>}
         <HeadingTitle style={{marginBottom: "90px", fontSize: "42px", lineHeight: "1.23", fontWeight: "700", color: "black"}}>Vereinsmitglied werden</HeadingTitle>
         {description && <Description>{description}</Description>}
