@@ -30,8 +30,6 @@ export default function (state = initialState, action) {
       };
 
     case DELETE_USER_SUCCESS:
-      console.log("REDUCER USER DELETE");
-      console.log(state.users);
       return {
         ...state,
         users: action.payload.users
@@ -39,7 +37,6 @@ export default function (state = initialState, action) {
           //customFilter(user, action.payload.userId)
         //),
       };
-      console.log(state.users);
 
     case REGISTER_NEW_USER_SUCCESS:
     case UPDATE_USER_SUCCESS:

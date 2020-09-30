@@ -63,8 +63,9 @@ module.exports = (app) => {
       const deleteNews = await pool.query("DELETE FROM news WHERE id = $1", [
         id,
       ]);
+      const allNews = await pool.query("SELECT * FROM news;");
       res.json({
-        newsId: id,
+        news: allNews.rows.reverse(),
         successMsg: "News was deleted!",
       });
     } catch (err) {

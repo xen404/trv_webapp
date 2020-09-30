@@ -63,6 +63,14 @@ class DeleteNewsModal extends Component {
           Delete
         </Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
+        {this.state.successMsg ? (
+            <>  <ModalHeader toggle={this.toggle}>
+            <p style={{ textAlign: "center" }}></p>
+          </ModalHeader>
+          <Alert color="success">{this.state.successMsg}</Alert>
+        </>) :
+        (
+          <>
           <ModalHeader toggle={this.toggle}>
             <p style={{ textAlign: "center" }}>
               Delete news {this.props.newsTitle} ?
@@ -85,6 +93,8 @@ class DeleteNewsModal extends Component {
           <Button color="secondary" onClick={this.toggle}>
             Cancel
           </Button>
+          </>
+          )}
         </Modal>
       </div>
     );

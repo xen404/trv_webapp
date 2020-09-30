@@ -31,9 +31,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         loading: false,
-        news: state.news.filter((news) =>
-          customFilter(news, action.payload.newsId)
-        ),
+        news: action.payload.news
       };
     case ADD_NEWS_SUCCESS:
       return {
