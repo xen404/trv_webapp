@@ -8,6 +8,7 @@ import ActivitiesCustom from './features/ActivitiesCustom';
 import Contacts from "./Contacts";
 import Sponsors from "./Sponsors";
 import DownloadButtons from "./DownloadButtons";
+import TimeTable from "./TimeTable";
 
 
 class Landing extends Component {
@@ -18,6 +19,7 @@ class Landing extends Component {
         <Prices />
         <NewsBoardCustom /> 
         <ActivitiesCustom />
+        <TimeTable />
         <DownloadButtons />
         <Contacts />
         <Sponsors />

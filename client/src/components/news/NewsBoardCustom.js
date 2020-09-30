@@ -113,10 +113,7 @@ class NewsBoardCustom extends Component {
   componentDidMount() {
     console.log("NewsBoardCustom did mount");
     this.props.getNews();
-    const cardHeight = document.getElementsByClassName("slick-list");
-    console.log(cardHeight);
-    const height = cardHeight.clientHeight;
-    this.setState({ height });
+
   }
 
   state = {
@@ -135,12 +132,9 @@ class NewsBoardCustom extends Component {
 
   renderNews() {
     if (this.props.news) {
-      console.log(this.state.height);
-
+     
       const newsInput = this.props.news.news;
-      console.log("NEWS ORIGINAL");
-      console.log(newsInput);
-
+     
       var temparray = [];
       var i,
         j,
@@ -150,8 +144,7 @@ class NewsBoardCustom extends Component {
           temparray.push(newsInput.slice(i, i + chunk));
         }
       }
-      console.log("TempArray");
-      console.log(temparray);
+
 
       /*
       const slicedNews = newsInput.map((el, i, arr) => {
@@ -162,8 +155,6 @@ class NewsBoardCustom extends Component {
 
       const slicedNews = temparray;
 
-      console.log("SLICED NEWS ARRAY");
-      console.log(slicedNews);
 
       return (
         <Content style={{marginBottom: "135px", marginTop: "135px"}}>

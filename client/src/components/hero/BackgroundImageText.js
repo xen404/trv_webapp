@@ -6,6 +6,7 @@ import { Parallax, Background } from "react-parallax";
 import "./style.css";
 
 const BackgroundImageText = () => {
+    //require("../../images/trv/testBg.jpg");
   const mainPic = require("../../images/MainPicture.jpg");
   const Container = styled.div`
     ${tw`relative -mx-8 -mt-8 bg-center bg-cover h-screen min-h-144`}
@@ -27,13 +28,13 @@ const BackgroundImageText = () => {
     font-weight: 700;
     letter-spacing: 0.5px;
     color: white;
-    
   `;
 
   return (
     <Container>
       <OpacityOverlay />
       <Parallax
+        className="parallaxContainer"
         bgClassName="fill"
         style={{ height: "100%" }}
         bgImage={mainPic}

@@ -30,12 +30,17 @@ export default function (state = initialState, action) {
       };
 
     case DELETE_USER_SUCCESS:
+      console.log("REDUCER USER DELETE");
+      console.log(state.users);
       return {
         ...state,
-        users: state.users.filter((user) =>
-          customFilter(user, action.payload.userId)
-        ),
+        users: action.payload.users
+        //users: state.users.filter((user) =>
+          //customFilter(user, action.payload.userId)
+        //),
       };
+      console.log(state.users);
+
     case REGISTER_NEW_USER_SUCCESS:
     case UPDATE_USER_SUCCESS:
       return {

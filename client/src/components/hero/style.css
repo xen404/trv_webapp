@@ -1,6 +1,22 @@
 .fill {
+ position: fixed;
+ display: block !important;
+
+ background-size: cover !important;
+ background-position: center center !important;
+object-fit: cover !important; 
+}
+.parallaxContainer {
   width: 100% !important;
-  object-fit: cover !important;
+  height: 100% !important;
+  background-size: cover !important;
+  background-color: black !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  vertical-align: middle !important;
+  background-attachment: fixed !important;
+  overflow: hidden !important;
+
 }
 
 @media only screen and (max-width: 375px) {

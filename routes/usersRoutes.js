@@ -115,8 +115,10 @@ module.exports = (app) => {
         const deleteUser = await pool.query("DELETE FROM users WHERE id = $1", [
           id,
         ]);
+         const allUsers = await pool.query("SELECT * FROM users;");
         res.json({
-          userId: id,
+          //userId: id,
+          users: allUsers.rows.reverse(),
           successMsg: "User was deleted!",
         });
       } catch (err) {

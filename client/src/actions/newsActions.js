@@ -12,7 +12,7 @@ import {
   NEWS_LOADED,
   GET_SINGLE_NEWS_SUCCESS,
   GET_SINGLE_NEWS_FAIL,
-  GET_NEWS_FAIL
+  GET_NEWS_FAIL,
 } from "./types";
 
 //   ******************
@@ -23,11 +23,7 @@ import {
 export const getNews = () => async (dispatch, getState) => {
   try {
     dispatch(setNewsLoading());
-
     const res = await axios.get("/api/news");
-    console.log("NEWS ACTION server Responce");
-    console.log(res);
-    console.log(res.data);
     dispatch({
       type: GET_NEWS_SUCCESS,
       payload: res.data,
