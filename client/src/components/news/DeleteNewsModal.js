@@ -59,7 +59,7 @@ class DeleteNewsModal extends Component {
   render() {
     return (
       <div>
-        <Button color="danger" size="sm" onClick={this.toggle}>
+        <Button color="danger" onClick={this.toggle}>
           Delete
         </Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>

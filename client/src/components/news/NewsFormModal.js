@@ -132,7 +132,7 @@ class NewsFormModal extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{ marginTop: "2rem"}}>
         <Button
           color="dark"
           style={{ marginButtom: "2rem" }}

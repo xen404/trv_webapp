@@ -81,7 +81,7 @@ export default () => {
           <div className="rightSection">
             <div className="textWrapper">
               <div>
-                <Title>Rudertage</Title>
+                <Title>Sternfahrten</Title>
                 <br />
                 <p>
                   Wir rudern gemeinsam zu dem Klub, der die sog. Sternfahrt
@@ -106,7 +106,7 @@ export default () => {
           <div className="leftSection">
           <div className="textWrapper">
             <div>
-              <Title>Rudertage</Title>
+              <Title>Wanderfahrten</Title>
               <br />
               <p>
                 Rudern ist Natur- und Erlebnissport. Das Befahren fremder Flüsse
@@ -131,7 +131,7 @@ export default () => {
           <div className="rightSection">
             <div className="textWrapper">
               <div>
-                <Title>Rudertage</Title>
+                <Title>Jugendsport</Title>
                 <br />
                 <p>
                   Spielerisch erlernen unsere Kids den Umgang mit dem Boot.
@@ -158,7 +158,7 @@ export default () => {
           <div className="leftSection">
             <div className="textWrapper">
               <div>
-                <Title>Rudertage</Title>
+                <Title>Rudern als Wettkampfsport </Title>
                 <br />
                 <p>
                   Rudern ist ein Sport, bei dem Kraft, Ausdauer, Schnelligkeit

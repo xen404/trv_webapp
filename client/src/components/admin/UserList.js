@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import DeleteUserModal from './DeleteUserModal';
 import UpdateUserModal from './UpdateUserModal';
 import { Table} from "reactstrap";
-import "./userList.css";
+import './userList.css';
 
 
 class UserList extends Component {
@@ -26,11 +26,11 @@ class UserList extends Component {
       <Table bordered hover>
         <thead>
           <tr>
-            <th className="column">#</th>
-            <th className="column">Name</th>
-            <th className="column">Email</th>
-            <th className="column">Role</th>
-            <th className="column">Actions</th>
+            <th className="userTableColumn">#</th>
+            <th className="userTableColumn">Name</th>
+            <th className="userTableColumn">Email</th>
+            <th className="userTableColumn">Role</th>
+            <th className="userTableColumn">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -44,11 +44,11 @@ class UserList extends Component {
     return this.props.users.users.map((user) => {
       return (
           <tr>
-            <td className="column">{user.id}</td>
-      <td className="column">{user.name}</td>
-            <td className="column">{user.email}</td>
-      <td className="column"> {user.role}</td>
-            <td className="column">
+            <td className="userTableColumn">{user.id}</td>
+      <td className="userTableColumn">{user.name}</td>
+            <td className="userTableColumn">{user.email}</td>
+      <td className="userTableColumn"> {user.role}</td>
+            <td className="userTableColumn">
               <div style={{display: "flex", flexDirection: "row" }}>
               <DeleteUserModal userId={user.id} userName={user.name} />
               <UpdateUserModal user={user} />

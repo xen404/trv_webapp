@@ -27,10 +27,15 @@
     object-fit: cover;
 }
 
+
+
 @media only screen and (max-width: 768px) {
     .imageWrapper {
         width: 100%;
         height: 50vw;
         object-fit: cover;
+    }
+    .newsCardDetails {
+        align-items: center !important;
     }
 }

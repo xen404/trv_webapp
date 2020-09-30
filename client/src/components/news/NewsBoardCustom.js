@@ -18,6 +18,7 @@ import { ReactComponent as ArrowRightIcon } from "../../images/arrow-right-2-ico
 import "slick-carousel/slick/slick.css";
 
 import "./newsBoardCustom.css";
+import NewsDetailsModal from "./NewsDetailsModal";
 
 /*
     SLIDER CONSTS
@@ -36,6 +37,7 @@ var settings = {
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1,
+        initialSlide: 0,
         infinite: true,
         dots: false,
       },
@@ -98,7 +100,7 @@ const ImageWrapper = styled.div((props) => [
   //tw`bg-cover bg-center h-80 lg:h-64 rounded rounded-b-none`,
 ]);
 
-const Details = tw.div`p-6 rounded border-2 border-t-0 rounded-t-none flex-1 flex flex-col items-center text-center lg:block lg:text-left`;
+const Details = tw.div`p-6 pb-0 rounded border-2 border-t-0 rounded-t-none flex-1 flex flex-col items-center text-center lg:block lg:text-left`;
 
 const Title = tw.h5`mt-4 leading-snug font-bold text-lg`;
 const Description = tw.p`mt-2 text-sm text-secondary-100`;
@@ -188,10 +190,17 @@ class NewsBoardCustom extends Component {
                           className="imageWrapper"
                         />
                       </ImageWrapper>
-                      <Details>
+                      <Details className="newsCardDetails" style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                        <div>
                         <Title>{news.title}</Title>
                         <Description>{news.preview_text}</Description>
+                        </div>
+                        <div className="newsCardButtons"  style={{ marginBottom: "8px", marginTop: "16px", display: "flex", flexDirection: "row", alignContent: "space-between" }}>
+                        <NewsDetailsModal news={news} />
+                        {this.props.isAuthenticated ? <DeleteNewsModal newsId={news.id} /> : ""}
+                       </div>
                       </Details>
+                      
                     </Card>
                   </Column>
                 );
