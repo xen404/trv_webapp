@@ -19,6 +19,7 @@ import "slick-carousel/slick/slick.css";
 
 import "./newsBoardCustom.css";
 import NewsDetailsModal from "./NewsDetailsModal";
+import { Button, NavLink } from "reactstrap";
 
 /*
     SLIDER CONSTS
@@ -198,7 +199,12 @@ class NewsBoardCustom extends Component {
               })}
             </TestimonialSlider>
           </TestimonialSliderContainer>
-          {this.props.isAuthenticated ? <NewsFormModal /> : <p></p>}
+          {this.props.isAuthenticated ? <NewsFormModal /> :  ""}
+          <button className="downloadButton" style={{marginRight: "20px", paddingLeft: "45px", paddingRight: "45px", backgroundColor: "black", color: "white", marginTop: "25px" }} onClick={this.downloadFormular}>
+       <div className="downloadButtonContent" style={{display: "flex", flexDirection: "row", alignItems: "center", paddingTop: "5px", paddingBottom: "5px", }}>
+       <NavLink href="/news/archive"><b>Archive</b></NavLink>
+            </div>
+        </button>
         </Content>
       );
     } else {

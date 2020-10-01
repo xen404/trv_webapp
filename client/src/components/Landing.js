@@ -19,7 +19,6 @@ class Landing extends Component {
         <Prices />
         <NewsBoardCustom /> 
         <ActivitiesCustom />
-        <TimeTable />
         <DownloadButtons />
         <Contacts />
         <Sponsors />

@@ -19,3 +19,9 @@ CREATE TABLE users(
     role role NOT NULL,
     created_at TIMESTAMP
 );
+
+CREATE TABLE appointments(
+    id SERIAL PRIMARY KEY,
+    date DATE NOT NULL,
+    name VARCHAR(100) NOT NULL,
+);

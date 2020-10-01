@@ -26,6 +26,7 @@ module.exports = (app) => {
         [title, preview_text, body, created_at, image_url]
       );
 
+
       res.json({
         successMsg: "News created!",
         news: newNews.rows[0],

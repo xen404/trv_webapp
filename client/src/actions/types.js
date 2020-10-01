@@ -45,3 +45,12 @@ export const REGISTER_FAIL = 'REGISTER_FAIL';
 
 export const GET_ERRORS = 'GET_ERRORS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+
+export const CARDS_LOADING = 'CARDS_LOADING';
+export const GET_CARDS_SUCCESS = 'GET_CARDS_SUCCESS';
+export const GET_CARDS_FAIL = 'GET_CARDS_FAIL';
+export const ADD_CARD_SUCCESS = 'ADD_CARD_SUCCESS';
+export const ADD_CARD_FAIL = 'ADD_CARD_FAIL';
+
+
+

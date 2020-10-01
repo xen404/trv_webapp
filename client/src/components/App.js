@@ -13,6 +13,7 @@ import NavbarCustom from './NavbarCustom';
 import Landing from './Landing';
 import UserManagement  from './admin/UserManagement';
 import SingleNewsPage from "./news/SingleNewsPage";
+import NewsArchive from "./news/NewsArchive";
 
 
 class App extends Component {
@@ -25,12 +26,10 @@ class App extends Component {
         <BrowserRouter>
           <div>
           <AnimationRevealPage disabled>
-          
             <Route component={AppNavbar} />
-            
             <Route exact path="/" component={Landing} />
             <Route exact path="/admin" component={UserManagement} />
-            <Route exact path="/news/:id" component={SingleNewsPage} />
+            <Route exact path="/news/archive" component={NewsArchive} />
             </AnimationRevealPage>
           </div>
         </BrowserRouter>

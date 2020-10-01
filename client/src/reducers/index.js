@@ -4,13 +4,15 @@ import errorReducer from './errorReducer';
 import authReducer from './authReducer';
 import userReducers from './userReducers';
 import confirmReducer from './confirmReducer';
+import appointmentReducers from './appointmentReducers';
  
 export default combineReducers({
    news: newsReducer,
    error: errorReducer,
    auth: authReducer,
    users: userReducers,
-   confirm: confirmReducer
+   confirm: confirmReducer,
+   appointments: appointmentReducers
 });
 
 export const customFilter = (item, id) => {

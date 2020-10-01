@@ -10,6 +10,7 @@ require('./routes/newsRoutes')(app);
 require('./routes/usersRoutes')(app);
 require('./routes/authRoutes')(app);
 require('./routes/downloadRoutes')(app);
+require('./routes/appointmentRoutes')(app);
 
 if (process.env.NODE_ENV === 'production') {
     // Express will server aup production  assests 
