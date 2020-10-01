@@ -55,8 +55,9 @@ class NewsDetailsModal extends Component {
   };
 
   render() {
-    const textBody = convertFromRaw(JSON.parse(this.props.news.body));
-    const htmlBody = stateToHTML(textBody);
+    //const textBody = convertFromRaw(JSON.parse(this.props.news.body));
+   // const htmlBody = stateToHTML(textBody);
+   //<div dangerouslySetInnerHTML={{ __html: htmlBody }} />
     return (
       <div style={{ marginRight: "8px"}}>
         <Button
@@ -84,7 +85,7 @@ class NewsDetailsModal extends Component {
                       <Details style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                         <div>
                         <Description>
-                        <div dangerouslySetInnerHTML={{ __html: htmlBody }} />
+                        {this.props.news.preview_text}
                           </Description>
                         </div>
                         </Details>
