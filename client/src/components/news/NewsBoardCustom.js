@@ -40,7 +40,7 @@ var settings = {
         slidesToShow: 1,
         slidesToScroll: 1,
         initialSlide: 0,
-        infinite: true,
+        infinite: false,
         dots: false,
       },
     },

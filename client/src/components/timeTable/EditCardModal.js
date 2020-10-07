@@ -110,6 +110,7 @@ class EditCardModal extends Component {
               <ModalHeader toggle={this.toggle}>
                 <p style={{ textAlign: "center" }}></p>
               </ModalHeader>
+              
               <Alert color="success">{this.state.successMsg}</Alert>
             </>
           ) : (
@@ -118,6 +119,7 @@ class EditCardModal extends Component {
                 {this.props.cardDay} {this.props.cardDate}-
                 {this.props.cardMonth}-{this.props.cardYear}
               </ModalHeader>
+
               <ModalBody>
                 {this.state.msg ? (
                   <Alert color="danger">{this.state.msg}</Alert>

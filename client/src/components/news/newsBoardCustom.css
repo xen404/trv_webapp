@@ -2,7 +2,6 @@
 
 .column {
     height: 100%;
-    
     display: flex !important;
     align-self: stretch !important;
 }

@@ -22,6 +22,6 @@ CREATE TABLE users(
 
 CREATE TABLE appointments(
     id SERIAL PRIMARY KEY,
-    date DATE NOT NULL,
-    name VARCHAR(100) NOT NULL,
+    date DATE UNIQUE NOT NULL,
+    name VARCHAR(100) NOT NULL
 );

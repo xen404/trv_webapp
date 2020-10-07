@@ -114,6 +114,7 @@ class AddNewCardModal extends Component {
           ) : (
             <>
     <ModalHeader toggle={this.toggle}>{this.props.cardDay} {this.props.cardDate}-{this.props.cardMonth}-{this.props.cardYear}</ModalHeader>
+          
           <ModalBody>
             {this.state.msg ? (
               <Alert color="danger">{this.state.msg}</Alert>

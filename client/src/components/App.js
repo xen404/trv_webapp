@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css'
 import "./App.css";
 import { connect } from 'react-redux';
@@ -15,6 +15,7 @@ import UserManagement  from './admin/UserManagement';
 import SingleNewsPage from "./news/SingleNewsPage";
 import NewsArchive from "./news/NewsArchive";
 import TimeTable from './timeTable/TimeTable';
+import PrivateRoute from './PrivateRoute';
 
 
 class App extends Component {
@@ -25,15 +26,15 @@ class App extends Component {
   render() {
     return (
         <BrowserRouter>
-          <div>
+          <Switch>
           <AnimationRevealPage disabled>
             <Route component={AppNavbar} />
             <Route exact path="/" component={Landing} />
-            <Route exact path="/admin" component={UserManagement} />
+            <PrivateRoute exact path="/admin" component={UserManagement} />
             <Route exact path="/news/archive" component={NewsArchive} />
-            <Route exact path="/time_table" component={TimeTable} />
+            <PrivateRoute exact path="/time_table" component={TimeTable} />
             </AnimationRevealPage>
-          </div>
+          </Switch>
         </BrowserRouter>
     );
   }

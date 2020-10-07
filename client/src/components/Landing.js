@@ -9,6 +9,7 @@ import Contacts from "./Contacts";
 import Sponsors from "./Sponsors";
 import DownloadButtons from "./DownloadButtons";
 import TimeTable from "./timeTable/TimeTable";
+import CardSlider from './timeTable/CardSlider';
 
 
 class Landing extends Component {
@@ -19,6 +20,7 @@ class Landing extends Component {
         <Prices />
         <NewsBoardCustom /> 
         <ActivitiesCustom />
+        <CardSlider />
         <DownloadButtons />
         <Contacts />
         <Sponsors />

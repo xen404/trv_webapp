@@ -173,7 +173,7 @@ module.exports = (app) => {
     }
   });
 
-  app.post("/api/appointments", async (req, res) => {
+  app.post("/api/appointments", isLoggedIn, async (req, res) => {
     try {
       const { name, date } = req.body;
 
@@ -206,7 +206,7 @@ module.exports = (app) => {
   });
 
 
-  app.put("/api/appointments", async (req, res) => {
+  app.put("/api/appointments", isLoggedIn, async (req, res) => {
     try {
       const {id, name, date } = req.body;
 
