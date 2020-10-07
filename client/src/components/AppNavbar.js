@@ -70,6 +70,7 @@ class AppNavbar extends Component {
           </span>
         </NavItem>
         <NavLink href="/admin">Admin</NavLink>
+        <NavLink href="/time_table">Rudertage</NavLink>
         <UncontrolledDropdown nav inNavbar>
           <DropdownToggle  nav caret>
             My Profile

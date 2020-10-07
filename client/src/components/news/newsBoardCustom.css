@@ -2,6 +2,7 @@
 
 .column {
     height: 100%;
+    
     display: flex !important;
     align-self: stretch !important;
 }
@@ -15,6 +16,7 @@
 }
 
 .slick-slide{
+   width: 600px !important;
     height: auto !important;
     display: flex !important;
     align-items: stretch !important; 
@@ -22,7 +24,7 @@
 }
 
 .imageWrapper {
-    width: 100%;
+    width: 100% !important;
     height: 20vw;
     object-fit: cover;
 }

@@ -32,6 +32,7 @@ var settings = {
   slidesToShow: 3,
   slidesToScroll: 3,
   initialSlide: 0,
+  variableWidth: true,
   responsive: [
     {
       breakpoint: 769,

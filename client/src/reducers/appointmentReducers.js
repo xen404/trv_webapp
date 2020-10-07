@@ -5,6 +5,8 @@ import {
   GET_CARDS_FAIL,
   ADD_CARD_SUCCESS,
   ADD_CARD_FAIL,
+  UPDATE_CARD_SUCCESS,
+  UPDATE_CARD_FAIL,
 } from "../actions/types";
 
 const initialState = {
@@ -22,9 +24,10 @@ export default function (state = initialState, action) {
       };
 
     case ADD_CARD_SUCCESS:
+    case UPDATE_CARD_SUCCESS:
       return {
         ...state,
-        cards: [action.payload.cards, ...state.cards],
+        cards: [...state.cards],
       };
 
     case CARDS_LOADING:
@@ -34,6 +37,7 @@ export default function (state = initialState, action) {
       };
     case GET_CARDS_FAIL:
     case ADD_CARD_FAIL:
+    case UPDATE_CARD_FAIL:
       return {
         ...state,
         loading: false,

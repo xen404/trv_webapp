@@ -14,6 +14,7 @@ import Landing from './Landing';
 import UserManagement  from './admin/UserManagement';
 import SingleNewsPage from "./news/SingleNewsPage";
 import NewsArchive from "./news/NewsArchive";
+import TimeTable from './timeTable/TimeTable';
 
 
 class App extends Component {
@@ -30,6 +31,7 @@ class App extends Component {
             <Route exact path="/" component={Landing} />
             <Route exact path="/admin" component={UserManagement} />
             <Route exact path="/news/archive" component={NewsArchive} />
+            <Route exact path="/time_table" component={TimeTable} />
             </AnimationRevealPage>
           </div>
         </BrowserRouter>

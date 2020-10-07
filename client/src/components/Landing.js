@@ -8,7 +8,7 @@ import ActivitiesCustom from './features/ActivitiesCustom';
 import Contacts from "./Contacts";
 import Sponsors from "./Sponsors";
 import DownloadButtons from "./DownloadButtons";
-import TimeTable from "./TimeTable";
+import TimeTable from "./timeTable/TimeTable";
 
 
 class Landing extends Component {
