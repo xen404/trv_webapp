@@ -20,6 +20,8 @@ import {
   Alert,
   Media,
 } from "reactstrap";
+var parse = require('html-react-parser');
+
 
 const ImageWrapper = styled.div((props) => [
   //`background-image: url("${props.imageSrc}");`,
@@ -55,8 +57,12 @@ class NewsDetailsModal extends Component {
   };
 
   render() {
-    const textBody = convertFromRaw(JSON.parse(this.props.news.body));
-    const htmlBody = stateToHTML(textBody);
+    ///const textBody = convertFromRaw(JSON.parse(this.props.news.body));
+    const propBody = this.props.news.body;
+    const textBody1 = JSON.parse(propBody);
+    const convertedBody = convertFromRaw(textBody1);
+    const htmlBody = stateToHTML(convertedBody);
+   // console.log(textBody);
    //<div dangerouslySetInnerHTML={{ __html: htmlBody }} />
     return (
       <div style={{ marginRight: "8px"}}>
@@ -86,7 +92,7 @@ class NewsDetailsModal extends Component {
                       <Details style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                         <div>
                         <Description>
-                        {htmlBody}
+                        {parse(htmlBody)}
                           </Description>
                         </div>
                         </Details>

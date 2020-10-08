@@ -13,6 +13,7 @@
     "draft-js-export-html": "^1.4.1",
     "feather-icons": "^4.28.0",
     "framer-motion": "^2.6.6",
+    "html-react-parser": "^0.14.0",
     "http-proxy-middleware": "^1.0.5",
     "materialize-css": "^1.0.0-rc.2",
     "react": "^16.13.1",
