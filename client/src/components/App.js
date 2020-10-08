@@ -30,9 +30,9 @@ class App extends Component {
           <AnimationRevealPage disabled>
             <Route component={AppNavbar} />
             <Route exact path="/" component={Landing} />
-            <PrivateRoute exact path="/admin" component={UserManagement} />
+            <Route exact path="/admin" component={UserManagement} />
             <Route exact path="/news/archive" component={NewsArchive} />
-            <PrivateRoute exact path="/time_table" component={TimeTable} />
+            <Route exact path="/time_table" component={TimeTable} />
             </AnimationRevealPage>
           </Switch>
         </BrowserRouter>

@@ -7,6 +7,7 @@ const PrivateRoute = ({component: Component, ...rest}) => {
 
     const state = store.getState();
     const isAuthenticated = state.auth.isAuthenticated;
+    console.log(state);
     
     return (
 
