@@ -60,8 +60,12 @@ class NewsDetailsModal extends Component {
     ///const textBody = convertFromRaw(JSON.parse(this.props.news.body));
     const propBody = this.props.news.body;
     const textBody1 = JSON.parse(propBody);
+    try {
     const convertedBody = convertFromRaw(textBody1);
     const htmlBody = stateToHTML(convertedBody);
+    } catch(err) {
+      console.log(err);
+    }
    // console.log(textBody);
    //<div dangerouslySetInnerHTML={{ __html: htmlBody }} />
     return (
