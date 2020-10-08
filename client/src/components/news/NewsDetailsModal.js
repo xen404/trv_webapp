@@ -96,7 +96,7 @@ class NewsDetailsModal extends Component {
                       <Details style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                         <div>
                         <Description>
-                        {parse(htmlBody)}
+                        <p>pidor</p>
                           </Description>
                         </div>
                         </Details>
