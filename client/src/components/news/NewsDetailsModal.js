@@ -86,7 +86,7 @@ class NewsDetailsModal extends Component {
                       <Details style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                         <div>
                         <Description>
-                        <div dangerouslySetInnerHTML={{ __html: htmlBody }} />
+                        {htmlBody}
                           </Description>
                         </div>
                         </Details>
