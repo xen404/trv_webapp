@@ -1,6 +1,7 @@
 .appointmentCard{
-    background-color: black !important;
+    background-color: white !important;
     border-radius: 0 !important;
+    border-width: 3px;
     margin-right: 0px !important;
     margin-bottom: 0px !important;
 }

@@ -161,7 +161,7 @@ class CardSlider extends Component {
                     body
                     inverse
                     style={{
-                      backgroundColor: "#333",
+                      backgroundColor: "white",
                       borderColor: "#333",
                       marginRight: "20px",
                       marginBottom: "20px",
@@ -169,11 +169,13 @@ class CardSlider extends Component {
                       alignItems: "center"
                     }}
                   >
-                    <CardTitle>
+                    <CardTitle style={{color: 'black'}}>
                         <b>
                       {day} {date}-{month}-{year}</b>
+                      <br/>
+                      <p><b>18:00</b></p>
                     </CardTitle>
-                    <CardText>{card.name}</CardText>
+                    <CardText style={{color: 'black'}}>{card.name}</CardText>
                   </Card>
                   </div>
                 );

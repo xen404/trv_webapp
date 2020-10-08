@@ -55,16 +55,17 @@ class NewsDetailsModal extends Component {
   };
 
   render() {
-    //const textBody = convertFromRaw(JSON.parse(this.props.news.body));
-   // const htmlBody = stateToHTML(textBody);
+    const textBody = convertFromRaw(JSON.parse(this.props.news.body));
+    const htmlBody = stateToHTML(textBody);
    //<div dangerouslySetInnerHTML={{ __html: htmlBody }} />
     return (
       <div style={{ marginRight: "8px"}}>
         <Button
           color="dark"
-          style={{ float: "left", display: "flex" }}
+          style={{ float: "left", display: "flex", backgroundColor: "black", borderRadius: "0px", paddingLeft: "20px", paddingRight: "20px" }}
           onClick={this.toggle}
         >
+          
           More
         </Button>
 
@@ -85,7 +86,7 @@ class NewsDetailsModal extends Component {
                       <Details style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                         <div>
                         <Description>
-                        {this.props.news.preview_text}
+                        <div dangerouslySetInnerHTML={{ __html: htmlBody }} />
                           </Description>
                         </div>
                         </Details>

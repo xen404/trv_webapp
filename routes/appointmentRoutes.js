@@ -12,7 +12,7 @@ function addDays(date, days) {
 
 module.exports = (app) => {
 
-  app.get("/api/appointments", isLoggedIn, async (req, res) => {
+  app.get("/api/appointments", async (req, res) => {
     var types = require("pg").types;
     var Moment = require("moment");
     var parseDate = function parseDate(val) {
