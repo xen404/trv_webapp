@@ -102,7 +102,19 @@ class EditCardModal extends Component {
   render() {
     return (
       <div>
-        <Button onClick={this.toggle}>Edit</Button>
+        <Button
+          color="warning"          
+          
+         style={{
+          
+           borderRadius: "0px",
+        
+         
+         }}
+          onClick={this.toggle}
+        >
+          Edit
+        </Button>
 
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           {this.state.successMsg ? (
@@ -110,7 +122,7 @@ class EditCardModal extends Component {
               <ModalHeader toggle={this.toggle}>
                 <p style={{ textAlign: "center" }}></p>
               </ModalHeader>
-              
+
               <Alert color="success">{this.state.successMsg}</Alert>
             </>
           ) : (

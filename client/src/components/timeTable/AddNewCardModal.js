@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { clearConfirm } from "../../actions/confirmActions";
 import { registerNewUser } from "../../actions/userActions";
 import { clearErrors } from "../../actions/errorActions";
-import {reserveAppointment} from '../../actions/appointmentActions';
+import { reserveAppointment } from "../../actions/appointmentActions";
 import {
   Button,
   Modal,
@@ -74,12 +74,12 @@ class AddNewCardModal extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { name} = this.state;
+    const { name } = this.state;
     var newDate = new Date(this.props.cardDateFormat);
-    newDate.setHours(0,0,0,0);
+    newDate.setHours(0, 0, 0, 0);
     const newCard = {
       name,
-      date: newDate
+      date: newDate,
     };
 
     console.log(newCard);
@@ -101,10 +101,22 @@ class AddNewCardModal extends Component {
   render() {
     return (
       <div>
-        <Button onClick={this.toggle}>Reservieren</Button>
+        <Button
+  color="success"          
+          
+          style={{
+           
+            borderRadius: "0px",
+         
+          
+          }}
+          onClick={this.toggle}
+        >
+          Reservieren
+        </Button>
 
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-        {this.state.successMsg ? (
+          {this.state.successMsg ? (
             <>
               <ModalHeader toggle={this.toggle}>
                 <p style={{ textAlign: "center" }}></p>
@@ -113,33 +125,36 @@ class AddNewCardModal extends Component {
             </>
           ) : (
             <>
-    <ModalHeader toggle={this.toggle}>{this.props.cardDay} {this.props.cardDate}-{this.props.cardMonth}-{this.props.cardYear}</ModalHeader>
-          
-          <ModalBody>
-            {this.state.msg ? (
-              <Alert color="danger">{this.state.msg}</Alert>
-            ) : null}
-            {this.state.successMsg ? (
-              <Alert color="success">{this.state.successMsg}</Alert>
-            ) : null}
-            <Form onSubmit={this.onSubmit}>
-              <FormGroup>
-                <Label for="name">Name</Label>
-                <Input
-                  type="text"
-                  name="name"
-                  id="name"
-                  placeholder={this.props.cardName}
-                  onChange={this.onChange}
-                />
+              <ModalHeader toggle={this.toggle}>
+                {this.props.cardDay} {this.props.cardDate}-
+                {this.props.cardMonth}-{this.props.cardYear}
+              </ModalHeader>
 
-                <Button color="dark" style={{ marginTop: "2rem" }} block>
-                  Reservieren
-                </Button>
-              </FormGroup>
-            </Form>
-          </ModalBody>
-          </>
+              <ModalBody>
+                {this.state.msg ? (
+                  <Alert color="danger">{this.state.msg}</Alert>
+                ) : null}
+                {this.state.successMsg ? (
+                  <Alert color="success">{this.state.successMsg}</Alert>
+                ) : null}
+                <Form onSubmit={this.onSubmit}>
+                  <FormGroup>
+                    <Label for="name">Name</Label>
+                    <Input
+                      type="text"
+                      name="name"
+                      id="name"
+                      placeholder={this.props.cardName}
+                      onChange={this.onChange}
+                    />
+
+                    <Button color="dark" style={{ marginTop: "2rem" }} block>
+                      Reservieren
+                    </Button>
+                  </FormGroup>
+                </Form>
+              </ModalBody>
+            </>
           )}
         </Modal>
       </div>
@@ -157,5 +172,5 @@ export default connect(mapStateToProps, {
   registerNewUser,
   clearErrors,
   clearConfirm,
-  reserveAppointment
+  reserveAppointment,
 })(AddNewCardModal);

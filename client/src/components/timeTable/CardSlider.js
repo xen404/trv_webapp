@@ -27,16 +27,12 @@ var settings = {
   slidesToShow: 3,
   slidesToScroll: 3,
   initialSlide: 0,
-  variableWidth: true,
   responsive: [
     {
-      breakpoint: 767,
+      breakpoint: 769,
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1,
-        initialSlide: 0,
-        infinite: true,
-        dots: false,
       },
     },
   ],
@@ -104,6 +100,7 @@ class CardSlider extends Component {
 
       var first10Cards = cardsInput.slice(0, 9);
 
+
       /*
       const slicedNews = newsInput.map((el, i, arr) => {
         const res = arr.slice(0, 3);
@@ -163,15 +160,14 @@ class CardSlider extends Component {
                     style={{
                       backgroundColor: "white",
                       borderColor: "#333",
-                      marginRight: "20px",
-                      marginBottom: "20px",
+                     
                       display: "flex",
-                      alignItems: "center"
+                      alignItems: "center",
                     }}
                   >
-                    <CardTitle style={{color: 'black'}}>
+                    <CardTitle style={{color: 'black', marginLeft: "20px", marginRight: "20px",}}>
                         <b>
-                      {day} {date}-{month}-{year}</b>
+                      {day} {date}-{month+1}-{year}</b>
                       <br/>
                       <p><b>18:00</b></p>
                     </CardTitle>

@@ -57,6 +57,7 @@ module.exports = (app) => {
         case 1:
           offset += 2;
           index = 0;
+          offsetDelta = -2;
           break;
         case 2:
           offset += 1;
@@ -73,6 +74,7 @@ module.exports = (app) => {
         case 6:
           offset += 2;
           index = 2;
+          offsetDelta = -2;
           break;
         default:
           offset = 0;

@@ -27,19 +27,17 @@ import { Button, NavLink } from "reactstrap";
 
 var settings = {
   dots: false,
-  infinite: true,
+  infinite: false,
   speed: 500,
   slidesToShow: 3,
   slidesToScroll: 3,
   initialSlide: 0,
-  variableWidth: true,
   responsive: [
     {
       breakpoint: 769,
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1,
-        initialSlide: 0,
         infinite: false,
         dots: false,
       },

@@ -37,6 +37,7 @@ class TimeTable extends Component {
             flexDirection: "row",
             flexWrap: "wrap",
             justifyContent: "space-evenly",
+            alignItems: "center"
           }}
         >
           {cardsInput.map((card, index) => {
@@ -65,14 +66,18 @@ class TimeTable extends Component {
                 body
                 inverse
                 style={{
-                  backgroundColor: "#333",
+                  backgroundColor: "white",
+                  borderRadius: "0",
+                  borderWidth: "3px",
                   borderColor: "#333",
-                  marginRight: "20px",
-                  marginBottom: "20px",
+                  marginRight: "50px",
+                  marginBottom: "50px",
+                  width: "220px"
                 }}
               >
-                <CardTitle>{day} {date}-{month}-{year}</CardTitle>
-                <CardText>{card.name}</CardText>
+                <CardTitle style={{color: 'black'}}><b>{day} {date}-{month + 1}-{year}</b><br/>
+                      <p><b>18:00</b></p></CardTitle>
+                <CardText style={{color: 'black'}}>{card.name}</CardText>
                 {card.name === "tba" ? (
                              <AddNewCardModal cardDate={date} cardMonth={month} cardYear={year} cardDay={day} cardName={card.name} cardDateFormat={card.date}/>
 

@@ -15,7 +15,6 @@
 }
 
 .slick-slide{
-   width: 600px !important;
     height: auto !important;
     display: flex !important;
     align-items: stretch !important; 

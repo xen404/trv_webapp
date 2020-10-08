@@ -58,14 +58,13 @@ class NewsDetailsModal extends Component {
 
   render() {
     ///const textBody = convertFromRaw(JSON.parse(this.props.news.body));
-    const propBody = this.props.news.body;
-    const textBody1 = JSON.parse(propBody);
-    try {
-    const convertedBody = convertFromRaw(textBody1);
-    const htmlBody = stateToHTML(convertedBody);
-    } catch(err) {
-      console.log(err);
-    }
+    //const propBody = this.props.news.body;
+    //const textBody1 = JSON.parse(propBody);
+    //const convertedBody = convertFromRaw(textBody1);
+    //const htmlBody = stateToHTML(convertedBody);
+
+    //console.log(propBody);
+   
    // console.log(textBody);
    //<div dangerouslySetInnerHTML={{ __html: htmlBody }} />
     return (
@@ -96,7 +95,7 @@ class NewsDetailsModal extends Component {
                       <Details style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                         <div>
                         <Description>
-                        <p>pidor</p>
+                        {this.props.news.preview_text}
                           </Description>
                         </div>
                         </Details>
