@@ -45,6 +45,27 @@ var settings = {
   ],
 };
 
+var settingsWideScreen = {
+  dots: false,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 3,
+  slidesToScroll: 3,
+  initialSlide: 0,
+ 
+};
+
+var settingsSmallScreen = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    initialSlide: 0,
+   
+  };
+
+
 const Container = styled.div`
   ${tw`relative`}
   padding-top: 135px;
@@ -113,12 +134,24 @@ class NewsBoardCustom extends Component {
   componentDidMount() {
     console.log("NewsBoardCustom did mount");
     this.props.getNews();
-
+    window.addEventListener("resize", this.handleResize);
   }
 
-  state = {
-    height: null,
-  };
+
+  componentWillUnmount() {
+    window.addEventListener("resize", this.handleResize);
+   }
+
+
+  constructor(props) {
+    super(props);
+    this.state = { windowWidth: window.innerWidth };
+  }
+
+  handleResize = (e) => {
+  this.setState({ windowWidth: window.innerWidth });
+ };
+ 
 
   onDeleteClick = (id) => {
     this.props.deleteNews(id);
@@ -145,13 +178,13 @@ class NewsBoardCustom extends Component {
         }
       }
 
+      if(this.state.windowWidth > 768) {
+        var sliderSettings = settingsWideScreen;
+    }
+    else {
+        var sliderSettings = settingsSmallScreen;
+    }
 
-      /*
-      const slicedNews = newsInput.map((el, i, arr) => {
-        const res = arr.slice(0, 3);
-        return res;
-      });
-      */
 
       const slicedNews = temparray;
 
@@ -165,7 +198,7 @@ class NewsBoardCustom extends Component {
             <TestimonialSlider
               nextArrow={<NextArrow />}
               prevArrow={<PreviousArrow />}
-              {...settings}
+              {...sliderSettings}
             >
               {newsInput.map((news, index) => {
                 return (

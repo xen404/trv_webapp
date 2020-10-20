@@ -16,6 +16,8 @@ import SingleNewsPage from "./news/SingleNewsPage";
 import NewsArchive from "./news/NewsArchive";
 import TimeTable from './timeTable/TimeTable';
 import PrivateRoute from './PrivateRoute';
+import Gallery from "./Gallery";
+import Album from "./Album";
 
 
 class App extends Component {
@@ -33,6 +35,8 @@ class App extends Component {
             <Route exact path="/admin" component={UserManagement} />
             <Route exact path="/news/archive" component={NewsArchive} />
             <Route exact path="/time_table" component={TimeTable} />
+            <Route exact path="/gallery" component={Gallery} />
+            <Route exact path="/gallery/:album" component={Album} />
             </AnimationRevealPage>
           </Switch>
         </BrowserRouter>

@@ -5,6 +5,7 @@ import authReducer from './authReducer';
 import userReducers from './userReducers';
 import confirmReducer from './confirmReducer';
 import appointmentReducers from './appointmentReducers';
+import galleryReducers from './galleryReducers';
  
 export default combineReducers({
    news: newsReducer,
@@ -12,7 +13,8 @@ export default combineReducers({
    auth: authReducer,
    users: userReducers,
    confirm: confirmReducer,
-   appointments: appointmentReducers
+   appointments: appointmentReducers,
+   gallery: galleryReducers,
 });
 
 export const customFilter = (item, id) => {

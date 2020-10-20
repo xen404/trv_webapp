@@ -20,23 +20,27 @@ import './Cards.css'
     SLIDER CONSTS
 */
 
-var settings = {
+var settingsWideScreen = {
   dots: false,
   infinite: true,
   speed: 500,
   slidesToShow: 3,
   slidesToScroll: 3,
   initialSlide: 0,
-  responsive: [
-    {
-      breakpoint: 769,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-      },
-    },
-  ],
+ 
 };
+
+var settingsSmallScreen = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    initialSlide: 0,
+   
+  };
+
+
 
 const Container = styled.div`
   ${tw`relative`}
@@ -78,11 +82,23 @@ class CardSlider extends Component {
   componentDidMount() {
     console.log("CardSlider did mount");
     this.props.getAppointmentCards();
+    window.addEventListener("resize", this.handleResize);
   }
 
-  state = {
-    height: null,
-  };
+ componentWillUnmount() {
+    window.addEventListener("resize", this.handleResize);
+   }
+
+
+  constructor(props) {
+    super(props);
+    this.state = { windowWidth: window.innerWidth };
+  }
+
+  handleResize = (e) => {
+  this.setState({ windowWidth: window.innerWidth });
+ };
+ 
 
   onDeleteClick = (id) => {
     this.props.deleteNews(id);
@@ -100,15 +116,16 @@ class CardSlider extends Component {
 
       var first10Cards = cardsInput.slice(0, 9);
 
+      console.log(window.innerWidth);
 
-      /*
-      const slicedNews = newsInput.map((el, i, arr) => {
-        const res = arr.slice(0, 3);
-        return res;
-      });
-      */
+      if(this.state.windowWidth > 768) {
+          var sliderSettings = settingsWideScreen;
+      }
+      else {
+          var sliderSettings = settingsSmallScreen;
+      }
+      
 
-      const slicedNews = first10Cards;
 
       return (
         <Content style={{ marginBottom: "135px", marginTop: "135px" }}>
@@ -129,7 +146,7 @@ class CardSlider extends Component {
             <TestimonialSlider
               nextArrow={<NextArrow />}
               prevArrow={<PreviousArrow />}
-              {...settings}
+              {...sliderSettings}
             >
               {first10Cards.map((card, index) => {
                 const formatDate = new Date(card.date);
@@ -151,10 +168,10 @@ class CardSlider extends Component {
                     day = "wtf";
                 }
                 return (
-                    <div style={{display: "flex", alignContent: "center"}}>
+                    <div key={index} style={{display: "flex", alignContent: "center"}}>
                   <Card
                     className="appointmentCard"
-                    key={index}
+                    
                     body
                     inverse
                     style={{
