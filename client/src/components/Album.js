@@ -54,7 +54,7 @@ class Album extends Component {
     setCurrentImage: 0
   };
 
-  openLightbox = (index) => {
+  openLightbox = (e, {photo, index}) => {
     this.setState({currentImage: index})
     this.setState({viewerIsOpen: true})
   };
@@ -98,13 +98,28 @@ class Album extends Component {
 
     return (
       <div>
-        <div>{this.props.match.params.album}</div>
+        <HeadingInfoContainer>
+            <HeadingTitle
+              style={{
+                marginTop: "60px",
+                marginBottom: "90px",
+                fontSize: "42px",
+                lineHeight: "1.23",
+                fontWeight: "700",
+                color: "black",
+              }}
+            >
+              {this.props.match.params.album}
+            </HeadingTitle>
+          </HeadingInfoContainer>
+        
         <div>
           <Gallery photos={pics} onClick={this.openLightbox} />
           <ModalGateway>
             {this.state.viewerIsOpen ? (
               <Modal onClose={this.closeLightbox}>
                 <Carousel
+                 currentIndex={this.state.currentImage}
                   views={pics.map((x) => ({
                     ...x,
                     srcset: x.srcSet,

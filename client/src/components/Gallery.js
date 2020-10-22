@@ -105,7 +105,13 @@ class Gallery extends Component {
                         alignContent: "space-between",
                       }}
                     >
-                      <Link to={`/gallery/${folder.name}`}>Open</Link>
+                       <Link  to={`/gallery/${folder.name}`}><button className="downloadButton" style={{marginRight: "20px", paddingLeft: "15px", paddingRight: "15px", backgroundColor: "black", color: "white", marginTop: "25px" }} onClick={this.downloadFormular}>
+    <div className="downloadButtonContent" style={{display: "flex", flexDirection: "row", alignItems: "center", paddingTop: "5px", paddingBottom: "5px", }}>
+    <b>Open</b>
+         </div>
+     </button></Link>
+
+                      
                     </div>
                   </Details>
                 </Card>

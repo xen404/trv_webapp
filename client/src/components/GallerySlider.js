@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { getFolders } from "../actions/galleryActions";
 import { Image } from "cloudinary-react";
 import PropTypes from "prop-types";
 import { stateToHTML } from "draft-js-export-html";
@@ -47,19 +48,16 @@ var settingsWideScreen = {
   slidesToShow: 3,
   slidesToScroll: 3,
   initialSlide: 0,
- 
 };
 
 var settingsSmallScreen = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    initialSlide: 0,
-   
-  };
-
+  dots: false,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  initialSlide: 0,
+};
 
 const Container = styled.div`
   ${tw`relative`}
@@ -127,37 +125,163 @@ const Description = tw.p`mt-2 text-sm text-secondary-100`;
 
 class GallerySlider extends Component {
   componentDidMount() {
-
     window.addEventListener("resize", this.handleResize);
+    this.props.getFolders();
   }
-
 
   componentWillUnmount() {
     window.addEventListener("resize", this.handleResize);
-   }
-
+  }
 
   constructor(props) {
     super(props);
     this.state = { windowWidth: window.innerWidth };
   }
 
+  static propTypes = {
+    isAuthenticated: PropTypes.bool,
+    getFolders: PropTypes.func.isRequired,
+    gallery: PropTypes.object.isRequired,
+  };
+
   handleResize = (e) => {
-  this.setState({ windowWidth: window.innerWidth });
- };
- 
+    this.setState({ windowWidth: window.innerWidth });
+  };
 
-  
+  renderGallerySlider() {
+    if (this.props.gallery.folders) {
+      const foldersInput = this.props.gallery.folders;
 
+      var temparray = [];
+      var i,
+        j,
+        chunk = 3;
+      for (i = 0, j = foldersInput.length; i < j; i += chunk) {
+        if (foldersInput.slice(i, i + chunk).length > 2) {
+          temparray.push(foldersInput.slice(i, i + chunk));
+        }
+      }
+
+      if (this.state.windowWidth > 768) {
+        var sliderSettings = settingsWideScreen;
+      } else {
+        var sliderSettings = settingsSmallScreen;
+      }
+
+      const slicedNews = temparray;
+
+      return (
+        <Content style={{ marginBottom: "135px", marginTop: "135px" }}>
+          <HeadingInfoContainer>
+            <HeadingTitle
+              style={{
+                marginBottom: "90px",
+                fontSize: "42px",
+                lineHeight: "1.23",
+                fontWeight: "700",
+                color: "black",
+              }}
+            >
+              Gallery
+            </HeadingTitle>
+          </HeadingInfoContainer>
+          <TestimonialSliderContainer>
+            <TestimonialSlider
+              nextArrow={<NextArrow />}
+              prevArrow={<PreviousArrow />}
+              {...sliderSettings}
+            >
+              {foldersInput.map((folder, index) => {
+                return (
+                  <Column className="column" key={index}>
+                    <Card>
+                      <ImageWrapper>
+                        <Image
+                          key={folder.coverId}
+                          cloudName="trvStorage"
+                          publicId={folder.coverId}
+                          crop="scale"
+                          width="600"
+                          className="imageWrapper"
+                        />
+                      </ImageWrapper>
+                      <Details
+                        className="newsCardDetails"
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "flex-start",
+                        }}
+                      >
+                        <div>
+                          <Title>{folder.name}</Title>
+                          <Description></Description>
+                        </div>
+                        <div
+                          className="newsCardButtons"
+                          style={{
+                            marginBottom: "8px",
+                            marginTop: "16px",
+                            display: "flex",
+                            flexDirection: "row",
+                            alignContent: "space-between",
+                          }}
+                        ></div>
+                      </Details>
+                    </Card>
+                  </Column>
+                );
+              })}
+            </TestimonialSlider>
+          </TestimonialSliderContainer>
+
+          <NavLink
+            style={{ paddingTop: "5px", paddingBottom: "5px" }}
+            href="/gallery"
+          >
+            <button
+              className="downloadButton"
+              style={{
+                paddingTop: "5px",
+                paddingBottom: "5px",
+                marginRight: "20px",
+                paddingLeft: "45px",
+                paddingRight: "45px",
+                backgroundColor: "black",
+                color: "white",
+                marginTop: "25px",
+              }}
+              onClick={this.downloadFormular}
+            >
+              <div
+                className="downloadButtonContent"
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingTop: "5px",
+                  paddingBottom: "5px",
+                }}
+              >
+                <b>More</b>
+              </div>
+            </button>
+          </NavLink>
+        </Content>
+      );
+    } else {
+      return <div>FUUUUUUUUCK!</div>;
+    }
+  }
 
   render() {
-    return <button className="downloadButton" style={{marginRight: "20px", paddingLeft: "45px", paddingRight: "45px", backgroundColor: "black", color: "white", marginTop: "25px" }} onClick={this.downloadFormular}>
-    <div className="downloadButtonContent" style={{display: "flex", flexDirection: "row", alignItems: "center", paddingTop: "5px", paddingBottom: "5px", }}>
-    <NavLink href="/gallery"><b>Gallery</b></NavLink>
-         </div>
-     </button>;
+    return <div>{this.renderGallerySlider()}</div>;
   }
 }
 
+const mapStateToProps = (state) => ({
+  gallery: state.gallery,
+  isAuthenticated: state.auth.isAuthenticated,
+});
 
-export default GallerySlider;
+export default connect(mapStateToProps, { getFolders })(GallerySlider);
