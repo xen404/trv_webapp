@@ -5,6 +5,7 @@ import { Card, Button, CardTitle, CardText } from "reactstrap";
 import { getAppointmentCards } from "../../actions/appointmentActions";
 import AddNewCardModal from "./AddNewCardModal";
 import EditCardModal from "./EditCardModal";
+import "./Cards.css";
 
 class TimeTable extends Component {
   componentDidMount() {
@@ -33,11 +34,7 @@ class TimeTable extends Component {
           className="cardsContainer"
           style={{
             marginTop: "70px",
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "space-evenly",
-            alignItems: "center"
+            
           }}
         >
           {cardsInput.map((card, index) => {
@@ -75,13 +72,21 @@ class TimeTable extends Component {
                   width: "220px"
                 }}
               >
+                <div style={{display: "flex", flexDirection: "column", alignContent: "space-between", justifyContent: "space-between"}}>
+                  <div>
                 <CardTitle style={{color: 'black'}}><b>{day} {date}-{month + 1}-{year}</b><br/>
                       <p><b>18:00</b></p></CardTitle>
                 <CardText style={{color: 'black'}}>{card.name}</CardText>
+                <CardText style={{fontSize: "12px",color: 'black'}}><i>{card.info}</i></CardText>
+                </div>
+                
+                <div style>
                 {card.name === "tba" ? (
-                             <AddNewCardModal cardDate={date} cardMonth={month} cardYear={year} cardDay={day} cardName={card.name} cardDateFormat={card.date}/>
+                             <AddNewCardModal style={{alignSelf: "flex-end"}} cardDate={date} cardMonth={month} cardYear={year} cardDay={day} cardName={card.name} cardDateFormat={card.date}/>
 
-            ) : <EditCardModal cardId={card.id} cardDate={date} cardMonth={month} cardYear={year} cardDay={day} cardName={card.name} cardDateFormat={card.date}/>}
+            ) : <EditCardModal style={{alignSelf: "flex-end"}} cardId={card.id} cardDate={date} cardMonth={month} cardYear={year} cardDay={day} cardName={card.name} cardDateFormat={card.date}/>}
+            </div>
+            </div>
               </Card>
             );
           })}

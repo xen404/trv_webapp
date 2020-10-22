@@ -122,7 +122,7 @@ module.exports = (app) => {
               case 1:
               case 3:
               case 6:
-                resultArray.push({ date: new Date(), name: "tba" });
+                resultArray.push({ date: new Date(), name: "tba", info: "" });
                 break;
               case 0:
               case 2:
@@ -130,12 +130,14 @@ module.exports = (app) => {
                 resultArray.push({
                   date: new Date().setDate(new Date().getDate() + 1),
                   name: "tba",
+                  info: ""
                 });
                 break;
               case 4:
                 resultArray.push({
                   date: new Date().setDate(new Date().getDate() + 2),
                   name: "tba",
+                  info: ""
                 });
                 break;
               default:
@@ -155,7 +157,7 @@ module.exports = (app) => {
             date.getFullYear()
           );
 
-          resultArray.push({ date: newDate, name: "tba" });
+          resultArray.push({ date: newDate, name: "tba", info: "" });
         }
         if(offsetDelta == 0){
         index = (index + 1) % 3;
@@ -177,15 +179,22 @@ module.exports = (app) => {
 
   app.post("/api/appointments",  async (req, res) => {
     try {
-      const { name, date } = req.body;
+      const { name, date, info } = req.body;
+
+
+      if (!name || !date) {
+        console.log("NONONON!");
+
+        return res.status(400).json({ msg: "Please enter all fields!" });
+      }
 
       console.log(date);
       var moment = require("moment-timezone");
       var dbDate = moment(date).utcOffset(120).format("YYYY-MM-DD HH:mm");
 
       const newAppointment = await pool.query(
-        "INSERT INTO appointments (name, date)   VALUES($1, $2) RETURNING *",
-        [name, dbDate]
+        "INSERT INTO appointments (name, date, info)   VALUES($1, $2, $3) RETURNING *",
+        [name, dbDate, info]
       );
       var types = require("pg").types;
       var Moment = require("moment");
@@ -210,7 +219,7 @@ module.exports = (app) => {
 
   app.put("/api/appointments",  async (req, res) => {
     try {
-      const {id, name, date } = req.body;
+      const {id, name, date, info } = req.body;
 
       console.log(date);
 
@@ -231,8 +240,8 @@ module.exports = (app) => {
       var dbDate = moment(date).utcOffset(120).format("YYYY-MM-DD HH:mm");
 
       const newAppointment = await pool.query(
-        "UPDATE appointments SET name = $1, date = $2 WHERE id = $3",
-        [name, dbDate, id]
+        "UPDATE appointments SET name = $1, date = $2, info = $3 WHERE id = $4",
+        [name, dbDate, info, id]
       );
       var types = require("pg").types;
       var Moment = require("moment");

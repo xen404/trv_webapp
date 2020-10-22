@@ -23,5 +23,6 @@ CREATE TABLE users(
 CREATE TABLE appointments(
     id SERIAL PRIMARY KEY,
     date DATE UNIQUE NOT NULL,
-    name VARCHAR(100) NOT NULL
+    name VARCHAR(100) NOT NULL,
+    info VARCHAR(500)
 );

@@ -1,15 +1,22 @@
-.appointmentCard{
-    background-color: white !important;
-    border-radius: 0 !important;
-    border-width: 3px;
-    margin-right: 0px !important;
-    margin-bottom: 0px !important;
+.appointmentCard {
+  background-color: white !important;
+  border-radius: 0 !important;
+  border-width: 3px;
+  margin-right: 0px !important;
+  margin-bottom: 0px !important;
 }
 
 @media only screen and (max-width: 768px) {
-    .appointmentCard {
-     
-        margin-right: 0px !important;
-        margin-bottom: 0px !important;
-    }
+  .appointmentCard {
+    margin-right: 0px !important;
+    margin-bottom: 0px !important;
+  }
+}
+
+.cardsContainer {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+  grid-template-rows: repeat(auto-fill, minmax(200px, 1fr)) !important;
+  column-gap: 10px;
+  row-gap: 15px;
 }

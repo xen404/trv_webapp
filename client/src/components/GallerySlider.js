@@ -214,7 +214,7 @@ class GallerySlider extends Component {
                         }}
                       >
                         <div>
-                          <Title>{folder.name}</Title>
+                          <Title><Link style={{textDecoration: "none"}}  to={`/gallery/${folder.name}`}>{folder.name}</Link></Title>
                           <Description></Description>
                         </div>
                         <div

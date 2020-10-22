@@ -22,9 +22,7 @@ class AddNewCardModal extends Component {
   state = {
     modal: false,
     name: "",
-    email: "",
-    password: "",
-    role: "",
+    info: "",
     msg: null,
     successMsg: null,
   };
@@ -74,12 +72,13 @@ class AddNewCardModal extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { name } = this.state;
+    const { name, info } = this.state;
     var newDate = new Date(this.props.cardDateFormat);
     newDate.setHours(0, 0, 0, 0);
     const newCard = {
       name,
       date: newDate,
+      info: info
     };
 
     console.log(newCard);
@@ -102,13 +101,9 @@ class AddNewCardModal extends Component {
     return (
       <div>
         <Button
-  color="success"          
-          
+          color="success"
           style={{
-           
             borderRadius: "0px",
-         
-          
           }}
           onClick={this.toggle}
         >
@@ -145,6 +140,13 @@ class AddNewCardModal extends Component {
                       name="name"
                       id="name"
                       placeholder={this.props.cardName}
+                      onChange={this.onChange}
+                    />
+                     <Label for="name">Info</Label>
+                    <Input
+                      type="text"
+                      name="info"
+                      id="info"
                       onChange={this.onChange}
                     />
 
