@@ -86,8 +86,10 @@ module.exports = (app) => {
       .then((resImages) => {
         console.log(resImages.resources);
 
+        
+
         for (let index = 0; index < resImages.resources.length; index++) {
-          jsonRes.push({ src: resImages.resources[index].url, thumbnail: resImages.resources[index].url });
+          jsonRes.push({ src: resImages.resources[index].url, thumbnail: resImages.resources[index].url, width: resImages.resources[index].width, height: resImages.resources[index].height});
         }
        
         res.send(jsonRes);
