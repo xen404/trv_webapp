@@ -275,7 +275,7 @@ class GallerySlider extends Component {
   }
 
   render() {
-    return <div>{this.renderGallerySlider()}</div>;
+    return <section id="gallerySlider">{this.renderGallerySlider()}</section>;
   }
 }
 

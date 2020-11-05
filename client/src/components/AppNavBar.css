@@ -4,3 +4,12 @@
     position: fixed;
 
 }
+
+.ml-auto {
+   margin-right: auto !important;
+    width: 80%;
+}
+
+.customHashLink {
+    text-decoration: none !important;
+}

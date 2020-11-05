@@ -15,6 +15,7 @@ import uniHat from "images/icons/graduation-hat.svg";
 import paddle from "images/icons/row.svg";
 import support from "images/icons/support.svg";
 import "./Prices.css";
+import PriceListCollapse from "./PriceListCollapse";
 
 const Container = styled.div`
   ${tw`relative`}
@@ -27,7 +28,7 @@ const ThreeColumnContainer = styled.div`
   ${tw`flex flex-col items-center md:items-stretch md:flex-row md:justify-center flex-wrap  max-w-screen-lg mx-auto`}
 `;
 const Subheading = tw(SubheadingBase)`mb-4`;
-const Heading = tw(SectionHeading)`w-full`;
+const Heading = tw(SectionHeading)`w-full text-center`;
 const Description = tw(SectionDescription)`w-full text-center`;
 
 const VerticalSpacer = tw.div`mt-10 w-full`;
@@ -62,9 +63,9 @@ const Card = styled.div`
 
 export default ({
   cards = null,
-  heading = "Vereinsmitglied werden",
+  heading = "Der Verein",
   subheading = "",
-  description = "",
+  description = "Der Tullner Ruderverein wurde 1971 gegründet und liegt an der Donau im Mündungsgebiet der Großen Tulln. Ca. 60 Mitglieder aller Altersgruppen betreiben Rudersport in familiärer Atmosphäre. Der TRV ist Mitglied des Österreichischen Ruderverbandes und der Sportunion Niederösterreich.",
 }) => {
   /*
    * This componets has an array of object denoting the cards defined below. Each object in the cards array can have the key (Change it according to your need, you can also add more objects to have more cards in this feature component) or you can directly pass this using the cards prop:
@@ -77,28 +78,28 @@ export default ({
   const defaultCards = [
     {
       imageSrc: paddle,
-      title: "Ausübendes Mitglied",
-      description: "– EUR 165,–",
+      title: "Verschiedene Aktivitäten",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
     },
     {
       imageSrc: support,
-      title: "Studenten und Ehegatten",
-      description: "– EUR 110,–",
+      title: "Rudern erlernen",
+      description: "Ruderinteressierte können an den Rudertagen und in Anfängerkursen (Mai und Juni)",
     },
     {
       imageSrc: uniHat,
-      title: "Schüler bis 18 Jahre",
-      description: " – EUR 55,–",
+      title: "Winter Übungen",
+      description: "Im Winter trainieren wir in der Halle – Gymnastik, Ballspiele, Konditionstraining.",
     },
     {
       imageSrc: schoolBag,
-      title: "Unterstützendes Mitglied",
-      description: "– EUR 55,–",
+      title: "Sportliche Erfolge",
+      description: "Gold, Silber, Bronze bei den österreichischen Meisterschaften. ",
     },
     {
       imageSrc: signUp,
-      title: "Einschreibgebühr",
-      description: "Erwachsene – EUR 50,– Jugendliche – EUR 10,–",
+      title: "Lorem ipsum",
+      description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium",
     },
   ];
 
@@ -108,8 +109,10 @@ export default ({
     <Container>
       <ThreeColumnContainer className="pricesColumn">
         {subheading && <Subheading>{subheading}</Subheading>}
-        <HeadingTitle style={{marginBottom: "90px", fontSize: "42px", lineHeight: "1.23", fontWeight: "700", color: "black"}}>Vereinsmitglied werden</HeadingTitle>
+        <div>
+  <HeadingTitle style={{marginBottom: "90px", fontSize: "42px", lineHeight: "1.23", fontWeight: "700", color: "black"}}>{heading}</HeadingTitle>
         {description && <Description>{description}</Description>}
+        </div>
         <VerticalSpacer />
         {cards.map((card, i) => (
           <Column key={i}>
@@ -128,6 +131,7 @@ export default ({
           </Column>
         ))}
       </ThreeColumnContainer>
+      <PriceListCollapse />
     </Container>
   );
 };

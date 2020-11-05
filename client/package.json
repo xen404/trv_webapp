@@ -26,6 +26,7 @@
     "react-parallax": "^3.0.3",
     "react-photo-gallery": "^8.0.0",
     "react-redux": "^7.2.1",
+    "react-router-hash-link": "^2.2.2",
     "react-scripts": "^3.4.4",
     "react-scroll-parallax": "^2.3.4",
     "react-slick": "^0.27.10",

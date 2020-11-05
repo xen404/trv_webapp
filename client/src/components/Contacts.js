@@ -22,6 +22,7 @@ const TitleSmall = tw.h6`text-xl font-bold text-gray-900 text-center max-w-sm mt
 
 export default () => {
   return (
+    <section id="contacts">
     <Container>
       <SingleColumn>
         <HeadingInfoContainer>
@@ -65,5 +66,6 @@ export default () => {
         
       </SingleColumn>
     </Container>
+    </section>
   );
 };

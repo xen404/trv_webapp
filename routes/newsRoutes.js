@@ -11,6 +11,11 @@ module.exports = (app) => {
 
       const fileStr = req.body.image_url;
 
+      if(!body) {
+        return res.status(400).json({ msg: "HURE" });
+      }
+      
+
       if (!title || !preview_text || !body || !fileStr) {
         return res.status(400).json({ msg: "Please enter all fields!" });
       }

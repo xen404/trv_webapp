@@ -119,12 +119,12 @@ class NewsFormModal extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    const editorContentRaw = this.DraftjsEditor.current.state.editorContentRaw;
+    //const editorContentRaw = this.DraftjsEditor.current.state.editorContentRaw;
 
     const newNews = {
       title: this.state.title,
       preview_text: this.state.preview_text,
-      body: editorContentRaw,
+      body: this.state.body,
       image_url: this.state.image_url,
     };
     this.props.addNews(newNews);
@@ -132,7 +132,7 @@ class NewsFormModal extends Component {
 
   render() {
     return (
-      <div style={{ marginTop: "2rem"}}>
+      <div style={{ marginTop: "2rem" }}>
         <Button
           color="dark"
           style={{ marginButtom: "2rem" }}
@@ -172,7 +172,13 @@ class NewsFormModal extends Component {
                   onChange={this.onChange}
                 />
                 <Label for="body">Body</Label>
-                <DraftjsEditor ref={this.DraftjsEditor} />
+                <Input
+                  type="textarea"
+                  name="body"
+                  id="body"
+                  placeholder="Body content"
+                  onChange={this.onChange}
+                />
                 <Label for="image_url">Image</Label>
                 <Input
                   type="file"

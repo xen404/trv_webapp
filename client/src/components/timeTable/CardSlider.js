@@ -5,7 +5,15 @@ import PropTypes from "prop-types";
 import { stateToHTML } from "draft-js-export-html";
 import { convertFromRaw } from "draft-js";
 import { Link } from "react-router-dom";
-import { Card, Button, CardTitle, CardText } from "reactstrap";
+import {
+  Card,
+  Button,
+  CardTitle,
+  CardText,
+  Popover,
+  PopoverHeader,
+  PopoverBody,
+} from "reactstrap";
 import Slider from "react-slick";
 import styled from "styled-components";
 import tw from "twin.macro";
@@ -14,7 +22,8 @@ import { SectionHeading as HeadingTitle } from "../misc/Headings.js";
 import { ReactComponent as ArrowLeftIcon } from "../../images/arrow-left-2-icon.svg";
 import { ReactComponent as ArrowRightIcon } from "../../images/arrow-right-2-icon.svg";
 import "slick-carousel/slick/slick.css";
-import './Cards.css'
+import "./Cards.css";
+import InfoPopover from "./InfoPopover";
 
 /*
     SLIDER CONSTS
@@ -27,20 +36,16 @@ var settingsWideScreen = {
   slidesToShow: 3,
   slidesToScroll: 3,
   initialSlide: 0,
- 
 };
 
 var settingsSmallScreen = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    initialSlide: 0,
-   
-  };
-
-
+  dots: false,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  initialSlide: 0,
+};
 
 const Container = styled.div`
   ${tw`relative`}
@@ -64,7 +69,7 @@ const SliderControlButtonContainer = styled.div`
 `;
 
 const NextArrow = ({ currentSlide, slideCount, ...props }) => (
-  <SliderControlButtonContainer  tw="right-0">
+  <SliderControlButtonContainer tw="right-0">
     <button {...props}>
       <ArrowRightIcon />
     </button>
@@ -85,24 +90,37 @@ class CardSlider extends Component {
     window.addEventListener("resize", this.handleResize);
   }
 
- componentWillUnmount() {
-    window.addEventListener("resize", this.handleResize);
-   }
+ /*
 
+  state = {
+    popoverOpen: false
+  };
+  */
+
+  componentWillUnmount() {
+    window.addEventListener("resize", this.handleResize);
+  }
 
   constructor(props) {
     super(props);
-    this.state = { windowWidth: window.innerWidth };
+    this.state = { windowWidth: window.innerWidth,
+      popoverOpen: false};
+      this.toggle = this.toggle.bind(this);
+
   }
 
   handleResize = (e) => {
-  this.setState({ windowWidth: window.innerWidth });
- };
- 
+    this.setState({ windowWidth: window.innerWidth });
+  };
 
   onDeleteClick = (id) => {
     this.props.deleteNews(id);
   };
+
+    toggle = () => {
+      this.setState(
+        {popoverOpen: !this.state.popoverOpen,}
+      )};
 
   static propTypes = {
     isAuthenticated: PropTypes.bool,
@@ -112,20 +130,20 @@ class CardSlider extends Component {
 
   renderNews() {
     if (this.props.appointments.cards) {
+
+      const { popoverOpen } = this.state;
+
       const cardsInput = this.props.appointments.cards;
 
       var first10Cards = cardsInput.slice(0, 9);
 
       console.log(window.innerWidth);
 
-      if(this.state.windowWidth > 768) {
-          var sliderSettings = settingsWideScreen;
+      if (this.state.windowWidth > 768) {
+        var sliderSettings = settingsWideScreen;
+      } else {
+        var sliderSettings = settingsSmallScreen;
       }
-      else {
-          var sliderSettings = settingsSmallScreen;
-      }
-      
-
 
       return (
         <Content style={{ marginBottom: "135px", marginTop: "135px" }}>
@@ -168,28 +186,43 @@ class CardSlider extends Component {
                     day = "wtf";
                 }
                 return (
-                    <div key={index} style={{display: "flex", alignContent: "center"}}>
-                  <Card
-                    className="appointmentCard"
-                    
-                    body
-                    inverse
-                    style={{
-                      backgroundColor: "white",
-                      borderColor: "#333",
-                     
-                      display: "flex",
-                      alignItems: "center",
-                    }}
+                  <div
+                    key={index}
+                    style={{ display: "flex", alignContent: "center" }}
                   >
-                    <CardTitle style={{color: 'black', marginLeft: "20px", marginRight: "20px",}}>
+                    <Card
+                      className="appointmentCard"
+                      body
+                      inverse
+                      style={{
+                        backgroundColor: "white",
+                        borderColor: "#333",
+
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <InfoPopover card={card} />
+
+                      <CardTitle
+                        style={{
+                          color: "black",
+                          marginLeft: "20px",
+                          marginRight: "20px",
+                        }}
+                      >
                         <b>
-                      {day} {date}-{month+1}-{year}</b>
-                      <br/>
-                      <p><b>18:00</b></p>
-                    </CardTitle>
-                    <CardText style={{color: 'black'}}>{card.name}</CardText>
-                  </Card>
+                          {day} {date}-{month + 1}-{year}
+                        </b>
+                        <br />
+                        <p>
+                          <b>18:00</b>
+                        </p>
+                      </CardTitle>
+                      <CardText style={{ color: "black" }}>
+                        {card.name}
+                      </CardText>
+                    </Card>
                   </div>
                 );
               })}
@@ -203,7 +236,7 @@ class CardSlider extends Component {
   }
 
   render() {
-    return <div>{this.renderNews()}</div>;
+    return <section id="cardSlider">{this.renderNews()}</section>;
   }
 }
 

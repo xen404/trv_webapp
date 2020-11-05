@@ -14,7 +14,8 @@ import {
   DropdownToggle,
   UncontrolledDropdown,
 } from "reactstrap";
-import './AppNavBar.css';
+import { HashLink, NavHashLink } from "react-router-hash-link";
+import "./AppNavBar.css";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import LoginModal from "./auth/LoginModal";
@@ -22,25 +23,23 @@ import Logout from "./auth/Logout";
 import styled from "styled-components";
 import tw from "twin.macro";
 const ContainerCustom = styled.div`
-  
   ${tw`fixed -mx-8 -mb-12 -mt-8`};
   z-index: 5;
   width: 100%;
   margin-right: -50rem;
-  color: rgb(82,82,80);
+  color: rgb(82, 82, 80);
 `;
 
 class AppNavbar extends Component {
   state = {
-    isOpen: false
+    isOpen: false,
   };
-
- 
-
- 
 
   static propTypes = {
     auth: PropTypes.object.isRequired,
+    location: PropTypes.shape({
+      pathname: PropTypes.string,
+    }).isRequired,
   };
 
   toggle = () => {
@@ -53,11 +52,36 @@ class AppNavbar extends Component {
     const { isAuthenticated, user } = this.props.auth;
 
     const guestLinks = (
-      <Fragment>
-        <NavItem>
+      <div style={{width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-evenly"}}>
+        <NavLink>
+          <HashLink className="customHashLink" smooth to={`${this.props.location.pathname}#newsSlider`}>
+            News
+          </HashLink>
+        </NavLink>
+        <NavLink>
+          <HashLink className="customHashLink" smooth to={`${this.props.location.pathname}#activities`}>
+            Aktivitäten
+          </HashLink>
+        </NavLink>
+        <NavLink>
+          <HashLink className="customHashLink" smooth to={`${this.props.location.pathname}#cardSlider`}>
+            Rudertage
+          </HashLink>
+        </NavLink>
+        <NavLink>
+          <HashLink className="customHashLink" smooth to={`${this.props.location.pathname}#gallerySlider`}>
+            Gallery
+          </HashLink>
+        </NavLink>
+        <NavLink>
+          <HashLink className="customHashLink" smooth to={`${this.props.location.pathname}#contacts`}>
+            Kontakt
+          </HashLink>
+        </NavLink>
+        <NavItem style={{alignSelf: "flex-end"}}>
           <LoginModal />
         </NavItem>
-      </Fragment>
+      </div>
     );
 
     const authLinks = (
@@ -72,7 +96,7 @@ class AppNavbar extends Component {
         <NavLink href="/admin">Admin</NavLink>
         <NavLink href="/time_table">Rudertage</NavLink>
         <UncontrolledDropdown nav inNavbar>
-          <DropdownToggle  nav caret>
+          <DropdownToggle nav caret>
             My Profile
           </DropdownToggle>
           <DropdownMenu right>
@@ -87,13 +111,21 @@ class AppNavbar extends Component {
 
     return (
       <ContainerCustom id="stickyContainer" className="stickyContainer">
-        <Navbar style={{backgroundColor: 'rgba(215, 231, 245, 0.7)'}} fixed="false"  expand="sm" className="mb-5">
+        <Navbar
+          style={{ backgroundColor: "rgba(215, 231, 245, 0.7)" }}
+          fixed="false"
+          expand="sm"
+          className="mb-5"
+        >
           <NavbarBrand href="/">TRV</NavbarBrand>
-          <NavbarToggler style={{color: "rgb(82,82,80)"}} onClick={this.toggle} >
-          <i className="material-icons">menu</i>
-            </NavbarToggler>
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
+          <NavbarToggler
+            style={{ color: "rgb(82,82,80)" }}
+            onClick={this.toggle}
+          >
+            <i className="material-icons">menu</i>
+          </NavbarToggler>
+          <Collapse isOpen={this.state.isOpen} navbar >
+            <Nav className="ml-auto"  style={{marginLeft: "0"}} navbar>
               {isAuthenticated ? authLinks : guestLinks}
             </Nav>
           </Collapse>

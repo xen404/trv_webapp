@@ -245,7 +245,7 @@ class NewsBoardCustom extends Component {
   }
 
   render() {
-    return <div>{this.renderNews()}</div>;
+    return <section id="newsSlider">{this.renderNews()}</section>;
   }
 }
 

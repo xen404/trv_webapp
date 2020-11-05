@@ -37,6 +37,7 @@ const Link = tw.a`inline-block mt-4 text-sm text-primary-500 font-bold cursor-po
 
 export default () => {
   return (
+    <section id="activities">
     <Container style={{ paddingTop: "150px", marginBottom: "150px" }}>
       <HeadingInfoContainer>
         <HeadingTitle style={{marginBottom: "90px", fontSize: "42px", lineHeight: "1.23", fontWeight: "700", color: "black"}}>Weitere Aktivitäten</HeadingTitle>
@@ -172,5 +173,6 @@ export default () => {
         </div>
       </div>
     </Container>
+    </section>
   );
 };

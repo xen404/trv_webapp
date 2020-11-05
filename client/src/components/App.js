@@ -12,7 +12,6 @@ import AppNavbar from './AppNavbar';
 import NavbarCustom from './NavbarCustom';
 import Landing from './Landing';
 import UserManagement  from './admin/UserManagement';
-import SingleNewsPage from "./news/SingleNewsPage";
 import NewsArchive from "./news/NewsArchive";
 import TimeTable from './timeTable/TimeTable';
 import PrivateRoute from './PrivateRoute';

@@ -80,7 +80,7 @@ class TimeTable extends Component {
                 <CardText style={{fontSize: "12px",color: 'black'}}><i>{card.info}</i></CardText>
                 </div>
                 
-                <div style>
+                <div>
                 {card.name === "tba" ? (
                              <AddNewCardModal style={{alignSelf: "flex-end"}} cardDate={date} cardMonth={month} cardYear={year} cardDay={day} cardName={card.name} cardDateFormat={card.date}/>
 

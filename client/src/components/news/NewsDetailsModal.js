@@ -95,7 +95,7 @@ class NewsDetailsModal extends Component {
                       <Details style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                         <div>
                         <Description>
-                        {this.props.news.preview_text}
+                        {this.props.news.body}
                           </Description>
                         </div>
                         </Details>
