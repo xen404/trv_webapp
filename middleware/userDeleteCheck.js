@@ -6,7 +6,7 @@ async function userDeleteCheck(req, res, next) {
   const token = req.header("x-auth-token");
   try {
     const { id } = req.params;
-    if(id == 89) {
+    if(id == 9) {
       return res.status(401).json({ msg: "Can not delete root admin!" });
     }
     const decoded = jwt.verify(token, keys.jwtSecret);

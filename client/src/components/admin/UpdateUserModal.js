@@ -39,7 +39,7 @@ class UpdateUserModal extends Component {
   componentDidUpdate(prevProps) {
     const { error, confirm } = this.props;
     if (error !== prevProps.error) {
-      if (error.id === "REGISTER_NEW_USER_FAIL") {
+      if (error.id === "UPDATE_USER_FAIL") {
         this.props.clearConfirm();
         this.setState({ msg: error.msg.msg });
       } else {
@@ -48,7 +48,7 @@ class UpdateUserModal extends Component {
     }
 
     if (confirm !== prevProps.confirm) {
-      if (confirm.id === "USER_CREATED") {
+      if (confirm.id === "USER_UPDATED") {
         this.props.clearErrors();
         this.setState({ successMsg: confirm.successMsg });
       } else {

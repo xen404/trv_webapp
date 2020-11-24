@@ -36,12 +36,18 @@ export const getAllUsers = () => (dispatch, getState) => {
 
 // REGISTER NEW USER
 export const registerNewUser = ({ name, email, password, role }) => async (
-  dispatch, getState
+  dispatch,
+  getState
 ) => {
-  
   const body = JSON.stringify({ name, email, password, role });
   try {
-    const res = await axios.post("/api/new_user_reg", body, tokenConfig(getState) );
+    const res = await axios.post(
+      "/api/new_user_reg",
+      body,
+      tokenConfig(getState)
+    );
+    console.log("HEY THE USER WAS CREATED");
+    console.log(res);
     dispatch(returnConfirm(res.data.successMsg, res.status, "USER_CREATED"));
     dispatch({
       type: REGISTER_NEW_USER_SUCCESS,
@@ -67,7 +73,7 @@ export const deleteUser = (id) => async (dispatch, getState) => {
       `/api/user/delete/${id}`,
       tokenConfig(getState)
     );
-    console.log("NEW RESPONCE")
+    console.log("NEW RESPONCE");
     console.log(res.data);
     dispatch(returnConfirm(res.data.successMsg, res.status, "USER_DELETED"));
     dispatch({
@@ -90,14 +96,17 @@ export const deleteUser = (id) => async (dispatch, getState) => {
   }
 };
 
-export const updateUser = ({id, name, email, password, role }) => async (
-  dispatch, getState
+export const updateUser = ({ id, name, email, password, role }) => async (
+  dispatch,
+  getState
 ) => {
-  
-
-  const body = JSON.stringify({id, name, email, password, role });
+  const body = JSON.stringify({ id, name, email, password, role });
   try {
-    const res = await axios.put("/api/users/update_user", body, tokenConfig(getState) );
+    const res = await axios.put(
+      "/api/users/update_user",
+      body,
+      tokenConfig(getState)
+    );
     dispatch(returnConfirm(res.data.successMsg, res.status, "USER_UPDATED"));
     dispatch({
       type: UPDATE_USER_SUCCESS,
@@ -116,5 +125,3 @@ export const updateUser = ({id, name, email, password, role }) => async (
     });
   }
 };
-
-

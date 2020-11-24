@@ -18,13 +18,17 @@ import {
 export const loadUser = () => async (dispatch, getState) => {
     // User loading
     dispatch({ type: USER_LOADING });
-  
+
     try {
       const res = await axios.get("/api/auth/user", tokenConfig(getState));
+      console.log("HEY РРЕЗ КУЙГУЫЕ ВШВ ЦЩКЛ http");
+
       dispatch({
         type: USER_LOADED,
-        payload: res.data,
+        payload: res.data.user,
       });
+      console.log("HEY I AM LOADuSER. DIsaptach warks!");
+      console.log(res.data.user);
     } catch (error) {
       dispatch(returnErrors(error.response.data, error.response.status));
       dispatch({

@@ -48,65 +48,86 @@ class AppNavbar extends Component {
     });
   };
 
+  // to={`${this.props.location.pathname}#newsSlider`
+
   render() {
+    console.log("HEY HRE ARE THE PROPS");
+    console.log(this.props);
+
     const { isAuthenticated, user } = this.props.auth;
 
     const guestLinks = (
-      <div style={{width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-evenly"}}>
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+        }}
+      >
         <NavLink>
-          <HashLink className="customHashLink" smooth to={`${this.props.location.pathname}#newsSlider`}>
+          <HashLink className="customHashLink" smooth to={`/#newsSlider`}>
             News
           </HashLink>
         </NavLink>
         <NavLink>
-          <HashLink className="customHashLink" smooth to={`${this.props.location.pathname}#activities`}>
+          <HashLink className="customHashLink" smooth to={`/#activities`}>
             Aktivitäten
           </HashLink>
         </NavLink>
         <NavLink>
-          <HashLink className="customHashLink" smooth to={`${this.props.location.pathname}#cardSlider`}>
+          <HashLink className="customHashLink" smooth to={`/#cardSlider`}>
             Rudertage
           </HashLink>
         </NavLink>
         <NavLink>
-          <HashLink className="customHashLink" smooth to={`${this.props.location.pathname}#gallerySlider`}>
+          <HashLink className="customHashLink" smooth to={`/#gallerySlider`}>
             Gallery
           </HashLink>
         </NavLink>
         <NavLink>
-          <HashLink className="customHashLink" smooth to={`${this.props.location.pathname}#contacts`}>
+          <HashLink className="customHashLink" smooth to={`/#contacts`}>
             Kontakt
           </HashLink>
         </NavLink>
-        <NavItem style={{alignSelf: "flex-end"}}>
+        <NavItem style={{ alignSelf: "flex-end" }}>
           <LoginModal />
         </NavItem>
       </div>
     );
 
     const authLinks = (
-      <Fragment>
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+        }}
+      >
         <NavItem>
           <span className="navbar-text mr-3">
-            <strong>
-              {user ? `Welcome ${user.name || user.user.name}` : ""}
-            </strong>
+            <strong>{user ? `Welcome ${ user.name}` : ""}</strong>
           </span>
         </NavItem>
-        <NavLink href="/admin">Admin</NavLink>
+        {user ? (
+          <>
+            {user.role == "ADMIN" ? (
+              <NavLink href="/admin">Admin</NavLink>
+            ) : null}
+          </>
+        ) : null}
+
         <NavLink href="/time_table">Rudertage</NavLink>
-        <UncontrolledDropdown nav inNavbar>
-          <DropdownToggle nav caret>
-            My Profile
-          </DropdownToggle>
-          <DropdownMenu right>
-            <DropdownItem>
-              <Logout />
-            </DropdownItem>
-            <DropdownItem>Edit profile</DropdownItem>
-          </DropdownMenu>
-        </UncontrolledDropdown>
-      </Fragment>
+        <NavLink>
+          <HashLink className="customHashLink" smooth to={`/#newsSlider`}>
+            News
+          </HashLink>
+        </NavLink>
+        <NavItem style={{ alignSelf: "flex-end" }}>
+          <Logout />
+        </NavItem>
+      </div>
     );
 
     return (
@@ -124,8 +145,8 @@ class AppNavbar extends Component {
           >
             <i className="material-icons">menu</i>
           </NavbarToggler>
-          <Collapse isOpen={this.state.isOpen} navbar >
-            <Nav className="ml-auto"  style={{marginLeft: "0"}} navbar>
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" style={{ marginLeft: "0" }} navbar>
               {isAuthenticated ? authLinks : guestLinks}
             </Nav>
           </Collapse>

@@ -29,6 +29,9 @@ module.exports = (app) => {
 
     const user = response.rows[0];
 
+    console.log("USEEEEER POST");
+
+
     await bcrypt.compare(password, user.password).then((isMatch) => {
       if (!isMatch) {
         return res.status(400).json({ msg: "invalid credentials!" });
@@ -48,6 +51,7 @@ module.exports = (app) => {
               id: user.id,
               name: user.name,
               email: user.email,
+              role: user.role
             },
           });
         }
@@ -60,11 +64,14 @@ module.exports = (app) => {
       req.user.id,
     ]);
     const user = response.rows[0];
+    console.log("USEEEEER");
+    console.log(user);
     res.json({
       user: {
         id: user.id,
         name: user.name,
         email: user.email,
+        role: user.role
       },
     });
   });

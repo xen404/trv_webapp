@@ -39,10 +39,16 @@ export default function (state = initialState, action) {
       };
 
     case REGISTER_NEW_USER_SUCCESS:
-    case UPDATE_USER_SUCCESS:
       return {
         ...state,
         users: [action.payload.user, ...state.users],
+      };
+      
+    case UPDATE_USER_SUCCESS:
+      return {
+        ...state,
+        users: action.payload.users
+        //users: [action.payload.user, ...state.users],
       };
     case REGISTER_NEW_USER_FAIL:
     case DELETE_USER_FAIL:
