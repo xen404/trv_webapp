@@ -90,7 +90,7 @@ class CardSlider extends Component {
     window.addEventListener("resize", this.handleResize);
   }
 
- /*
+  /*
 
   state = {
     popoverOpen: false
@@ -103,10 +103,8 @@ class CardSlider extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { windowWidth: window.innerWidth,
-      popoverOpen: false};
-      this.toggle = this.toggle.bind(this);
-
+    this.state = { windowWidth: window.innerWidth, popoverOpen: false };
+    this.toggle = this.toggle.bind(this);
   }
 
   handleResize = (e) => {
@@ -117,10 +115,9 @@ class CardSlider extends Component {
     this.props.deleteNews(id);
   };
 
-    toggle = () => {
-      this.setState(
-        {popoverOpen: !this.state.popoverOpen,}
-      )};
+  toggle = () => {
+    this.setState({ popoverOpen: !this.state.popoverOpen });
+  };
 
   static propTypes = {
     isAuthenticated: PropTypes.bool,
@@ -130,7 +127,6 @@ class CardSlider extends Component {
 
   renderNews() {
     if (this.props.appointments.cards) {
-
       const { popoverOpen } = this.state;
 
       const cardsInput = this.props.appointments.cards;
@@ -173,11 +169,23 @@ class CardSlider extends Component {
                 const date = formatDate.getDate();
                 var day = formatDate.getDay();
                 switch (day) {
+                  case 0:
+                    day = "Sonntag";
+                    break;
                   case 1:
                     day = "Montag";
                     break;
+                  case 2:
+                    day = "Dienstag";
+                    break;
                   case 3:
                     day = "Mittwoch";
+                    break;
+                  case 4:
+                    day = "Donnerstag";
+                    break;
+                  case 1:
+                    day = "Freitag";
                     break;
                   case 6:
                     day = "Samstag";
@@ -202,7 +210,7 @@ class CardSlider extends Component {
                         alignItems: "center",
                       }}
                     >
-                      <InfoPopover card={card} />
+                      {card.id ? <InfoPopover card={card} /> : null}
 
                       <CardTitle
                         style={{

@@ -21,7 +21,7 @@ class InfoPopover extends Component {
           id={"cardPopover-" + this.props.card.id}
           style={{
             cursor: "pointer",
-            color: "#696969",
+            color: "#1E90FF",
             position: "absolute",
             top: "5px",
             right: "5px",
