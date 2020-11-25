@@ -184,7 +184,7 @@ class CardSlider extends Component {
                   case 4:
                     day = "Donnerstag";
                     break;
-                  case 1:
+                  case 5:
                     day = "Freitag";
                     break;
                   case 6:

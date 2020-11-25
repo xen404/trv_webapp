@@ -44,17 +44,29 @@ class TimeTable extends Component {
             const date = formatDate.getDate();
             var day = formatDate.getDay();
             switch (day) {
-              case 1:
-                 day = "Montag";
-                 break;
-              case 3:
-                 day = "Mittwoch";
-                 break;
-              case 6:
-                 day = "Samstag";
-                 break;
-              default:
-                 day = "wtf";
+              case 0:
+                    day = "Sonntag";
+                    break;
+                  case 1:
+                    day = "Montag";
+                    break;
+                  case 2:
+                    day = "Dienstag";
+                    break;
+                  case 3:
+                    day = "Mittwoch";
+                    break;
+                  case 4:
+                    day = "Donnerstag";
+                    break;
+                  case 5:
+                    day = "Freitag";
+                    break;
+                  case 6:
+                    day = "Samstag";
+                    break;
+                  default:
+                    day = "wtf";
             }
 
             return (
