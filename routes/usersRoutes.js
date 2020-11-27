@@ -2,6 +2,7 @@ const cors = require("cors");
 const isAdmin = require("../middleware/isAdmin");
 const isLoggedIn = require("../middleware/isLoggedIn");
 const userDeleteCheck = require("../middleware/userDeleteCheck");
+const rootAdminEditCheck = require("../middleware/rootAdminEditCheck");
 const pool = require("../database");
 const bcrypt = require("bcryptjs");
 const keys = require("../config/keys");
@@ -129,7 +130,7 @@ module.exports = (app) => {
     }
   );
 
-  app.put("/api/users/update_user", isLoggedIn, isAdmin, async (req, res) => {
+  app.put("/api/users/update_user/:id", isLoggedIn, isAdmin, rootAdminEditCheck, async (req, res) => {
     console.log("HEY IT DID WORK!");
     console.log(req.body);
 

@@ -103,7 +103,7 @@ export const updateUser = ({ id, name, email, password, role }) => async (
   const body = JSON.stringify({ id, name, email, password, role });
   try {
     const res = await axios.put(
-      "/api/users/update_user",
+      `/api/users/update_user/${id}`,
       body,
       tokenConfig(getState)
     );

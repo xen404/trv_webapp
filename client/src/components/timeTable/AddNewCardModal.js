@@ -28,6 +28,7 @@ class AddNewCardModal extends Component {
   };
 
   PropTypes = {
+    auth: PropTypes.object.isRequired,
     users: PropTypes.object.isRequired,
     error: PropTypes.object.isRequired,
     confirm: PropTypes.object.isRequired,
@@ -72,7 +73,8 @@ class AddNewCardModal extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { name, info, time } = this.state;
+    const { info, time } = this.state;
+    const name = document.getElementById("name").value;
     var newDate = new Date(this.props.cardDateFormat);
     newDate.setHours(0, 0, 0, 0);
     const newCard = {
@@ -140,17 +142,18 @@ class AddNewCardModal extends Component {
                       type="text"
                       name="name"
                       id="name"
-                      placeholder={this.props.cardName}
+                      placeholder={this.props.auth.user.name}
+                      defaultValue={this.props.auth.user.name}
                       onChange={this.onChange}
                     />
-                     <Label for="name">Info</Label>
+                     <Label for="info">Info</Label>
                     <Input
                       type="text"
                       name="info"
                       id="info"
                       onChange={this.onChange}
                     />
-                     <Label for="name">Anfangszeit</Label>
+                     <Label for="time">Anfangszeit</Label>
                     <Input
                       type="text"
                       name="time"
@@ -177,6 +180,7 @@ const mapStateToProps = (state) => ({
   users: state.users,
   error: state.error,
   confirm: state.confirm,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, {
