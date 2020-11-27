@@ -74,13 +74,15 @@ class EditCardModal extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { name } = this.state;
+    const { name, info, time } = this.state;
     var newDate = new Date(this.props.cardDateFormat);
     newDate.setHours(0, 0, 0, 0);
     const newCard = {
       id: this.props.cardId,
       name,
       date: newDate,
+      info,
+      time
     };
 
     console.log(newCard);
@@ -147,6 +149,21 @@ class EditCardModal extends Component {
                       name="name"
                       id="name"
                       placeholder={this.props.cardName}
+                      onChange={this.onChange}
+                    />
+                     <Label for="name">Info</Label>
+                    <Input
+                      type="text"
+                      name="info"
+                      id="info"
+                      onChange={this.onChange}
+                    />
+                     <Label for="name">Anfangszeit</Label>
+                    <Input
+                      type="text"
+                      name="time"
+                      id="time"
+                      placeholder={"18:00"}
                       onChange={this.onChange}
                     />
 

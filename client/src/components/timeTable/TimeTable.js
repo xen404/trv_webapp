@@ -6,6 +6,7 @@ import { getAppointmentCards } from "../../actions/appointmentActions";
 import AddNewCardModal from "./AddNewCardModal";
 import EditCardModal from "./EditCardModal";
 import "./Cards.css";
+import RowingDaysModal from "./RowingDaysModal";
 
 class TimeTable extends Component {
   componentDidMount() {
@@ -14,7 +15,7 @@ class TimeTable extends Component {
   }
 
   static propTypes = {
-    isAuthenticated: PropTypes.bool,
+    auth: PropTypes.object.isRequired,
     getAppointmnetCards: PropTypes.func.isRequired,
     appointments: PropTypes.object.isRequired,
   };
@@ -24,12 +25,15 @@ class TimeTable extends Component {
   }
 
   renderCards() {
+    const { isAuthenticated, user } = this.props.auth;
     if (this.props.appointments) {
       const cardsInput = this.props.appointments.cards;
       console.log("CARD EXAMPLE");
       console.log(cardsInput);
 
       return (
+
+        <div>
         <div
           className="cardsContainer"
           style={{
@@ -66,7 +70,7 @@ class TimeTable extends Component {
                     day = "Samstag";
                     break;
                   default:
-                    day = "wtf";
+                    day = "error";
             }
 
             return (
@@ -87,13 +91,13 @@ class TimeTable extends Component {
                 <div style={{display: "flex", flexDirection: "column", alignContent: "space-between", justifyContent: "space-between"}}>
                   <div>
                 <CardTitle style={{color: 'black'}}><b>{day} {date}-{month + 1}-{year}</b><br/>
-                      <p><b>18:00</b></p></CardTitle>
+                      <p><b>{card.time}</b></p></CardTitle>
                 <CardText style={{color: 'black'}}>{card.name}</CardText>
                 <CardText style={{fontSize: "12px",color: 'black'}}><i>{card.info}</i></CardText>
                 </div>
                 
                 <div>
-                {card.name === "tba" ? (
+                {card.name === "-" ? (
                              <AddNewCardModal style={{alignSelf: "flex-end"}} cardDate={date} cardMonth={month} cardYear={year} cardDay={day} cardName={card.name} cardDateFormat={card.date}/>
 
             ) : <EditCardModal style={{alignSelf: "flex-end"}} cardId={card.id} cardDate={date} cardMonth={month} cardYear={year} cardDay={day} cardName={card.name} cardDateFormat={card.date}/>}
@@ -102,6 +106,11 @@ class TimeTable extends Component {
               </Card>
             );
           })}
+          
+        </div>
+        <div>
+        {(isAuthenticated && user.role == "ADMIN") ? <RowingDaysModal /> : ""}
+          </div>
         </div>
       );
     } else {
@@ -112,7 +121,7 @@ class TimeTable extends Component {
 
 const mapStateToProps = (state) => ({
   appointments: state.appointments,
-  isAuthenticated: state.auth.isAuthenticated,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { getAppointmentCards })(TimeTable);

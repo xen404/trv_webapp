@@ -224,7 +224,7 @@ class CardSlider extends Component {
                         </b>
                         <br />
                         <p>
-                          <b>18:00</b>
+                      <b>{card.time}</b>
                         </p>
                       </CardTitle>
                       <CardText style={{ color: "black" }}>

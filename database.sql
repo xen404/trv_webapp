@@ -24,5 +24,16 @@ CREATE TABLE appointments(
     id SERIAL PRIMARY KEY,
     date DATE UNIQUE NOT NULL,
     name VARCHAR(100) NOT NULL,
-    info VARCHAR(500)
+    info VARCHAR(500),
+    time VARCHAR(100)
 );
+
+CREATE TABLE rowingdays(
+    id SERIAL PRIMARY KEY,
+    days smallint[],
+    time VARCHAR(100),
+    amount smallint
+);
+
+insert into rowingdays (days, time, amount) values(array[1, 3, 5], '18:00', '20');
+

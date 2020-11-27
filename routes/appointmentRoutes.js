@@ -23,13 +23,24 @@ module.exports = (app) => {
       return val === null ? null : parseDate(val);
     });
 
+    try {
+      var dbResponce = await pool.query("SELECT * FROM rowingdays;");
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).json({ err: err.message });
+    }
+
+    console.log("ROWINGDAYS");
+    console.log(dbResponce.rows[0]);
+
     var resultArray = [];
-    var rowingDays = [1,3, 6];
-    const numberOfCards = 5;
+    var rowingDays = dbResponce.rows[0].days;
+    const numberOfCards = dbResponce.rows[0].amount;
+    const defaultTime = dbResponce.rows[0].time;
 
     try {
       var dbEntries = await pool.query(
-        "SELECT * FROM appointments WHERE date >= '2020-11-25' ORDER BY date;"
+        "SELECT * FROM appointments WHERE date >= CURRENT_DATE ORDER BY date;"
       );
       console.log("RESPONSE FROM DB");
       console.log(dbEntries.rows);
@@ -40,18 +51,18 @@ module.exports = (app) => {
 
       //const allNews = await pool.query("SELECT * FROM news;");
 
-
       // ****** Calculate table ******
-      const offsetTable = [];
-      if(rowingDays.length > 1) {
-      for (let i = 0; i < rowingDays.length - 1; i++) {
-         offsetTable[i] = rowingDays[i+1] - rowingDays[i];
+      var offsetTable = [];
+      if (rowingDays.length > 1) {
+        for (let i = 0; i < rowingDays.length - 1; i++) {
+          offsetTable[i] = rowingDays[i + 1] - rowingDays[i];
+        }
+        offsetTable[rowingDays.length - 1] =
+          7 - rowingDays[rowingDays.length - 1] + rowingDays[0];
+      } else {
+        offsetTable = [7];
       }
-      offsetTable[rowingDays.length - 1] = 7 - rowingDays[rowingDays.length - 1] + rowingDays[0];
-    } else {
-      offsetTable = [7];
-    }
-    console.log(offsetTable);
+      console.log(offsetTable);
 
       // ******* ******* ******* ******
 
@@ -76,9 +87,9 @@ module.exports = (app) => {
       console.log("****** LOOP ******");
       var day = currentDay;
       for (let i = 0; i < 7; i++) {
-        console.log("DAY")
+        console.log("DAY");
         console.log(day);
-        if(rowingDays.includes(day)) {
+        if (rowingDays.includes(day)) {
           index = rowingDays.indexOf(day);
           offset += offsetTable[index];
           offsetDelta = -offsetTable[index];
@@ -86,8 +97,9 @@ module.exports = (app) => {
         } else {
           offset++;
           day++;
+          day = day % 7;
         }
-        
+
         console.log("OFFSET");
         console.log(offset);
         console.log("INDEX");
@@ -100,9 +112,9 @@ module.exports = (app) => {
       }
 
       /*******************
-      ****** SWITCH ******
-      ********************/
-/*
+       ****** SWITCH ******
+       ********************/
+      /*
       switch (currentDay) {
         case 0:
           offset +=
@@ -163,10 +175,9 @@ module.exports = (app) => {
 
 */
 
-
       /*****************
-      **** THE LOOP ****
-      ******************/
+       **** THE LOOP ****
+       ******************/
 
       //const offsetTable = [2, 3, 2];
       for (let i = 0; i < numberOfCards; i++) {
@@ -257,7 +268,7 @@ module.exports = (app) => {
             date.getFullYear()
           );
 
-          resultArray.push({ date: newDate, name: "tba", info: "" });
+          resultArray.push({ date: newDate, name: "-", info: "", time: defaultTime });
         }
         if (offsetDelta == 0) {
           index = (index + 1) % offsetTable.length;
@@ -276,13 +287,11 @@ module.exports = (app) => {
     }
   });
 
-  app.post("/api/appointments", async (req, res) => {
+  app.post("/api/appointments", isLoggedIn, async (req, res) => {
     try {
-      const { name, date, info } = req.body;
+      const { name, date, info, time } = req.body;
 
-      if (!name || !date) {
-        console.log("NONONON!");
-
+      if (!name || !date || !time) {
         return res.status(400).json({ msg: "Please enter all fields!" });
       }
 
@@ -291,8 +300,8 @@ module.exports = (app) => {
       var dbDate = moment(date).utcOffset(120).format("YYYY-MM-DD HH:mm");
 
       const newAppointment = await pool.query(
-        "INSERT INTO appointments (name, date, info)   VALUES($1, $2, $3) RETURNING *",
-        [name, dbDate, info]
+        "INSERT INTO appointments (name, date, info, time)   VALUES($1, $2, $3, $4) RETURNING *",
+        [name, dbDate, info, time]
       );
       var types = require("pg").types;
       var Moment = require("moment");
@@ -314,15 +323,14 @@ module.exports = (app) => {
     }
   });
 
-  app.put("/api/appointments", async (req, res) => {
+  app.put("/api/appointments", isLoggedIn, async (req, res) => {
     try {
-      const { id, name, date, info } = req.body;
+      const { id, name, date, info, time } = req.body;
 
       console.log(date);
 
-      if (!id || !name || !date) {
+      if (!id || !name || !date || !time) {
         console.log("NONONON!");
-
         return res.status(400).json({ msg: "Please enter all fields!" });
       }
 
@@ -330,6 +338,8 @@ module.exports = (app) => {
         "SELECT * FROM appointments WHERE id = $1",
         [id]
       );
+      console.log("DID WORK!");
+
       if (appointment.rowCount == 0) {
         return res.status(400).json({ msg: "Such appointment doesn't exist!" });
       }
@@ -338,8 +348,8 @@ module.exports = (app) => {
       var dbDate = moment(date).utcOffset(120).format("YYYY-MM-DD HH:mm");
 
       const newAppointment = await pool.query(
-        "UPDATE appointments SET name = $1, date = $2, info = $3 WHERE id = $4",
-        [name, dbDate, info, id]
+        "UPDATE appointments SET name = $1, date = $2, info = $3, time = $4 WHERE id = $5",
+        [name, dbDate, info, time, id]
       );
       var types = require("pg").types;
       var Moment = require("moment");
@@ -355,6 +365,46 @@ module.exports = (app) => {
         successMsg: "Appointment created!",
         appointment: newAppointment.rows[0],
       });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).json({ err: err.message });
+    }
+  });
+
+  app.put("/api/rowingdays", isLoggedIn, isAdmin, async (req, res) => {
+    console.log(req.body);
+    const { rowingdays, time, cardsAmount } = req.body;
+    const id = 1;
+    if (!rowingdays || !time || !cardsAmount || rowingdays.length == 0) {
+      return res.status(400).json({ msg: "Please enter all fields!" });
+    }
+    console.log("DID WORK")
+
+    try {
+      const response = await pool.query(
+        "SELECT * FROM rowingdays WHERE id = $1",
+        [id]
+      );
+
+      if (response.rowCount == 0) {
+        const newRowingdays = await pool.query(
+          "INSERT INTO rowingdays (days, time, amount) VALUES($1, $2, $3,) RETURNING *;",
+          [rowingdays, time, cardsAmount]
+        );
+      } else {
+        const updatedRowingdays = await pool.query(
+          "UPDATE rowingdays SET days = $1, time = $2, amount = $3 WHERE id = $4;",
+          [rowingdays, time, cardsAmount, id]
+        );
+        console.log("hey ho we passed update part")
+        const emptyTable = await pool.query(
+          "DELETE FROM appointments RETURNING *;"
+        );
+        res.json({
+          successMsg: "Calendar updated!",
+          appointment: emptyTable.rows[0],
+        });
+      }
     } catch (err) {
       console.error(err.message);
       res.status(500).json({ err: err.message });

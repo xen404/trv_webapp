@@ -9,7 +9,9 @@ import {
     ADD_CARD_SUCCESS,
     ADD_CARD_FAIL,
     UPDATE_CARD_SUCCESS,
-    UPDATE_CARD_FAIL
+    UPDATE_CARD_FAIL,
+    UPDATE_CALENDAR_SUCCESS,
+    UPDATE_CALENDAR_FAIL
 } from "./types";
 
 
@@ -40,7 +42,7 @@ export const reserveAppointment = (card) => async (dispatch, getState) => {
     dispatch({ type: CARDS_LOADING });
     console.log(card);
     try {
-      const res = await axios.post("/api/appointments", card);
+      const res = await axios.post("/api/appointments", card,  tokenConfig(getState));
 
         console.log("HEY THIS IS TEST REQ")
         console.log(res.data);
@@ -67,7 +69,7 @@ export const reserveAppointment = (card) => async (dispatch, getState) => {
     dispatch({ type: CARDS_LOADING });
     console.log(card);
     try {
-      const res = await axios.put("/api/appointments", card);
+      const res = await axios.put("/api/appointments", card,  tokenConfig(getState));
 
         console.log("HEY THIS IS TEST REQ")
         console.log(res.data);
@@ -88,4 +90,28 @@ export const reserveAppointment = (card) => async (dispatch, getState) => {
       });
     }
   };
+
+  export const updateCalendar = (calendar) => async(dispatch, getState) => {
+    dispatch({ type: CARDS_LOADING });
+    try {
+      const res = await axios.put("/api/rowingdays", calendar,  tokenConfig(getState));
+
+        console.log(res.data);
+
+      dispatch(returnConfirm(res.data.successMsg, res.status, "CALENDAR_UPDATED"));
+      dispatch({
+        type: UPDATE_CALENDAR_SUCCESS,
+        payload: res.data,
+      });
+      
+     dispatch(getAppointmentCards());
+    } catch (error) {
+      dispatch(
+        returnErrors(error.response.data, error.response.status, "UPDATE_CALENDAR_FAIL")
+      );
+      dispatch({
+        type: UPDATE_CALENDAR_FAIL,
+      });
+    }
+  }
   
