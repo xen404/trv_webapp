@@ -1,28 +1,26 @@
 import React, { Component } from "react";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import UserList from "./UserList";
-import AddUserModal from './AddUserModal';
-
+import AddUserModal from "./AddUserModal";
 
 class UserManagment extends Component {
-
-    propTypes = {
-       isAuthenticated: PropTypes.bool
-    }
+  propTypes = {
+    isAuthenticated: PropTypes.bool,
+  };
 
   render() {
     return (
       <div>
-        <UserList/>
+        <UserList />
         <AddUserModal />
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default  connect(mapStateToProps, {})(UserManagment);
+export default connect(mapStateToProps, {})(UserManagment);

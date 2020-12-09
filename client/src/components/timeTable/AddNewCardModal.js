@@ -58,7 +58,6 @@ class AddNewCardModal extends Component {
   }
 
   toggle = () => {
-    console.log("i got toggled");
     this.props.clearErrors();
     this.props.clearConfirm();
     this.clearForm();
@@ -81,14 +80,10 @@ class AddNewCardModal extends Component {
       name,
       date: newDate,
       info: info,
-      time: time
+      time: time,
     };
 
-    console.log(newCard);
-
     this.props.reserveAppointment(newCard);
-
-    //this.toggle();
   };
 
   clearForm = () => {
@@ -146,14 +141,14 @@ class AddNewCardModal extends Component {
                       defaultValue={this.props.auth.user.name}
                       onChange={this.onChange}
                     />
-                     <Label for="info">Info</Label>
+                    <Label for="info">Info</Label>
                     <Input
                       type="text"
                       name="info"
                       id="info"
                       onChange={this.onChange}
                     />
-                     <Label for="time">Anfangszeit</Label>
+                    <Label for="time">Anfangszeit</Label>
                     <Input
                       type="text"
                       name="time"

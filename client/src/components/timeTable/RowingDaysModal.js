@@ -57,7 +57,6 @@ class RowingDays extends Component {
   }
 
   toggle = () => {
-    console.log("i got toggled");
     this.props.clearErrors();
     this.props.clearConfirm();
     this.clearForm();
@@ -94,11 +93,7 @@ class RowingDays extends Component {
       time: time,
     };
 
-    console.log(newCalendar);
-
     this.props.updateCalendar(newCalendar);
-
-    //this.toggle();
   };
 
   clearForm = () => {

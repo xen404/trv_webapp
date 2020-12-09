@@ -36,7 +36,7 @@ class DeleteNewsModal extends Component {
     if (confirm !== prevProps.confirm) {
       if (confirm.id === "NEWS_DELETED") {
         this.props.clearErrors();
-          this.setState({ successMsg: confirm.successMsg });
+        this.setState({ successMsg: confirm.successMsg });
       } else {
         this.setState({ successMsg: null });
       }
@@ -44,7 +44,6 @@ class DeleteNewsModal extends Component {
   }
 
   toggle = () => {
-    console.log("i got toggled");
     this.props.clearErrors();
     this.props.clearConfirm();
     this.setState({
@@ -63,37 +62,39 @@ class DeleteNewsModal extends Component {
           Delete
         </Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-        {this.state.successMsg ? (
-            <>  <ModalHeader toggle={this.toggle}>
-            <p style={{ textAlign: "center" }}></p>
-          </ModalHeader>
-          <Alert color="success">{this.state.successMsg}</Alert>
-        </>) :
-        (
-          <>
-          <ModalHeader toggle={this.toggle}>
-            <p style={{ textAlign: "center" }}>
-              Delete news {this.props.newsTitle} ?
-            </p>
-          </ModalHeader>
-          <ModalBody>
-            {this.state.msg ? (
-              <Alert color="danger">{this.state.msg}</Alert>
-            ) : null}
-             {this.state.successMsg ? (
+          {this.state.successMsg ? (
+            <>
+              {" "}
+              <ModalHeader toggle={this.toggle}>
+                <p style={{ textAlign: "center" }}></p>
+              </ModalHeader>
               <Alert color="success">{this.state.successMsg}</Alert>
-            ) : null}
-          </ModalBody>
-          <Button
-            color="danger"
-            onClick={this.onDeleteClick.bind(this, this.props.newsId)}
-          >
-            Delete
-          </Button>{" "}
-          <Button color="secondary" onClick={this.toggle}>
-            Cancel
-          </Button>
-          </>
+            </>
+          ) : (
+            <>
+              <ModalHeader toggle={this.toggle}>
+                <p style={{ textAlign: "center" }}>
+                  Delete news {this.props.newsTitle} ?
+                </p>
+              </ModalHeader>
+              <ModalBody>
+                {this.state.msg ? (
+                  <Alert color="danger">{this.state.msg}</Alert>
+                ) : null}
+                {this.state.successMsg ? (
+                  <Alert color="success">{this.state.successMsg}</Alert>
+                ) : null}
+              </ModalBody>
+              <Button
+                color="danger"
+                onClick={this.onDeleteClick.bind(this, this.props.newsId)}
+              >
+                Delete
+              </Button>{" "}
+              <Button color="secondary" onClick={this.toggle}>
+                Cancel
+              </Button>
+            </>
           )}
         </Modal>
       </div>

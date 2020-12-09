@@ -26,6 +26,7 @@
     "draft-js-export-html": "^1.4.1",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "mgr-swagger-express": "0.0.6",
     "moment": "^2.29.0",
     "moment-timezone": "^0.5.31",
     "nodemon": "^2.0.4",
@@ -36,6 +37,7 @@
     "react-router-hash-link": "^2.2.2",
     "redux": "^4.0.5",
     "redux-form": "^8.3.6",
-    "sequelize": "^6.3.4"
+    "sequelize": "^6.3.4",
+    "swagger-ui-express": "^4.1.5"
   }
 }

@@ -1,4 +1,3 @@
-import { customFilter } from "./index";
 import {
   CARDS_LOADING,
   GET_CARDS_SUCCESS,

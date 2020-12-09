@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { reduxForm, Field } from "redux-form";
 import { addNews } from "../../actions/newsActions";
 import { clearConfirm } from "../../actions/confirmActions";
 import { clearErrors } from "../../actions/errorActions";
 import PropTypes from "prop-types";
-import DraftjsEditor from "./DraftjsEditor";
 import {
   Button,
   Modal,
@@ -15,9 +13,7 @@ import {
   FormGroup,
   Label,
   Input,
-  NavLink,
   Alert,
-  Media,
 } from "reactstrap";
 
 class NewsFormModal extends Component {
@@ -76,7 +72,6 @@ class NewsFormModal extends Component {
   }
 
   toggle = () => {
-    console.log("i got toggled");
     this.props.clearErrors();
     this.props.clearConfirm();
     this.clearForm();

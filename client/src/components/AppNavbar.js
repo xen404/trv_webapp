@@ -1,5 +1,4 @@
-import React, { Fragment, Component } from "react";
-//import {Navbar} from 'react-bootstrap';
+import React, { Component } from "react";
 import {
   Collapse,
   Navbar,
@@ -8,13 +7,8 @@ import {
   Nav,
   NavItem,
   NavLink,
-  Container,
-  DropdownMenu,
-  DropdownItem,
-  DropdownToggle,
-  UncontrolledDropdown,
 } from "reactstrap";
-import { HashLink, NavHashLink } from "react-router-hash-link";
+import { HashLink } from "react-router-hash-link";
 import "./AppNavBar.css";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -48,12 +42,7 @@ class AppNavbar extends Component {
     });
   };
 
-  // to={`${this.props.location.pathname}#newsSlider`
-
   render() {
-    console.log("HEY HRE ARE THE PROPS");
-    console.log(this.props);
-
     const { isAuthenticated, user } = this.props.auth;
 
     const guestLinks = (
@@ -63,36 +52,27 @@ class AppNavbar extends Component {
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-evenly",
+          alignItems: "center"
         }}
       >
-        <NavLink>
+        
           <HashLink className="customHashLink" smooth to={`/#newsSlider`}>
             News
           </HashLink>
-        </NavLink>
-        <NavLink>
+       
           <HashLink className="customHashLink" smooth to={`/#activities`}>
             Aktivitäten
           </HashLink>
-        </NavLink>
-        <NavLink>
           <HashLink className="customHashLink" smooth to={`/#cardSlider`}>
             Rudertage
           </HashLink>
-        </NavLink>
-        <NavLink>
           <HashLink className="customHashLink" smooth to={`/#gallerySlider`}>
             Gallery
           </HashLink>
-        </NavLink>
-        <NavLink>
           <HashLink className="customHashLink" smooth to={`/#contacts`}>
             Kontakt
           </HashLink>
-        </NavLink>
-        <NavItem style={{ alignSelf: "flex-end" }}>
           <LoginModal />
-        </NavItem>
       </div>
     );
 
@@ -107,12 +87,12 @@ class AppNavbar extends Component {
       >
         <NavItem>
           <span className="navbar-text mr-3">
-            <strong>{user ? `Welcome ${ user.name}` : ""}</strong>
+            <strong>{user ? `Welcome ${user.name}` : ""}</strong>
           </span>
         </NavItem>
         {user ? (
           <>
-            {user.role == "ADMIN" ? (
+            {user.role === "ADMIN" ? (
               <NavLink href="/admin">Admin</NavLink>
             ) : null}
           </>

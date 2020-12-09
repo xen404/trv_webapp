@@ -59,7 +59,6 @@ class EditCardModal extends Component {
   }
 
   toggle = () => {
-    console.log("i got toggled");
     this.props.clearErrors();
     this.props.clearConfirm();
     this.clearForm();
@@ -82,14 +81,10 @@ class EditCardModal extends Component {
       name,
       date: newDate,
       info,
-      time
+      time,
     };
 
-    console.log(newCard);
-
     this.props.updateAppointment(newCard);
-
-    //this.toggle();
   };
 
   clearForm = () => {
@@ -105,14 +100,10 @@ class EditCardModal extends Component {
     return (
       <div>
         <Button
-          color="warning"          
-          
-         style={{
-          
-           borderRadius: "0px",
-        
-         
-         }}
+          color="warning"
+          style={{
+            borderRadius: "0px",
+          }}
           onClick={this.toggle}
         >
           Edit
@@ -151,14 +142,14 @@ class EditCardModal extends Component {
                       placeholder={this.props.cardName}
                       onChange={this.onChange}
                     />
-                     <Label for="name">Info</Label>
+                    <Label for="name">Info</Label>
                     <Input
                       type="text"
                       name="info"
                       id="info"
                       onChange={this.onChange}
                     />
-                     <Label for="name">Anfangszeit</Label>
+                    <Label for="name">Anfangszeit</Label>
                     <Input
                       type="text"
                       name="time"

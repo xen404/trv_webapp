@@ -1,18 +1,10 @@
-const cors = require("cors");
 const pool = require("../database");
 const bcrypt = require("bcryptjs");
 const keys = require("../config/keys");
 const jwt = require("jsonwebtoken");
-const { cloudinary } = require("../utils/cloudinary");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
 module.exports = (app) => {
-
-  /**
- * @route   GET api/auth
- * @desc    Logs in user  
- * @access  Private
- */
   app.post("/api/auth", async (req, res) => {
     const { email, password } = req.body;
 
@@ -29,16 +21,12 @@ module.exports = (app) => {
 
     const user = response.rows[0];
 
-    console.log("USEEEEER POST");
-
-
     await bcrypt.compare(password, user.password).then((isMatch) => {
       if (!isMatch) {
         return res.status(400).json({ msg: "invalid credentials!" });
       }
       jwt.sign(
-        { id: user.id,
-          role: user.role},
+        { id: user.id, role: user.role },
         keys.jwtSecret,
         { expiresIn: 7200 },
         (err, token) => {
@@ -51,7 +39,7 @@ module.exports = (app) => {
               id: user.id,
               name: user.name,
               email: user.email,
-              role: user.role
+              role: user.role,
             },
           });
         }
@@ -64,14 +52,13 @@ module.exports = (app) => {
       req.user.id,
     ]);
     const user = response.rows[0];
-    console.log("USEEEEER");
-    console.log(user);
+
     res.json({
       user: {
         id: user.id,
         name: user.name,
         email: user.email,
-        role: user.role
+        role: user.role,
       },
     });
   });

@@ -1,6 +1,5 @@
 const keys = require("../config/keys");
 const jwt = require("jsonwebtoken");
-const pool = require("../database");
 
 async function userDeleteCheck(req, res, next) {
   const token = req.header("x-auth-token");

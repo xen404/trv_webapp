@@ -1,14 +1,7 @@
-const cors = require("cors");
 const pool = require("../database");
 const isLoggedIn = require("../middleware/isLoggedIn");
 const isAdmin = require("../middleware/isAdmin");
 const { cloudinary } = require("../utils/cloudinary");
-
-function addDays(date, days) {
-  var result = new Date(date);
-  result.setDate(result.getDate() + days);
-  return result;
-}
 
 module.exports = (app) => {
   app.get("/api/appointments", async (req, res) => {

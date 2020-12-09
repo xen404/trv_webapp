@@ -15,11 +15,6 @@ import {
   GET_NEWS_FAIL,
 } from "./types";
 
-//   ******************
-//   ** NEWS ACTIONS **
-//   ******************
-
-// GET ALL NEWS
 export const getNews = () => async (dispatch, getState) => {
   try {
     dispatch(setNewsLoading());
@@ -57,7 +52,6 @@ export const getSingleNews = (id) => async (dispatch) => {
   }
 };
 
-// DELETE NEWS
 export const deleteNews = (id) => async (dispatch, getState) => {
   dispatch({ type: NEWS_LOADING });
   try {
@@ -84,7 +78,6 @@ export const deleteNews = (id) => async (dispatch, getState) => {
   }
 };
 
-// UPLOAD NEWS
 export const addNews = (news) => async (dispatch, getState) => {
   dispatch({ type: NEWS_LOADING });
   try {

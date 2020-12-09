@@ -14,11 +14,7 @@ import {
   UPDATE_USER_FAIL,
 } from "./types";
 
-//   ******************
-//   ** USER ACTIONS **
-//   ******************
 
-// GET ALL USERS
 export const getAllUsers = () => (dispatch, getState) => {
   dispatch({ type: USERS_LOADING });
   axios
@@ -34,7 +30,6 @@ export const getAllUsers = () => (dispatch, getState) => {
     );
 };
 
-// REGISTER NEW USER
 export const registerNewUser = ({ name, email, password, role }) => async (
   dispatch,
   getState
@@ -46,8 +41,7 @@ export const registerNewUser = ({ name, email, password, role }) => async (
       body,
       tokenConfig(getState)
     );
-    console.log("HEY THE USER WAS CREATED");
-    console.log(res);
+
     dispatch(returnConfirm(res.data.successMsg, res.status, "USER_CREATED"));
     dispatch({
       type: REGISTER_NEW_USER_SUCCESS,
@@ -73,15 +67,12 @@ export const deleteUser = (id) => async (dispatch, getState) => {
       `/api/user/delete/${id}`,
       tokenConfig(getState)
     );
-    console.log("NEW RESPONCE");
-    console.log(res.data);
+
     dispatch(returnConfirm(res.data.successMsg, res.status, "USER_DELETED"));
     dispatch({
       type: DELETE_USER_SUCCESS,
       payload: res.data,
     });
-    console.log("DELETE USER ACTION");
-    console.log(res.data);
   } catch (error) {
     dispatch(
       returnErrors(

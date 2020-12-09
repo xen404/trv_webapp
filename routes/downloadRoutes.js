@@ -4,7 +4,7 @@ module.exports = (app) => {
       });
 
 
-      app.get("/api/pdf_formular", async (req, res) => {
+      app.get("", async (req, res) => {
         res.download('./DocumentsForDownload/Formular.pdf', 'Formular.pdf');
       });
 }

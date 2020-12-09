@@ -58,7 +58,6 @@ class UpdateUserModal extends Component {
   }
 
   toggle = () => {
-    console.log("i got toggled");
     this.props.clearErrors();
     this.props.clearConfirm();
     this.clearForm();
@@ -87,11 +86,7 @@ class UpdateUserModal extends Component {
       role,
     };
 
-    console.log(updatedUser);
-
     this.props.updateUser(updatedUser);
-
-    //this.toggle();
   };
 
   clearForm = () => {

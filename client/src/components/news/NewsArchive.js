@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getNews, deleteNews } from "../../actions/newsActions";
+import { getNews } from "../../actions/newsActions";
 import { Image } from "cloudinary-react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
@@ -13,19 +13,6 @@ import "./newsBoardCustom.css";
 import NewsDetailsModal from "./NewsDetailsModal";
 import { SectionHeading as HeadingTitle } from "../misc/Headings.js";
 
-
-
-/*
-    SLIDER CONSTS
-*/
-
-const Container = styled.div`
-  ${tw`relative`}
-  padding-top: 135px;
-  padding-bottom: 135px;
-  z-index: 1;
-`;
-
 const HeadingInfoContainer = tw.div`flex flex-col items-center`;
 
 /*
@@ -33,31 +20,18 @@ const HeadingInfoContainer = tw.div`flex flex-col items-center`;
 */
 
 const Content = tw.div``;
-const ThreeColumn = tw.div`flex flex-col items-center lg:items-stretch lg:flex-row flex-wrap`;
-const Column = tw.div``;
-
-//const HeadingInfoContainer = tw.div`flex flex-col items-center`;
-//const HeadingDescription = tw.p`mt-4 font-medium text-gray-600 text-center max-w-sm`;
 
 const Card = tw.div`mx-4 xl:mx-8 max-w-sm flex flex-col h-full`;
 
-const ImageWrapper = styled.div((props) => [
-  //`background-image: url("${props.imageSrc}");`,
-  //tw`bg-cover bg-center h-80 lg:h-64 rounded rounded-b-none`,
-]);
+const ImageWrapper = styled.div((props) => []);
 
 const Details = tw.div`p-6 pb-0 rounded border-2 border-t-0 rounded-t-none flex-1 flex flex-col items-center text-center lg:block lg:text-left`;
 
 const Title = tw.h5`mt-4 leading-snug font-bold text-lg`;
 const Description = tw.p`mt-2 text-sm text-secondary-100`;
-/*const Link = styled(PrimaryButtonBase).attrs({ as: "a" })`
-  ${tw`inline-block mt-4 text-sm font-semibold`}
-`;
-*/
 
 class NewsArchive extends Component {
   componentDidMount() {
-    console.log("News Archive did mount");
     this.props.getNews();
   }
 
@@ -80,7 +54,7 @@ class NewsArchive extends Component {
           <HeadingInfoContainer>
             <HeadingTitle
               style={{
-                  marginTop: "60px",
+                marginTop: "60px",
                 marginBottom: "0px",
                 fontSize: "42px",
                 lineHeight: "1.23",
@@ -100,12 +74,11 @@ class NewsArchive extends Component {
               flexWrap: "wrap",
               justifyContent: "space-around",
               alignItems: "stretch",
-
             }}
           >
             {newsInput.map((news, index) => {
               return (
-                <Card style={{alignSelf: "stretch"}}>
+                <Card style={{ alignSelf: "stretch" }}>
                   <ImageWrapper>
                     <Image
                       key={news.image_url}
@@ -154,7 +127,7 @@ class NewsArchive extends Component {
         </div>
       );
     } else {
-      return <div>FUUUUUUUUCK!</div>;
+      return <div>Error</div>;
     }
   }
 

@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-import {
-    Popover,
-    PopoverHeader,
-    PopoverBody,
-  } from "reactstrap";
+import { Popover, PopoverHeader, PopoverBody } from "reactstrap";
 
 class InfoPopover extends Component {
   state = {

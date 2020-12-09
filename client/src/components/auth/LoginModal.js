@@ -60,17 +60,15 @@ class LoginModal extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    const { email, password} = this.state;
+    const { email, password } = this.state;
 
     const user = {
-        email,
-        password
-    }
+      email,
+      password,
+    };
 
     this.props.login(user);
-    
 
-    // Close modal comes here
   };
 
   render() {
@@ -121,6 +119,4 @@ const mapStateToProps = (state) => ({
   error: state.error,
 });
 
-export default connect(mapStateToProps, { login, clearErrors })(
-  LoginModal
-);
+export default connect(mapStateToProps, { login, clearErrors })(LoginModal);

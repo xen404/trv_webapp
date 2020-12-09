@@ -84,8 +84,7 @@ module.exports = (app) => {
             [name, email, passwordHashed, role]
           );
           newUser = response.rows[0];
-          console.log("HEY NEW USER WAS CREATED!")
-          console.log(newUser);
+
           res.json({
             successMsg: "User created!",
             user: {
@@ -130,46 +129,45 @@ module.exports = (app) => {
     }
   );
 
-  app.put("/api/users/update_user/:id", isLoggedIn, isAdmin, rootAdminEditCheck, async (req, res) => {
-    console.log("HEY IT DID WORK!");
-    console.log(req.body);
+  app.put(
+    "/api/users/update_user/:id",
+    isLoggedIn,
+    isAdmin,
+    rootAdminEditCheck,
+    async (req, res) => {
+      const { id, name, email, password, role } = req.body;
 
-    const { id, name, email, password, role } = req.body;
+      if (!name || !email || !password || !role) {
+        return res.status(400).json({ msg: "Please enter all fields!" });
+      }
+      const user = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
+      if (user.rowCount == 0) {
+        return res.status(400).json({ msg: "Such user doesn't exist!" });
+      }
+      bcrypt.genSalt(10, async (err, salt) => {
+        bcrypt.hash(password, salt, async (err, hash) => {
+          if (err) {
+            throw err;
+          }
+          try {
+            passwordHashed = hash;
+            const response = await pool.query(
+              "UPDATE users SET name = $1, email = $2, password = $3, role = $4 WHERE id = $5  RETURNING *",
+              [name, email, passwordHashed, role, id]
+            );
 
-    if (!name || !email || !password || !role) {
-      return res.status(400).json({ msg: "Please enter all fields!" });
-    }
-    console.log("HEY VALIDATION DID WORK!");
-    const user = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
-    if (user.rowCount == 0) {
-      return res.status(400).json({ msg: "Such user doesn't exist!" });
-    }
-    bcrypt.genSalt(10, async (err, salt) => {
-      bcrypt.hash(password, salt, async (err, hash) => {
-        if (err) {
-          throw err;
-        }
-        try {
-          passwordHashed = hash;
-          console.log(name, email, passwordHashed, role, id);
-          const response = await pool.query(
-            "UPDATE users SET name = $1, email = $2, password = $3, role = $4 WHERE id = $5  RETURNING *",
-            [name, email, passwordHashed, role, id]
-          );
-
-          console.log("HEY UPDATE DID WORK!");
-          console.log(response.rows[0]);
-          newUser = response.rows[0];
-          const allUsers = await pool.query("SELECT * FROM users;");
-        res.json({
-          //userId: id,
-          users: allUsers.rows.reverse(),
-          successMsg: "User was updated!",
+            newUser = response.rows[0];
+            const allUsers = await pool.query("SELECT * FROM users;");
+            res.json({
+              //userId: id,
+              users: allUsers.rows.reverse(),
+              successMsg: "User was updated!",
+            });
+          } catch (err) {
+            res.status(500).json({ err: err.message });
+          }
         });
-        } catch (err) {
-          res.status(500).json({ err: err.message });
-        }
       });
-    });
-  });
+    }
+  );
 };

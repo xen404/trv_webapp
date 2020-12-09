@@ -6,7 +6,6 @@ import App from "./components/App";
 import { ParallaxProvider } from "react-scroll-parallax";
 import store from "./store";
 
-//const store = createStore(reducers, {}, applyMiddleware(reduxThunk) );
 
 ReactDOM.render(
   <Provider store={store}>

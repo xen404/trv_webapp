@@ -5,15 +5,7 @@ import PropTypes from "prop-types";
 import { clearConfirm } from "../../actions/confirmActions";
 import { deleteUser } from "../../actions/userActions";
 import { clearErrors } from "../../actions/errorActions";
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-
-  Alert,
-
-} from "reactstrap";
+import { Button, Modal, ModalHeader, ModalBody, Alert } from "reactstrap";
 
 class DeleteUserModal extends Component {
   state = {
@@ -42,9 +34,6 @@ class DeleteUserModal extends Component {
     }
 
     if (confirm !== prevProps.confirm) {
-      console.log('--------------------');
-      console.log(confirm);
-      console.log(prevProps.confirm);
       if (confirm.id === "USER_DELETED") {
         this.props.clearErrors();
         this.setState({ successMsg: confirm.successMsg });
@@ -55,7 +44,6 @@ class DeleteUserModal extends Component {
   }
 
   toggle = () => {
-    console.log("i got toggled");
     this.props.clearErrors();
     this.props.clearConfirm();
     this.setState({
@@ -74,8 +62,6 @@ class DeleteUserModal extends Component {
     };
 
     this.props.registerNewUser(newUser);
-
-    //this.toggle();
   };
 
   onDeleteClick = (id) => {

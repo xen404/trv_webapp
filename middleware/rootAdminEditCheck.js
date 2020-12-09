@@ -7,8 +7,6 @@ async function rootAdminEditCheck(req, res, next) {
   try {
     const { id } = req.params;
     const decoded = jwt.verify(token, keys.jwtSecret);
-    console.log("ID edit check")
-    console.log(id);
     if (id == 9) {
       return res.status(401).json({ msg: "You can't edit root admin!" });
     }

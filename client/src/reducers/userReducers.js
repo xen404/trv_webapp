@@ -1,4 +1,3 @@
-import { customFilter } from "./index";
 import {
   GET_ALL_USERS,
   USERS_LOADING,
@@ -32,10 +31,7 @@ export default function (state = initialState, action) {
     case DELETE_USER_SUCCESS:
       return {
         ...state,
-        users: action.payload.users
-        //users: state.users.filter((user) =>
-          //customFilter(user, action.payload.userId)
-        //),
+        users: action.payload.users,
       };
 
     case REGISTER_NEW_USER_SUCCESS:
@@ -43,12 +39,11 @@ export default function (state = initialState, action) {
         ...state,
         users: [action.payload.user, ...state.users],
       };
-      
+
     case UPDATE_USER_SUCCESS:
       return {
         ...state,
-        users: action.payload.users
-        //users: [action.payload.user, ...state.users],
+        users: action.payload.users,
       };
     case REGISTER_NEW_USER_FAIL:
     case DELETE_USER_FAIL:

@@ -9,14 +9,12 @@ import "tailwindcss/dist/base.css"
 import AnimationRevealPage from "helpers/AnimationRevealPage"
 //components
 import AppNavbar from './AppNavbar';
-import NavbarCustom from './NavbarCustom';
 import Landing from './Landing';
 import UserManagement  from './admin/UserManagement';
 import NewsArchive from "./news/NewsArchive";
 import TimeTable from './timeTable/TimeTable';
-import PrivateRoute from './PrivateRoute';
-import Gallery from "./Gallery";
-import Album from "./Album";
+import Gallery from "../components/gallery/Gallery";
+import Album from "../components/gallery/Album";
 
 
 class App extends Component {

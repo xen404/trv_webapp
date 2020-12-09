@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { fetchNews } from "../../actions";
 import NewsFormModal from "./NewsFormModal";
 
 class InputNews extends Component {
@@ -14,4 +12,3 @@ class InputNews extends Component {
 }
 
 export default InputNews;
- 

@@ -1,4 +1,3 @@
-import { customFilter } from "./index";
 import {
   GET_NEWS_SUCCESS,
   ADD_NEWS_SUCCESS,

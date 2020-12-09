@@ -62,8 +62,6 @@ class RegisterModal extends Component {
     e.preventDefault();
     const { name, email, password, role } = this.state;
 
-    
-
     const newUser = {
       name,
       email,
@@ -71,18 +69,13 @@ class RegisterModal extends Component {
       role,
     };
 
-
     this.props.register(newUser);
-
-    // Close modal comes here
   };
 
   render() {
     return (
       <div>
-        <Button onClick={this.toggle}>
-          Sign in
-        </Button>
+        <Button onClick={this.toggle}>Sign in</Button>
 
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>Register</ModalHeader>
@@ -124,7 +117,6 @@ class RegisterModal extends Component {
                   id="role"
                   onChange={this.onChange}
                   defaultValue=""
-
                 >
                   <option value="" disabled></option>
                   <option value="ADMIN">ADMIN</option>

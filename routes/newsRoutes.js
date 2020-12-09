@@ -11,11 +11,6 @@ module.exports = (app) => {
 
       const fileStr = req.body.image_url;
 
-      if(!body) {
-        return res.status(400).json({ msg: "HURE" });
-      }
-      
-
       if (!title || !preview_text || !body || !fileStr) {
         return res.status(400).json({ msg: "Please enter all fields!" });
       }
@@ -31,14 +26,13 @@ module.exports = (app) => {
         [title, preview_text, body, created_at, image_url]
       );
 
-
       res.json({
         successMsg: "News created!",
         news: newNews.rows[0],
       });
     } catch (err) {
       console.error(err.message);
-      res.status(500).json({ err: "Smth went wrong" });
+      res.status(500).json(err.message);
     }
   });
 
@@ -55,7 +49,6 @@ module.exports = (app) => {
   app.get("/api/news", async (req, res) => {
     try {
       const allNews = await pool.query("SELECT * FROM news;");
-      console.log(allNews.rows);
       res.send(allNews.rows.reverse());
     } catch (err) {
       console.error(err.message);
@@ -66,6 +59,14 @@ module.exports = (app) => {
   app.delete("/api/news/delete/:id", isLoggedIn, async (req, res) => {
     try {
       const { id } = req.params;
+
+      const response = await pool.query("SELECT * FROM news WHERE id = $1", [
+        id,
+      ]);
+      if (response.rowCount === 0) {
+        return res.status(400).json({ msg: "News do not exist!" });
+      }
+
       const deleteNews = await pool.query("DELETE FROM news WHERE id = $1", [
         id,
       ]);
@@ -82,6 +83,14 @@ module.exports = (app) => {
   app.get("/api/news/:id", async (req, res) => {
     try {
       const { id } = req.params;
+
+      const response = await pool.query("SELECT * FROM news WHERE id = $1", [
+        id,
+      ]);
+      if (response.rowCount === 0) {
+        return res.status(400).json({ msg: "News do not exist!" });
+      }
+
       const news = await pool.query("SELECT * FROM news WHERE id = $1", [id]);
       res.send(news.rows);
     } catch (err) {
@@ -93,6 +102,12 @@ module.exports = (app) => {
     try {
       const { id } = req.params;
       const { title } = req.body;
+      const response = await pool.query("SELECT * FROM news WHERE id = $1", [
+        id,
+      ]);
+      if (response.rowCount === 0) {
+        return res.status(400).json({ msg: "News do not exist!" });
+      }
       const updateNews = await pool.query(
         "UPDATE news SET title = $1 WHERE id = $2",
         [title, id]
@@ -101,5 +116,6 @@ module.exports = (app) => {
     } catch (err) {
       console.err.message;
     }
+    i;
   });
 };

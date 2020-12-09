@@ -58,7 +58,6 @@ class AddUserModal extends Component {
   }
 
   toggle = () => {
-    console.log("i got toggled");
     this.props.clearErrors();
     this.props.clearConfirm();
     this.clearForm();
@@ -73,7 +72,7 @@ class AddUserModal extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { name, email, password} = this.state;
+    const { name, email, password } = this.state;
     const role = document.getElementById("role").value;
     const newUser = {
       name,
@@ -82,11 +81,7 @@ class AddUserModal extends Component {
       role,
     };
 
-    console.log(newUser);
-
     this.props.registerNewUser(newUser);
-
-    //this.toggle();
   };
 
   clearForm = () => {
@@ -145,9 +140,7 @@ class AddUserModal extends Component {
                   name="role"
                   id="role"
                   onChange={this.onChange}
-                  
                 >
-                  
                   <option value="ADMIN">ADMIN</option>
                   <option value="EDITOR">EDITOR</option>
                 </Input>
